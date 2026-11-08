@@ -75,7 +75,10 @@ def export(output):
             "licenses": [{"name": "Apache 2.0"}],
         },
     )
-    for path in (project / "kaggle/train.ipynb", project / "kaggle/kernel-metadata.json"):
+    for path in (
+        project / "notebooks/kaggle/train.ipynb",
+        project / "notebooks/kaggle/kernel-metadata.json",
+    ):
         shutil.copy2(path, kernel / path.name)
     return {"output": str(output), "wheel_sha256": sha256(wheel), "published": False}
 
@@ -98,7 +101,11 @@ def main():
         if name == "predict":
             sub.add_argument("--output", type=Path, required=True)
     sub = commands.add_parser("export-kaggle")
-    sub.add_argument("--output", type=Path, default=Path("kaggle-bundle"))
+    sub.add_argument("--output", type=Path, default=Path(".local/kaggle-bundle"))
+    commands.add_parser("lab-token")
+    sub = commands.add_parser("track")
+    sub.add_argument("--run-dir", type=Path, required=True)
+    sub.add_argument("--tracking-uri", default=os.getenv("MLFLOW_TRACKING_URI"))
     args = parser.parse_args()
     if args.command == "download":
         result = download(args.data_dir)
@@ -114,6 +121,25 @@ def main():
         result = evaluate(args.data_dir, args.run_dir, args.device)
     elif args.command == "predict":
         result = predict(args.data_dir, args.run_dir, args.output, args.device)
+    elif args.command == "track":
+        from quest.tracking import track
+
+        if not args.tracking_uri:
+            parser.error("Set MLFLOW_TRACKING_URI or provide --tracking-uri")
+        result = track(args.run_dir, args.tracking_uri)
+    elif args.command == "lab-token":
+        import secrets
+
+        directory = Path(".local")
+        directory.mkdir(exist_ok=True)
+        (directory / "runs").mkdir(exist_ok=True)
+        token = directory / "jupyter_token"
+        if token.exists():
+            raise FileExistsError("Token already exists; reuse it or remove it explicitly")
+        descriptor = os.open(token, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
+        with os.fdopen(descriptor, "w") as stream:
+            stream.write(secrets.token_hex(32) + "\n")
+        result = {"token_file": str(token)}
     else:
         result = export(args.output)
     print(json.dumps(result, indent=2))

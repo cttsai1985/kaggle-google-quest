@@ -92,7 +92,7 @@ def test_full_fixture_training_checkpoint_and_output(tmp_path):
             intermediate_size=48,
         )
     )
-    encoder.save_pretrained(pretrained)
+    encoder.half().save_pretrained(pretrained)
     config = json.loads(open("configs/deberta.json").read())
     config.update(
         model=str(pretrained),
@@ -108,6 +108,7 @@ def test_full_fixture_training_checkpoint_and_output(tmp_path):
     )
     model = QuestModel(config)
     assert model.encoder.config.hidden_size == 24
+    assert all(p.dtype == torch.float32 for p in model.parameters())
     run = tmp_path / "run"
     result = train(data_dir, run, config)
     assert result["status"] == "completed"

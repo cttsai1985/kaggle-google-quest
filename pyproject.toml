@@ -28,6 +28,7 @@ dev = ["pytest>=8,<10", "ruff>=0.11,<1"]
 lab = ["jupyterlab>=4,<5", "nbclient>=0.10,<1", "nbconvert>=7,<8", "matplotlib>=3.10,<4"]
 data = ["kaggle>=2,<3"]
 tracking = ["mlflow-skinny>=3,<4"]
+tracking-test = ["sqlalchemy>=2,<3", "alembic>=1.15,<2"]
 
 [tool.uv.sources]
 torch = {index = "pytorch-cpu"}
@@ -36,6 +37,9 @@ torch = {index = "pytorch-cpu"}
 name = "pytorch-cpu"
 url = "https://download.pytorch.org/whl/cpu"
 explicit = true
+
+[tool.hatch.build]
+artifacts = ["src/quest/build-info.json"]
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/quest"]

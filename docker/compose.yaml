@@ -1,0 +1,27 @@
+services:
+  lab:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+      target: lab
+    image: quest-lab:0.1
+    ports: ["127.0.0.1:8892:8888"]
+    cpus: 8.0
+    mem_limit: 24g
+    pids_limit: 256
+    environment:
+      QUEST_DATA_DIR: /data
+      QUEST_RUN_DIR: /outputs
+      MLFLOW_TRACKING_URI: ${MLFLOW_TRACKING_URI:-}
+      TOKENIZERS_PARALLELISM: "false"
+    volumes:
+      - ..:/workspace
+      - ${QUEST_DATA_DIR:?Set the absolute dataset directory}:/data:ro
+      - ../.local/runs:/outputs
+    secrets: [jupyter_token]
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+
+secrets:
+  jupyter_token:
+    file: ../.local/jupyter_token

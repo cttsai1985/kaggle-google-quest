@@ -20,6 +20,7 @@ class QuestModel(nn.Module):
                 config["model"],
                 revision=config.get("model_revision", "main"),
                 attn_implementation="eager",
+                dtype=torch.float32,
             )
         )
         width = self.encoder.config.hidden_size

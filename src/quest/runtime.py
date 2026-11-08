@@ -38,12 +38,20 @@ def source_identity():
     )
     build = package / "build-info.json"
     provenance = json.loads(build.read_text()) if build.exists() else {}
+    if provenance.get("python_source_sha256") != digest.hexdigest():
+        provenance = {}
+    dirty = subprocess.run(
+        ["git", "-C", str(root), "status", "--porcelain"], capture_output=True, text=True
+    )
     return {
+        "git_dirty": bool(dirty.stdout.strip())
+        if dirty.returncode == 0
+        else provenance.get("git_dirty"),
         "git_commit": revision.stdout.strip()
         if not revision.returncode
         else provenance.get("git_commit"),
         "python_source_sha256": digest.hexdigest(),
-        "legacy_commit": "ef4fb92",
+        "legacy_commit": "ef4fb92c470e45c0a07b0ee0e474224d88d3d410",
     }
 
 
@@ -75,7 +83,10 @@ def probabilities(model, dataset, batch_size, device):
     outputs = []
     for question, answer, _ in DataLoader(dataset, batch_size=batch_size):
         question, answer = move_pair(question, answer, device)
-        outputs.append(torch.sigmoid(model(question, answer)).cpu().numpy())
+        with torch.autocast(
+            device_type=device.type, dtype=torch.float16, enabled=device.type == "cuda"
+        ):
+            outputs.append(torch.sigmoid(model(question, answer)).float().cpu().numpy())
     prediction = np.concatenate(outputs)
     if not np.isfinite(prediction).all() or not ((prediction >= 0) & (prediction <= 1)).all():
         raise ValueError("Invalid output probabilities")
@@ -286,7 +297,9 @@ def load_model(run_dir, device):
     values = checkpoint["encoder_config"].copy()
     kind = values.pop("model_type")
     encoder_config = AutoConfig.for_model(kind, **values)
-    encoder = AutoModel.from_config(encoder_config, attn_implementation="eager")
+    encoder = AutoModel.from_config(
+        encoder_config, attn_implementation="eager", dtype=torch.float32
+    )
     model = QuestModel(checkpoint["config"], encoder=encoder)
     model.load_state_dict(checkpoint["state_dict"], strict=True)
     return model.to(device).eval(), checkpoint
