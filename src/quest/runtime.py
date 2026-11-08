@@ -35,6 +35,8 @@ def source_identity():
         digest.update(path.read_bytes())
 
     def git(*args):
+        if (root / "src/quest").resolve() != package:
+            return None
         try:
             result = subprocess.run(["git", "-C", str(root), *args], capture_output=True, text=True)
         except FileNotFoundError:
@@ -110,6 +112,7 @@ def train(data_dir: Path, run_dir: Path, config: dict):
     started = time.monotonic()
     manifest = {
         "schema_version": 1,
+        "project_id": "quest",
         "logical_run_id": str(uuid.uuid4()),
         "status": "running",
         "source": source_identity(),

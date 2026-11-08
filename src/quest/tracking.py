@@ -37,6 +37,8 @@ def track(run_dir: Path, tracking_uri: str) -> dict:
     if urlparse(tracking_uri).username:
         raise ValueError("Use runtime authentication rather than credentials in the URI")
     manifest = json.loads((run_dir / "manifest.json").read_text())
+    if manifest.get("project_id", "quest") != "quest":
+        raise ValueError("This client imports QUEST runs only")
     if manifest["status"] != "completed":
         raise ValueError("Only completed runs can be imported")
     logical_id = manifest["logical_run_id"]
@@ -55,10 +57,14 @@ def track(run_dir: Path, tracking_uri: str) -> dict:
         raise ValueError("Required artifacts are missing")
     digest = sha256(run_dir / "manifest.json")
     mlflow.set_tracking_uri(tracking_uri)
-    name = "kaggle/google-quest-challenge"
-    mlflow.set_experiment(name)
+    name = "kaggle/quest"
     client = MlflowClient()
     experiment = client.get_experiment_by_name(name)
+    if experiment is None or experiment.lifecycle_stage != "active":
+        raise ValueError(
+            "Provision the active kaggle/quest experiment with the mlops-platform bootstrap "
+            "before importing: https://github.com/cttsai1985/mlops-platform"
+        )
     matches = client.search_runs(
         [experiment.experiment_id], f"tags.logical_run_id = '{logical_id}'"
     )
@@ -70,13 +76,16 @@ def track(run_dir: Path, tracking_uri: str) -> dict:
         ):
             raise ValueError("Conflicting or incomplete import for this logical run")
         return {"status": "already_imported", "mlflow_run_id": previous.info.run_id}
+    tags = {
+        "project_id": "quest",
+        "logical_run_id": logical_id,
+        "manifest_sha256": digest,
+        "source_sha256": manifest["source"]["python_source_sha256"],
+    }
+    if manifest["source"].get("git_commit"):
+        tags["source_commit"] = manifest["source"]["git_commit"]
     with mlflow.start_run(
-        run_name=manifest["config"]["name"],
-        tags={
-            "logical_run_id": logical_id,
-            "manifest_sha256": digest,
-            "python_source_sha256": manifest["source"]["python_source_sha256"],
-        },
+        experiment_id=experiment.experiment_id, run_name=manifest["config"]["name"], tags=tags
     ) as active:
         mlflow.log_params(manifest["config"])
         metrics = json.loads((run_dir / "metrics.json").read_text())

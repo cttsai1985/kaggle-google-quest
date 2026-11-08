@@ -65,6 +65,8 @@ Open http://127.0.0.1:8892/lab using the token in the ignored `.local/jupyter_to
 
 QUEST is a notebook-only competition: scoring uses a notebook version and its output file. A local prediction CSV alone does not establish a leaderboard result.
 
+Completed runs can be imported into the `kaggle/quest` MLflow experiment. Shared service deployment is managed in [mlops-platform](https://github.com/cttsai1985/mlops-platform), independently of local or offline Kaggle execution.
+
 ## Development
 
 ```text

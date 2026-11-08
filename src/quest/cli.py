@@ -55,14 +55,13 @@ def download(data_dir):
     return receipt
 
 
-def export(output):
+def export(output, owner="cttsai"):
     project = Path.cwd()
     info = project / "src/quest/build-info.json"
     write_json(info, source_identity())
     subprocess.run(["uv", "build", "--wheel"], check=True)
-    assets, kernel = output / "code-dataset", output / "training"
+    assets = output / "code-dataset"
     assets.mkdir(parents=True, exist_ok=True)
-    kernel.mkdir(parents=True, exist_ok=True)
     wheel = project / "dist/quest_labeling-0.1.0-py3-none-any.whl"
     for path in (wheel, project / "LICENSE", project / "configs/deberta.json"):
         shutil.copy2(path, assets / path.name)
@@ -70,16 +69,26 @@ def export(output):
     write_json(
         assets / "dataset-metadata.json",
         {
-            "id": "cttsai/quest-labeling-code",
+            "id": f"{owner}/quest-labeling-code",
             "title": "QUEST labeling code",
             "licenses": [{"name": "Apache 2.0"}],
         },
     )
-    for path in (
-        project / "notebooks/kaggle/train.ipynb",
-        project / "notebooks/kaggle/kernel-metadata.json",
+    for destination, notebook, metadata in (
+        ("training", "train.ipynb", "kernel-metadata.json"),
+        ("inference", "inference.ipynb", "inference-metadata.json"),
     ):
-        shutil.copy2(path, kernel / path.name)
+        kernel = output / destination
+        kernel.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(project / "notebooks/kaggle" / notebook, kernel / notebook)
+        values = json.loads((project / "notebooks/kaggle" / metadata).read_text())
+        values["id"] = owner + "/" + values["id"].split("/", 1)[1]
+        for key in ("dataset_sources", "kernel_sources"):
+            values[key] = [
+                owner + "/" + value.split("/", 1)[1] if value.startswith("cttsai/") else value
+                for value in values[key]
+            ]
+        write_json(kernel / "kernel-metadata.json", values)
     return {"output": str(output), "wheel_sha256": sha256(wheel), "published": False}
 
 
@@ -102,6 +111,7 @@ def main():
             sub.add_argument("--output", type=Path, required=True)
     sub = commands.add_parser("export-kaggle")
     sub.add_argument("--output", type=Path, default=Path(".local/kaggle-bundle"))
+    sub.add_argument("--owner", default="cttsai", help="Kaggle username for staged assets")
     commands.add_parser("lab-token")
     sub = commands.add_parser("track")
     sub.add_argument("--run-dir", type=Path, required=True)
@@ -141,7 +151,7 @@ def main():
             stream.write(secrets.token_hex(32) + "\n")
         result = {"token_file": str(token)}
     else:
-        result = export(args.output)
+        result = export(args.output, args.owner)
     print(json.dumps(result, indent=2))
 
 

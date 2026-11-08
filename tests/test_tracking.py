@@ -31,11 +31,17 @@ def test_completed_run_import_is_idempotent_and_checks_artifacts(tmp_path):
     try:
         mlflow.set_tracking_uri(uri)
         client = mlflow.MlflowClient()
+        with pytest.raises(ValueError, match="mlops-platform bootstrap"):
+            track(run, uri)
         client.create_experiment(
-            "kaggle/google-quest-challenge", artifact_location=(tmp_path / "artifacts").as_uri()
+            "kaggle/quest", artifact_location=(tmp_path / "artifacts").as_uri()
         )
         first = track(run, uri)
         assert first["status"] == "imported"
+        imported = client.get_run(first["mlflow_run_id"])
+        assert imported.data.tags["project_id"] == "quest"
+        assert imported.data.tags["logical_run_id"] == manifest["logical_run_id"]
+        assert imported.data.tags["source_sha256"] == "fixture"
         assert track(run, uri)["status"] == "already_imported"
         downloaded = client.download_artifacts(first["mlflow_run_id"], "model.pt")
         assert open(downloaded).read() == "fixture artifact\n"
@@ -48,11 +54,7 @@ def test_completed_run_import_is_idempotent_and_checks_artifacts(tmp_path):
         with pytest.raises(ValueError, match="Conflicting"):
             track(run, uri)
         assert (
-            len(
-                client.search_runs(
-                    [client.get_experiment_by_name("kaggle/google-quest-challenge").experiment_id]
-                )
-            )
+            len(client.search_runs([client.get_experiment_by_name("kaggle/quest").experiment_id]))
             == 1
         )
     finally:

@@ -58,13 +58,19 @@ This exposes `/shared` and deploys no storage service. Do not mount a storage se
 .venv/bin/kaggle kernels output cttsai/quest-deberta-training -p .local/kaggle-output
 ```
 
-Export prepares code-only assets locally. Dataset creation and kernel push are explicit account writes; metadata defaults to private. Use `datasets version` for later asset versions rather than attempting to create an existing slug. Adjust the `cttsai` Kaggle owner when using another account.
+Export prepares code-only assets locally. Dataset creation and kernel push are explicit account writes; metadata defaults to private. Use `datasets version` for later asset versions rather than attempting to create an existing slug. Use `quest export-kaggle --owner YOUR_KAGGLE_USERNAME` when using another account.
 
 The training notebook obtains the pinned public pretrained model with internet access and saves a complete trained run. Its attached code wheel is verified against the source receipt before installation. The inspected hosted runtime uses Python 3.13 and a CUDA PyTorch build; its package set is recorded in the run instead of being described as identical to the local lock.
 
 ## Offline scoring
 
-QUEST is a notebook-only competition. Prepare the completed model/tokenizer/manifest as a private trained-run dataset, retaining its artifact hashes. Attach it and the same code wheel to `notebooks/kaggle/inference.ipynb`, with the accompanying inference metadata. Internet must be disabled for scoring.
+QUEST is a notebook-only competition. The staged inference entry attaches the completed training notebook outputs through `kernel_sources`, plus the same code-wheel dataset. This reuses the checkpoint, tokenizer and manifest without copying weights into another dataset. Wait for the training notebook to complete successfully, then push the staged inference entry:
+
+```bash
+.venv/bin/kaggle kernels push -p .local/kaggle-bundle/inference --accelerator NvidiaTeslaT4
+```
+
+The inference metadata disables internet. Record the exact completed training and inference versions used for scoring.
 
 The inference notebook checks the completed manifest, verifies each artifact, loads model configuration/state and tokenizer locally, and writes `/kaggle/working/submission.csv` against the competition-mounted test rows. A scoring request names that notebook's exact version and output file:
 
@@ -78,7 +84,7 @@ Late-scoring availability and submission acceptance are determined by Kaggle. A 
 
 ## Existing MLOps services
 
-The run directory is portable and does not require a private server to survive training. Shared MLflow, SeaweedFS and any orchestration services remain outside this repository; their deployment, upgrades, credentials and backups are infrastructure concerns. A Kaggle worker need not reach the private network. Retrieve its completed run, verify it locally and import deliberately into the chosen tracker.
+The run directory is portable and does not require a private server to survive training. Shared MLflow, SeaweedFS and Prefect deployment lives in [mlops-platform](https://github.com/cttsai1985/mlops-platform); service upgrades, credentials and backups are managed there. A Kaggle worker need not reach the private network. Retrieve its completed run, verify it locally and import deliberately into the chosen tracker.
 
 The optional MLflow client validates a completed run and imports it explicitly:
 
@@ -88,6 +94,17 @@ export MLFLOW_TRACKING_URI=http://your-existing-tracker:5000
 .venv/bin/quest track --run-dir .local/my-run
 ```
 
-Use an address reachable from the runtime. Import verifies artifact hashes and rejects conflicting or incomplete repeats of the same logical run ID. Tracker availability does not affect saved local training artifacts. The client is tested with an isolated SQLite MLflow backend, including artifact retrieval, duplicate import and conflicting-run rejection; the existing shared server remains a separate integration check.
+Use an address reachable from the runtime. The platform bootstrap must create the active `kaggle/quest` experiment first, including its `projects/quest` artifact namespace. The client does not create a fallback experiment with a different storage layout. Import targets the `kaggle/quest` experiment and tags the project as `quest`, retaining the logical run ID, source commit where available, and source-file hash. The shared artifact namespace is `projects/quest`; model registry name `kaggle-quest` is reserved for an explicit future registration step. Import verifies artifact hashes and rejects conflicting or incomplete repeats of the same logical run ID. Tracker availability does not affect saved local training artifacts. The client is tested with an isolated SQLite MLflow backend, including artifact retrieval, duplicate import and conflicting-run rejection; the existing shared server remains a separate integration check.
 
 An existing SeaweedFS client mount is a filesystem route; MLflow's artifact proxy is a separate route. Avoid distributing storage administration credentials to notebooks. Prefect orchestration and W&B mirroring need a configured external endpoint and their own end-to-end evidence before being described as active integrations.
+
+The reserved Prefect flow/deployment identity is `kaggle-quest/local`. A project run does not deploy or contact a Prefect server automatically. Use the endpoint and client network supplied by the project’s shared platform.
+
+For a Lab container, attach only the shared client network:
+
+```bash
+export MLOPS_DOCKER_NETWORK=mlops-platform_clients
+docker compose -f docker/compose.yaml -f docker/compose.mlops.yaml up -d lab
+```
+
+The external network must already exist. This override routes the client to `http://mlflow:5000`; it does not join database or storage-administration networks. Host-side CLI calls can use an explicitly configured host endpoint. A host port bound only to `127.0.0.1` is not reachable through a bridge-container host-gateway address.

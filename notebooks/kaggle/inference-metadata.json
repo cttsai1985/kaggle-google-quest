@@ -11,9 +11,10 @@
     "google-quest-challenge"
   ],
   "dataset_sources": [
-    "cttsai/quest-labeling-code",
-    "cttsai/quest-deberta-trained-run"
+    "cttsai/quest-labeling-code"
   ],
-  "kernel_sources": [],
+  "kernel_sources": [
+    "cttsai/quest-deberta-training"
+  ],
   "model_sources": []
 }

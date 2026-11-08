@@ -137,3 +137,39 @@ def test_source_identity_survives_a_runtime_without_git(monkeypatch):
         identity["python_source_sha256"]
         != "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     )
+
+
+def test_deberta_checkpoint_reconstructs_without_model_hub(tmp_path):
+    from transformers import DebertaV2Config, DebertaV2Model
+
+    from quest.runtime import load_model
+
+    torch.set_num_threads(2)
+    encoder = DebertaV2Model(
+        DebertaV2Config(
+            vocab_size=40,
+            hidden_size=24,
+            num_hidden_layers=1,
+            num_attention_heads=4,
+            intermediate_size=48,
+            relative_attention=True,
+            pos_att_type=["p2c", "c2p"],
+            position_biased_input=False,
+        )
+    )
+    model = QuestModel({"head_width": 24}, encoder=encoder).eval()
+    pair = {
+        "input_ids": torch.randint(0, 40, (2, 12)),
+        "attention_mask": torch.ones(2, 12, dtype=torch.long),
+    }
+    torch.save(
+        {
+            "state_dict": model.state_dict(),
+            "config": {"head_width": 24},
+            "encoder_config": encoder.config.to_dict(),
+        },
+        tmp_path / "model.pt",
+    )
+    reloaded, _ = load_model(tmp_path, torch.device("cpu"))
+    with torch.inference_mode():
+        torch.testing.assert_close(model(pair, pair), reloaded(pair, pair))
