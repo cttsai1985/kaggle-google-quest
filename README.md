@@ -108,4 +108,8 @@ legacy/           Original TensorFlow source and notebooks
 .venv/bin/pytest -q
 ```
 
-The original implementation is preserved in [legacy/](legacy/README.md) at `ef4fb92`. Code uses the [Apache 2.0 license](LICENSE); pretrained model and competition data retain their own terms. The maintained workflow keeps new raw-data copies, weights, credentials, fold IDs and prediction rows outside Git. Historical notebooks remain in the preserved legacy tree.
+The original implementation is preserved in [legacy/](legacy/README.md) at `ef4fb92`. The maintained workflow keeps new raw-data copies, weights, credentials, fold IDs and prediction rows outside Git. Historical notebooks remain in the preserved legacy tree.
+
+## License
+
+Source code is licensed under the [Apache License 2.0](LICENSE). Pretrained models and competition data retain their own terms.
