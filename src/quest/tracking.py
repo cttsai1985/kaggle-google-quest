@@ -17,6 +17,7 @@ ARTIFACTS = {
     "validation.csv",
     "submission.csv",
 }
+OPTIONAL_ARTIFACTS = {"fold-assignments.csv", "fold-plan.json"}
 TOKENIZER_FILES = {
     "tokenizer_config.json",
     "special_tokens_map.json",
@@ -45,7 +46,7 @@ def track(run_dir: Path, tracking_uri: str) -> dict:
     uuid.UUID(logical_id)
     for name, digest in manifest["artifacts"].items():
         path = Path(name)
-        permitted = name in ARTIFACTS or (
+        permitted = name in (ARTIFACTS | OPTIONAL_ARTIFACTS) or (
             path.parent == Path("tokenizer") and path.name in TOKENIZER_FILES
         )
         artifact = run_dir / path

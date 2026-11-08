@@ -1,12 +1,13 @@
 """Input contracts and question-group validation splits."""
 
 import hashlib
+import json
 from pathlib import Path
 
 import numpy as np
 import pandas as pd
 from scipy.stats import spearmanr
-from sklearn.model_selection import GroupKFold
+from sklearn.model_selection import GroupKFold, StratifiedGroupKFold
 from torch.utils.data import Dataset
 
 QUESTION_TARGETS = (
@@ -77,13 +78,110 @@ def group_labels(frame: pd.DataFrame) -> pd.Series:
     return frame["category"].astype(str).str.cat(codes, sep="_")
 
 
-def split_fold(frame: pd.DataFrame, fold: int = 0, folds: int = 5):
+GROUPED = "group_v1"
+STRATIFIED = "category_stratified_group_v1"
+
+
+def make_splits(frame, protocol=STRATIFIED, *, folds=5, seed=42):
+    required = {"qa_id", "question_body", "category", *TARGETS}
+    if required - set(frame):
+        raise ValueError("CV analysis requires IDs, question groups, categories and all targets")
+    if frame[["qa_id", "question_body", "category"]].isna().any().any():
+        raise ValueError("IDs, groups and categories must be present")
+    if frame.qa_id.duplicated().any():
+        raise ValueError("CV requires unique qa_id values")
+    groups = frame.question_body
+    if protocol == GROUPED:
+        splitter = GroupKFold(n_splits=folds)
+    elif protocol == STRATIFIED:
+        splitter = StratifiedGroupKFold(n_splits=folds, shuffle=True, random_state=seed)
+    else:
+        raise ValueError("Unknown CV protocol")
+    splits = list(splitter.split(frame, frame.category, groups=groups))
+    validate_splits(frame, splits)
+    return splits
+
+
+def validate_splits(frame, splits):
+    seen = np.zeros(len(frame), dtype=int)
+    for train, valid in splits:
+        if set(frame.question_body.iloc[train]) & set(frame.question_body.iloc[valid]):
+            raise ValueError("Question group leakage")
+        if set(train) & set(valid) or len(train) + len(valid) != len(frame):
+            raise ValueError("Invalid fold partition")
+        seen[valid] += 1
+    if not np.all(seen == 1):
+        raise ValueError("Every row must be held out exactly once")
+
+
+def frozen_splits(frame, plan, *, input_sha256):
+    path = Path(plan["path"])
+    if not input_sha256 or sha256(path) != plan["sha256"] or input_sha256 != plan["input_sha256"]:
+        raise ValueError("Frozen fold plan or dataset checksum mismatch")
+    assignments = pd.read_csv(path)
+    if set(assignments.columns) != {"qa_id", "fold"}:
+        raise ValueError("Frozen plan requires exactly qa_id and fold columns")
+    if assignments.qa_id.isna().any() or assignments.qa_id.duplicated().any():
+        raise ValueError("Frozen plan IDs must be present and unique")
+    if frame.qa_id.duplicated().any() or set(assignments.qa_id) != set(frame.qa_id):
+        raise ValueError("Frozen plan IDs differ from the dataset")
+    values = pd.to_numeric(
+        assignments.set_index("qa_id").loc[frame.qa_id, "fold"], errors="coerce"
+    ).to_numpy()
+    if not np.isfinite(values).all() or not np.equal(values, np.floor(values)).all():
+        raise ValueError("Frozen fold numbers must be finite integers")
+    if set(values) != set(range(plan["folds"])):
+        raise ValueError("Frozen plan does not contain the declared folds")
+    splits = [
+        (np.flatnonzero(values != fold), np.flatnonzero(values == fold))
+        for fold in range(plan["folds"])
+    ]
+    validate_splits(frame, splits)
+    return splits
+
+
+def plan_from_cv(run_dir):
+    result = json.loads((run_dir / "metrics.json").read_text())
+    path = run_dir / "fold-assignments.csv"
+    if result["status"] != "completed" or sha256(path) != result["artifacts"][path.name]:
+        raise ValueError("Select a completed CV run with verified fold assignments")
+    return {
+        "path": str(path.resolve()),
+        "sha256": sha256(path),
+        "input_sha256": result["input_sha256"],
+        "folds": result["config"]["folds"],
+        "seed": result["config"]["seed"],
+        "protocol": result["config"]["protocol"],
+        "source_sklearn": result["environment"]["scikit-learn"],
+    }
+
+
+def split_fold(
+    frame: pd.DataFrame,
+    fold: int = 0,
+    folds: int = 5,
+    *,
+    protocol="legacy_group_v1",
+    seed=42,
+    frozen_plan=None,
+    input_sha256=None,
+):
     if not 0 <= fold < folds:
         raise ValueError("Fold must fall within the configured split count")
+    if frozen_plan is not None:
+        if (frozen_plan["folds"], frozen_plan["seed"], frozen_plan["protocol"]) != (
+            folds,
+            seed,
+            protocol,
+        ):
+            raise ValueError("Frozen plan protocol differs from the selected recipe")
+        return frozen_splits(frame, frozen_plan, input_sha256=input_sha256)[fold]
+    if protocol != "legacy_group_v1":
+        return make_splits(frame, protocol, folds=folds, seed=seed)[fold]
     groups = group_labels(frame)
     splits = list(GroupKFold(n_splits=folds).split(frame, groups=groups))
     train, valid = splits[fold]
-    if set(groups.iloc[train]) & set(groups.iloc[valid]):
+    if set(frame.question_body.iloc[train]) & set(frame.question_body.iloc[valid]):
         raise ValueError("Question group leakage across train and validation")
     return train, valid
 

@@ -13,6 +13,25 @@ Set `QUEST_DATA_DIR` to an absolute directory outside Git. Authenticate with `.v
 
 The download command captures the Kaggle access token privately and obtains the official archive. It writes only the three expected payloads and their hash receipt. Do not commit data or authentication files.
 
+## Analyze and freeze cross-validation
+
+```bash
+.venv/bin/quest analyze-cv --data-dir "$QUEST_DATA_DIR" --output .local/split-analysis.json
+.venv/bin/quest cv --data-dir "$QUEST_DATA_DIR" --config configs/cv.json \
+  --run-dir .local/cv-run
+```
+
+The first command diagnoses label coverage, missingness and distribution balance for grouped and category-stratified group plans. The second executes five train-only TF-IDF/Ridge folds, retaining complete OOF predictions, fold assignments, descriptive fold dispersion and source/input fingerprints. It is not transformer CV. The fixed recipe uses six CPU threads and no seed search.
+
+For future transformer training with those exact assignments:
+
+```bash
+.venv/bin/quest train --data-dir "$QUEST_DATA_DIR" --config configs/deberta.json \
+  --cv-run .local/cv-run --run-dir .local/stratified-transformer
+```
+
+The assignment file is authoritative across runtime versions. Its input hash, ID membership, protocol and group boundaries are validated before fitting. To reproduce the recorded earlier single-fold transformer experiment, select `configs/benchmark.json` without attaching the new CV plan.
+
 ## Training and independent evaluation
 
 ```bash
@@ -58,7 +77,7 @@ This exposes `/shared` and deploys no storage service. Do not mount a storage se
 .venv/bin/kaggle kernels output cttsai/quest-deberta-training -p .local/kaggle-output
 ```
 
-Export prepares code-only assets locally. Dataset creation and kernel push are explicit account writes; metadata defaults to private. Use `datasets version` for later asset versions rather than attempting to create an existing slug. Use `quest export-kaggle --owner YOUR_KAGGLE_USERNAME` when using another account.
+Export prepares code-only assets locally. To explicitly include the data-derived frozen plan in a private asset, use `quest export-kaggle --cv-run .local/cv-run`; the export records its hash and source scikit-learn version. Without that option, fold IDs are not staged. Dataset creation and kernel push are explicit account writes; metadata defaults to private. Use `datasets version` for later asset versions rather than attempting to create an existing slug. Use `quest export-kaggle --owner YOUR_KAGGLE_USERNAME` when using another account.
 
 The training notebook obtains the pinned public pretrained model with internet access and saves a complete trained run. Its attached code wheel is verified against the source receipt before installation. The inspected hosted runtime uses Python 3.13 and a CUDA PyTorch build; its package set is recorded in the run instead of being described as identical to the local lock.
 

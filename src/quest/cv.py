@@ -10,42 +10,10 @@ import pandas as pd
 from scipy.sparse import hstack
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import Ridge
-from sklearn.model_selection import GroupKFold, StratifiedGroupKFold
 from threadpoolctl import threadpool_limits
 
-from quest.data import TARGETS, mean_spearman, read_data, sha256
+from quest.data import GROUPED, STRATIFIED, TARGETS, make_splits, mean_spearman, read_data, sha256
 from quest.runtime import source_identity, write_json, write_predictions
-
-GROUPED = "group_v1"
-STRATIFIED = "category_stratified_group_v1"
-
-
-def make_splits(frame, protocol=STRATIFIED, *, folds=5, seed=42):
-    required = {"qa_id", "question_body", "category", *TARGETS}
-    if required - set(frame):
-        raise ValueError("CV analysis requires IDs, question groups, categories and all targets")
-    if frame[["qa_id", "question_body", "category"]].isna().any().any():
-        raise ValueError("IDs, groups and categories must be present")
-    if frame.qa_id.duplicated().any():
-        raise ValueError("CV requires unique qa_id values")
-    groups = frame.question_body
-    if protocol == GROUPED:
-        splitter = GroupKFold(n_splits=folds)
-    elif protocol == STRATIFIED:
-        splitter = StratifiedGroupKFold(n_splits=folds, shuffle=True, random_state=seed)
-    else:
-        raise ValueError("Unknown CV protocol")
-    splits = list(splitter.split(frame, frame.category, groups=groups))
-    seen = np.zeros(len(frame), dtype=int)
-    for train, valid in splits:
-        if set(groups.iloc[train]) & set(groups.iloc[valid]):
-            raise ValueError("Question group leakage")
-        if set(train) & set(valid) or len(train) + len(valid) != len(frame):
-            raise ValueError("Invalid fold partition")
-        seen[valid] += 1
-    if not np.all(seen == 1):
-        raise ValueError("Every row must be held out exactly once")
-    return splits
 
 
 def finite(value):
@@ -180,6 +148,7 @@ def run_cv(data_path: Path, run_dir: Path, config):
     frame = read_data(data_path, labeled=True)
     run_dir.mkdir(parents=True, exist_ok=False)
     started = time.monotonic()
+    provenance = source_identity()
     diagnostics = analyze(frame, folds=config["folds"], seed=config["seed"])
     write_json(run_dir / "split-analysis.json", diagnostics)
     write_json(run_dir / "config.json", config)
@@ -224,7 +193,7 @@ def run_cv(data_path: Path, run_dir: Path, config):
         "project_id": "quest",
         "status": "completed",
         "model": "train-only TF-IDF + Ridge; not transformer cross-validation",
-        "source": source_identity(),
+        "source": provenance,
         "input_sha256": sha256(data_path),
         "config": config,
         "environment": {
@@ -242,5 +211,14 @@ def run_cv(data_path: Path, run_dir: Path, config):
     }
     write_predictions(run_dir / "oof-predictions.csv", frame.qa_id, oof)
     frame[["qa_id"]].assign(fold=assignments).to_csv(run_dir / "fold-assignments.csv", index=False)
+    result["artifacts"] = {
+        name: sha256(run_dir / name)
+        for name in (
+            "fold-assignments.csv",
+            "oof-predictions.csv",
+            "split-analysis.json",
+            "config.json",
+        )
+    }
     write_json(run_dir / "metrics.json", result)
     return result

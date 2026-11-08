@@ -7,6 +7,7 @@ import json
 import math
 import platform
 import random
+import shutil
 import subprocess
 import time
 import uuid
@@ -138,7 +139,20 @@ def train(data_dir: Path, run_dir: Path, config: dict):
         frame = read_data(data_dir / "train.csv", labeled=True)
         test = read_data(data_dir / "test.csv", labeled=False)
         sample = read_sample(data_dir / "sample_submission.csv", test.qa_id.tolist())
-        train_idx, valid_idx = split_fold(frame, config["fold"], config["folds"])
+        train_idx, valid_idx = split_fold(
+            frame,
+            config["fold"],
+            config["folds"],
+            protocol=config.get("split_protocol", "legacy_group_v1"),
+            seed=config.get("split_seed", config["seed"]),
+            frozen_plan=config.get("fold_plan"),
+            input_sha256=manifest["input_sha256"]["train.csv"],
+        )
+        if config.get("fold_plan"):
+            shutil.copy2(config["fold_plan"]["path"], run_dir / "fold-assignments.csv")
+            write_json(
+                run_dir / "fold-plan.json", {**config["fold_plan"], "path": "fold-assignments.csv"}
+            )
         roles = np.full(len(frame), "train", dtype=object)
         roles[valid_idx] = "validation"
         frame[["qa_id"]].assign(role=roles).to_csv(run_dir / "split.csv", index=False)

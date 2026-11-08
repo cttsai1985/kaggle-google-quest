@@ -9,7 +9,7 @@ import sys
 import zipfile
 from pathlib import Path
 
-from quest.data import TARGETS, read_data, sha256
+from quest.data import TARGETS, plan_from_cv, read_data, sha256
 from quest.runtime import evaluate, predict, source_identity, train, write_json
 
 
@@ -55,7 +55,7 @@ def download(data_dir):
     return receipt
 
 
-def export(output, owner="cttsai"):
+def export(output, owner="cttsai", cv_run=None):
     project = Path.cwd()
     info = project / "src/quest/build-info.json"
     write_json(info, source_identity())
@@ -65,7 +65,31 @@ def export(output, owner="cttsai"):
     wheel = project / "dist/quest_labeling-0.1.0-py3-none-any.whl"
     for path in (wheel, project / "LICENSE", project / "configs/deberta.json"):
         shutil.copy2(path, assets / path.name)
-    write_json(assets / "source.json", {**source_identity(), "wheel_sha256": sha256(wheel)})
+    for name in ("fold-assignments.csv", "fold-plan.json"):
+        if (assets / name).exists():
+            (assets / name).unlink()
+    if cv_run is not None:
+        plan = plan_from_cv(cv_run)
+        shutil.copy2(plan["path"], assets / "fold-assignments.csv")
+        plan["path"] = "fold-assignments.csv"
+        write_json(assets / "fold-plan.json", plan)
+        config = json.loads((assets / "deberta.json").read_text())
+        config["fold_plan"] = plan
+        write_json(assets / "deberta.json", config)
+    expected = {wheel.name, "LICENSE", "deberta.json", "source.json", "dataset-metadata.json"}
+    if cv_run is not None:
+        expected |= {"fold-assignments.csv", "fold-plan.json"}
+    for path in assets.iterdir():
+        if path.name not in expected or path.is_symlink() or not path.is_file():
+            raise ValueError("Unexpected staging files; choose a fresh output directory")
+    write_json(
+        assets / "source.json",
+        {
+            **source_identity(),
+            "wheel_sha256": sha256(wheel),
+            "contains_data_derived_folds": cv_run is not None,
+        },
+    )
     write_json(
         assets / "dataset-metadata.json",
         {
@@ -89,7 +113,12 @@ def export(output, owner="cttsai"):
                 for value in values[key]
             ]
         write_json(kernel / "kernel-metadata.json", values)
-    return {"output": str(output), "wheel_sha256": sha256(wheel), "published": False}
+    return {
+        "output": str(output),
+        "wheel_sha256": sha256(wheel),
+        "contains_data_derived_folds": cv_run is not None,
+        "published": False,
+    }
 
 
 def main():
@@ -102,6 +131,9 @@ def main():
     sub.add_argument("--data-dir", type=Path, required=True)
     sub.add_argument("--run-dir", type=Path, required=True)
     sub.add_argument("--config", type=Path, default=Path("configs/deberta.json"))
+    sub.add_argument(
+        "--cv-run", type=Path, help="Reuse a completed CV run’s frozen fold assignments"
+    )
     for name in ("evaluate", "predict"):
         sub = commands.add_parser(name)
         sub.add_argument("--data-dir", type=Path, required=True)
@@ -112,6 +144,9 @@ def main():
     sub = commands.add_parser("export-kaggle")
     sub.add_argument("--output", type=Path, default=Path(".local/kaggle-bundle"))
     sub.add_argument("--owner", default="cttsai", help="Kaggle username for staged assets")
+    sub.add_argument(
+        "--cv-run", type=Path, help="Explicitly stage data-derived folds in the private asset"
+    )
     commands.add_parser("lab-token")
     sub = commands.add_parser("track")
     sub.add_argument("--run-dir", type=Path, required=True)
@@ -169,7 +204,10 @@ def main():
             raise ValueError("Training/test IDs overlap")
         result = {"training_rows": len(frame), "test_rows": len(test), "targets": len(TARGETS)}
     elif args.command == "train":
-        result = train(args.data_dir, args.run_dir, json.loads(args.config.read_text()))
+        config = json.loads(args.config.read_text())
+        if args.cv_run is not None:
+            config["fold_plan"] = plan_from_cv(args.cv_run)
+        result = train(args.data_dir, args.run_dir, config)
     elif args.command == "evaluate":
         result = evaluate(args.data_dir, args.run_dir, args.device)
     elif args.command == "predict":
@@ -194,7 +232,7 @@ def main():
             stream.write(secrets.token_hex(32) + "\n")
         result = {"token_file": str(token)}
     else:
-        result = export(args.output, args.owner)
+        result = export(args.output, args.owner, args.cv_run)
     print(json.dumps(result, indent=2))
 
 

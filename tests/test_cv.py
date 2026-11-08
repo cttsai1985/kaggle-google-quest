@@ -80,3 +80,65 @@ def test_text_preprocessing_fits_training_rows_only():
     assert "trainingonly" in vocabulary.vocabulary_
     assert "validationonly" not in vocabulary.vocabulary_
     assert "unseenword" not in vocabulary.vocabulary_
+
+
+def frozen_fixture(tmp_path):
+    from quest.data import sha256
+
+    frame = grouped_frame()
+    data = tmp_path / "train.csv"
+    frame.to_csv(data, index=False)
+    assigned = np.full(len(frame), -1)
+    splits = make_splits(frame)
+    for fold, (_, valid) in enumerate(splits):
+        assigned[valid] = fold
+    path = tmp_path / "folds.csv"
+    frame[["qa_id"]].assign(fold=assigned).to_csv(path, index=False)
+    plan = {
+        "path": str(path),
+        "sha256": sha256(path),
+        "input_sha256": sha256(data),
+        "protocol": STRATIFIED,
+        "folds": 5,
+        "seed": 42,
+    }
+    return frame, plan, splits
+
+
+def test_frozen_folds_are_authoritative_without_splitter_recomputation(tmp_path, monkeypatch):
+    from quest.data import split_fold
+
+    frame, plan, splits = frozen_fixture(tmp_path)
+
+    def unavailable_splitter(*args, **kwargs):
+        raise AssertionError("A frozen plan must not rerun the stratification algorithm")
+
+    monkeypatch.setattr("quest.data.StratifiedGroupKFold", unavailable_splitter)
+    train, valid = split_fold(
+        frame, protocol=STRATIFIED, frozen_plan=plan, input_sha256=plan["input_sha256"]
+    )
+    np.testing.assert_array_equal(valid, splits[0][1])
+    np.testing.assert_array_equal(train, splits[0][0])
+
+
+@pytest.mark.parametrize("corruption", ["input", "id", "group"])
+def test_frozen_plan_rejects_changed_inputs_ids_and_group_leakage(tmp_path, corruption):
+    from pathlib import Path
+
+    from quest.data import frozen_splits, sha256
+
+    frame, plan, _ = frozen_fixture(tmp_path)
+    if corruption == "input":
+        with pytest.raises(ValueError, match="checksum"):
+            frozen_splits(frame, plan, input_sha256="changed-dataset")
+        return
+    path = Path(plan["path"])
+    mapping = pd.read_csv(path)
+    if corruption == "id":
+        mapping.loc[0, "qa_id"] = 100000
+    else:
+        mapping.loc[0, "fold"] = (mapping.loc[1, "fold"] + 1) % 5
+    mapping.to_csv(path, index=False)
+    plan["sha256"] = sha256(path)
+    with pytest.raises(ValueError, match="IDs differ" if corruption == "id" else "group leakage"):
+        frozen_splits(frame, plan, input_sha256=plan["input_sha256"])

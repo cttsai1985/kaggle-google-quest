@@ -12,7 +12,7 @@
   "batch_size": 4,
   "gradient_accumulation_steps": 2,
   "head_learning_rate": 0.001,
-  "learning_rate": 0.00002,
+  "learning_rate": 2e-05,
   "weight_decay": 0.01,
   "warmup_fraction": 0.1,
   "max_gradient_norm": 1.0,
@@ -20,5 +20,7 @@
   "seed": 42,
   "threads": 8,
   "mixed_precision": true,
-  "device": "auto"
+  "device": "auto",
+  "split_protocol": "category_stratified_group_v1",
+  "split_seed": 42
 }

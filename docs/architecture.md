@@ -12,11 +12,25 @@ Question and answer maximum lengths are 384 and 512 tokens respectively, retaini
 
 ## Validation at the question level
 
-Multiple answers can belong to one question. GroupKFold keeps each question group wholly within one partition. The maintained first fold follows the original category/question-body coding, with 4,863 training and 1,216 validation rows. It is a holdout experiment, not five-fold out-of-fold evaluation.
+Multiple answers can belong to one question. The current default uses five-way `StratifiedGroupKFold`, stratifying the declared category domain while keeping each exact question body wholly within one partition. Seed 42 and protocol `category_stratified_group_v1` are fixed in advance; there is no seed search.
 
-Mean Spearman ranks predictions within each target, then averages the 30 correlations. Ties use SciPy's average-rank convention. A constant prediction or constant target contributes zero rather than being silently excluded; all 30 target contributions are retained in the metric file. This explicit edge policy differs from the original `nanmean` treatment and is visible when relevant.
+The analyzer compares this plan with ordinary question-group folds. It records row/group coverage, category distance, target histograms and missingness, constant targets, and the number of question groups carrying nonmodal labels. Category balance does not guarantee multi-target balance, so the outcomes are checked rather than assumed.
 
-A higher validation score is useful evidence about the chosen holdout. Repeated tuning against one fold can overfit model selection. The public and private leaderboard populations are separate and must retain their own reported values.
+In the measured dataset, maximum category total-variation distance falls from 0.03880 to 0.00120. Every stratified validation fold contains variation in all 30 targets, including the rare `question_type_spelling` label. Five-fold TF-IDF/Ridge CV checks empirical dispersion under this plan; each fold fits its own vocabulary and IDF on training text only. Its OOF results do not constitute transformer cross-validation.
+
+The earlier full transformer benchmark retains its original single question-group holdout, with 4,863 training and 1,216 validation rows. Its recipe remains in `configs/benchmark.json`, and checkpoint evaluation always uses saved indices. The new default recipe and the frozen benchmark are intentionally distinguishable.
+
+### Metric coverage
+
+Mean column-wise Spearman evaluates within-target ranks. The maintained primary metric averages all 30 contributions, assigning zero to undefined constant-target or constant-prediction correlations. A second score averages only targets whose held-out labels vary; a constant prediction still contributes zero. Both scores and the number of defined targets are reported.
+
+The benchmark holdout has one constant label column, `question_type_spelling`: its primary score uses 30 contributions, while the defined-target score uses 29. All five new stratified folds have 30 defined targets, so both summaries agree there. The original `nanmean` implementation could silently exclude undefined correlations; metric coverage now accompanies the result.
+
+### Frozen assignments across runtimes
+
+A fixed seed does not promise identical group assignments across scikit-learn or NumPy versions. The CV run saves `fold-assignments.csv` with its checksum, input-file checksum, protocol, seed and source library versions. Training can consume this file as the authority instead of rerunning the splitter. It rejects changed inputs, duplicate/missing IDs, invalid fold values, protocol mismatches and question-group leakage.
+
+Export includes competition-derived fold IDs only when explicitly requested; code-only packaging remains the default. A retrieved checkpoint needs neither a splitter nor the full training dataset for test inference.
 
 ## Training and artifacts
 
@@ -38,3 +52,5 @@ A completed run retains configuration, train/validation roles, per-epoch history
 These are deliberate model and implementation changes. Matching or exceeding a historical score would demonstrate a modern replacement's performance; it would not establish identical TensorFlow/PyTorch numerical behavior.
 
 The unchanged historical code and notebooks remain in `legacy/`. Its archived shell commands are retained as source history, not the maintained execution interface.
+
+Seeds control initialization and sampling, but GPU kernels, mixed precision and library builds can change floating-point results. Saved assignments, checkpoints and prediction artifacts anchor verification; bitwise equality across platforms is not claimed.
