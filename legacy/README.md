@@ -36,7 +36,7 @@ run `bash 00_init_build_docker.sh`. This will pull a tensorflow docker image wit
 
 run `bash 01_download_data.sh` to get the competition data set `google-quest-challenge.zip`. It will decompress the downloaded zip file into `train.csv`, `test.csv` and `sample_submission.csv`.
 
-Note this step needs kaggle api installed, please visit https://github.com/Kaggle/kaggle-api and have api key setup. 
+Note this step needs kaggle api installed, please visit https://github.com/Kaggle/kaggle-api and have api key setup.
 
 
 ##### step 3) data wrangling and understand data

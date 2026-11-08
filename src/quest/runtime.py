@@ -33,23 +33,23 @@ def source_identity():
     for path in sorted(package.glob("*.py")):
         digest.update(path.name.encode())
         digest.update(path.read_bytes())
-    revision = subprocess.run(
-        ["git", "-C", str(root), "rev-parse", "HEAD"], capture_output=True, text=True
-    )
+
+    def git(*args):
+        try:
+            result = subprocess.run(["git", "-C", str(root), *args], capture_output=True, text=True)
+        except FileNotFoundError:
+            return None
+        return result.stdout.strip() if result.returncode == 0 else None
+
+    revision = git("rev-parse", "HEAD")
     build = package / "build-info.json"
     provenance = json.loads(build.read_text()) if build.exists() else {}
     if provenance.get("python_source_sha256") != digest.hexdigest():
         provenance = {}
-    dirty = subprocess.run(
-        ["git", "-C", str(root), "status", "--porcelain"], capture_output=True, text=True
-    )
+    dirty = git("status", "--porcelain")
     return {
-        "git_dirty": bool(dirty.stdout.strip())
-        if dirty.returncode == 0
-        else provenance.get("git_dirty"),
-        "git_commit": revision.stdout.strip()
-        if not revision.returncode
-        else provenance.get("git_commit"),
+        "git_dirty": bool(dirty) if dirty is not None else provenance.get("git_dirty"),
+        "git_commit": revision if revision is not None else provenance.get("git_commit"),
         "python_source_sha256": digest.hexdigest(),
         "legacy_commit": "ef4fb92c470e45c0a07b0ee0e474224d88d3d410",
     }

@@ -122,3 +122,18 @@ def test_full_fixture_training_checkpoint_and_output(tmp_path):
     assert pd.read_csv(output).columns.tolist() == ["qa_id", *TARGETS]
     with pytest.raises(FileExistsError):
         train(data_dir, run, config)
+
+
+def test_source_identity_survives_a_runtime_without_git(monkeypatch):
+    from quest.runtime import source_identity
+
+    def missing_git(*args, **kwargs):
+        raise FileNotFoundError("git")
+
+    monkeypatch.setattr("quest.runtime.subprocess.run", missing_git)
+    identity = source_identity()
+    assert len(identity["python_source_sha256"]) == 64
+    assert (
+        identity["python_source_sha256"]
+        != "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    )
