@@ -1,0 +1,14 @@
+{
+  "name": "category-grouped-text-baseline-v1",
+  "protocol": "category_stratified_group_v1",
+  "folds": 5,
+  "seed": 42,
+  "max_features": 12000,
+  "min_df": 3,
+  "ngram_range": [1, 2],
+  "max_characters": 24000,
+  "alpha": 10.0,
+  "tolerance": 0.003,
+  "max_iterations": 100,
+  "threads": 6
+}

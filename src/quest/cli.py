@@ -116,8 +116,51 @@ def main():
     sub = commands.add_parser("track")
     sub.add_argument("--run-dir", type=Path, required=True)
     sub.add_argument("--tracking-uri", default=os.getenv("MLFLOW_TRACKING_URI"))
+    sub = commands.add_parser("analyze-cv")
+    sub.add_argument("--data-dir", type=Path, required=True)
+    sub.add_argument("--output", type=Path, required=True)
+    sub.add_argument("--folds", type=int, default=5)
+    sub.add_argument("--seed", type=int, default=42)
+    sub = commands.add_parser("cv")
+    sub.add_argument("--data-dir", type=Path, required=True)
+    sub.add_argument("--run-dir", type=Path, required=True)
+    sub.add_argument("--config", type=Path, default=Path("configs/cv.json"))
     args = parser.parse_args()
-    if args.command == "download":
+    if args.command == "analyze-cv":
+        import pandas as pd
+
+        from quest.cv import analyze
+
+        report = analyze(pd.read_csv(args.data_dir / "train.csv"), folds=args.folds, seed=args.seed)
+        args.output.parent.mkdir(parents=True, exist_ok=True)
+        write_json(args.output, report)
+        result = {
+            "output": str(args.output),
+            "rows": report["rows"],
+            "question_groups": report["question_groups"],
+            "folds": args.folds,
+        }
+    elif args.command == "cv":
+        from quest.cv import run_cv
+
+        report = run_cv(
+            args.data_dir / "train.csv", args.run_dir, json.loads(args.config.read_text())
+        )
+        result = {
+            key: report[key]
+            for key in (
+                "status",
+                "model",
+                "fold_mean_30_zero_fallback",
+                "fold_std_30_zero_fallback",
+                "elapsed_seconds",
+            )
+        }
+        result["pooled_oof_30_zero_fallback"] = report["pooled_oof"][
+            "mean_spearman_30_zero_fallback"
+        ]
+        result["run_dir"] = str(args.run_dir)
+    elif args.command == "download":
         result = download(args.data_dir)
     elif args.command == "validate":
         frame = read_data(args.data_dir / "train.csv", labeled=True)
