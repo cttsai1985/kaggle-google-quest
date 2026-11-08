@@ -109,8 +109,27 @@ def test_full_fixture_training_checkpoint_and_output(tmp_path):
     model = QuestModel(config)
     assert model.encoder.config.hidden_size == 24
     assert all(p.dtype == torch.float32 for p in model.parameters())
+    from quest.data import make_splits, sha256
+
+    frame = pd.read_csv(data_dir / "train.csv")
+    assigned = np.full(len(frame), -1)
+    for fold, (_, valid) in enumerate(make_splits(frame)):
+        assigned[valid] = fold
+    plan = tmp_path / "fold-assignments.csv"
+    frame[["qa_id"]].assign(fold=assigned).to_csv(plan, index=False)
+    config["fold_plan"] = {
+        "path": str(plan),
+        "sha256": sha256(plan),
+        "input_sha256": sha256(data_dir / "train.csv"),
+        "folds": 5,
+        "seed": 42,
+        "protocol": config["split_protocol"],
+    }
     run = tmp_path / "run"
     result = train(data_dir, run, config)
+    assert (run / "fold-assignments.csv").read_bytes() == plan.read_bytes()
+    plan.unlink()  # Inference must not need the original external CV plan.
+
     assert result["status"] == "completed"
     assert result["train_rows"] + result["validation_rows"] == 20
     saved = json.loads((run / "metrics.json").read_text())
