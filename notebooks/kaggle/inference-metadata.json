@@ -1,0 +1,20 @@
+{
+  "id": "cttsai/quest-deberta-inference",
+  "title": "QUEST DeBERTa inference",
+  "code_file": "inference.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_internet": false,
+  "competition_sources": [
+    "google-quest-challenge"
+  ],
+  "dataset_sources": [
+    "cttsai/quest-labeling-code"
+  ],
+  "kernel_sources": [
+    "cttsai/quest-deberta-training"
+  ],
+  "model_sources": []
+}

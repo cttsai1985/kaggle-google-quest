@@ -1,0 +1,3331 @@
+{
+  "schema_version": 1,
+  "project_id": "quest",
+  "scope": "Full-data grouped text-baseline CV and split diagnostics; not transformer CV",
+  "cross_validation": {
+    "schema_version": 1,
+    "project_id": "quest",
+    "status": "completed",
+    "model": "train-only TF-IDF + Ridge; not transformer cross-validation",
+    "source": {
+      "git_dirty": false,
+      "git_commit": "5e0c651e019ebc4d495195b3cff64d390d88f1b2",
+      "python_source_sha256": "4be5b94b8799984beda710f2ca77cd7b1e5df202a6753f99a16c21b6c9e97d89",
+      "legacy_commit": "ef4fb92c470e45c0a07b0ee0e474224d88d3d410"
+    },
+    "input_sha256": "7245cf422073f7e52bacf7d52064807e97424ad7f709a7e7c62dc1a7920d0861",
+    "config": {
+      "name": "category-grouped-text-baseline-v1",
+      "protocol": "category_stratified_group_v1",
+      "folds": 5,
+      "seed": 42,
+      "max_features": 12000,
+      "min_df": 3,
+      "ngram_range": [
+        1,
+        2
+      ],
+      "max_characters": 24000,
+      "alpha": 10.0,
+      "tolerance": 0.003,
+      "max_iterations": 100,
+      "threads": 6
+    },
+    "environment": {
+      "numpy": "2.5.4",
+      "pandas": "3.1.1",
+      "scipy": "1.18.1",
+      "scikit-learn": "1.9.1"
+    },
+    "fold_metrics": [
+      {
+        "fold": 0,
+        "training_rows": 4862,
+        "validation_rows": 1217,
+        "vocabulary_size": 12000,
+        "mean_spearman_30_zero_fallback": 0.3271720412337045,
+        "mean_spearman_defined_targets": 0.3271720412337045,
+        "defined_targets": 30,
+        "elapsed_seconds": 6.869307892004144
+      },
+      {
+        "fold": 1,
+        "training_rows": 4863,
+        "validation_rows": 1216,
+        "vocabulary_size": 12000,
+        "mean_spearman_30_zero_fallback": 0.33152721384899075,
+        "mean_spearman_defined_targets": 0.33152721384899075,
+        "defined_targets": 30,
+        "elapsed_seconds": 11.957315662999463
+      },
+      {
+        "fold": 2,
+        "training_rows": 4863,
+        "validation_rows": 1216,
+        "vocabulary_size": 12000,
+        "mean_spearman_30_zero_fallback": 0.32690511980984127,
+        "mean_spearman_defined_targets": 0.32690511980984127,
+        "defined_targets": 30,
+        "elapsed_seconds": 17.57764229500026
+      },
+      {
+        "fold": 3,
+        "training_rows": 4864,
+        "validation_rows": 1215,
+        "vocabulary_size": 12000,
+        "mean_spearman_30_zero_fallback": 0.3252579469677882,
+        "mean_spearman_defined_targets": 0.3252579469677882,
+        "defined_targets": 30,
+        "elapsed_seconds": 22.605552920002083
+      },
+      {
+        "fold": 4,
+        "training_rows": 4864,
+        "validation_rows": 1215,
+        "vocabulary_size": 12000,
+        "mean_spearman_30_zero_fallback": 0.32277103830518045,
+        "mean_spearman_defined_targets": 0.32277103830518045,
+        "defined_targets": 30,
+        "elapsed_seconds": 28.037942617003864
+      }
+    ],
+    "pooled_oof": {
+      "mean_spearman_30_zero_fallback": 0.3261137129346314,
+      "mean_spearman_defined_targets": 0.3261137129346314,
+      "defined_targets": 30,
+      "per_target": {
+        "question_asker_intent_understanding": 0.3095786569628306,
+        "question_body_critical": 0.4368910860212481,
+        "question_conversational": 0.37273104880002894,
+        "question_expect_short_answer": 0.2073025657692221,
+        "question_fact_seeking": 0.2577817859676621,
+        "question_has_commonly_accepted_answer": 0.38971421023050784,
+        "question_interestingness_others": 0.3163553200459469,
+        "question_interestingness_self": 0.4529303030981851,
+        "question_multi_intent": 0.36268189930832373,
+        "question_not_really_a_question": 0.01681971187116912,
+        "question_opinion_seeking": 0.36829841637649435,
+        "question_type_choice": 0.5341320462679091,
+        "question_type_compare": 0.29671673986857744,
+        "question_type_consequence": 0.13750327357882625,
+        "question_type_definition": 0.34279888544901466,
+        "question_type_entity": 0.3865720041608985,
+        "question_type_instructions": 0.7155486082861265,
+        "question_type_procedure": 0.26502386078025564,
+        "question_type_reason_explanation": 0.554720169840759,
+        "question_type_spelling": 0.07582261336185334,
+        "question_well_written": 0.36358217165702,
+        "answer_helpful": 0.1598047644747386,
+        "answer_level_of_information": 0.3599416983712052,
+        "answer_plausible": 0.07883337917663845,
+        "answer_relevance": 0.1224625081241218,
+        "answer_satisfaction": 0.24327419183202514,
+        "answer_type_instructions": 0.7057146077849332,
+        "answer_type_procedure": 0.22120424250214377,
+        "answer_type_reason_explanation": 0.5951301056277937,
+        "answer_well_written": 0.13354051244248186
+      }
+    },
+    "fold_mean_30_zero_fallback": 0.3267266720331011,
+    "fold_std_30_zero_fallback": 0.0032046681016493967,
+    "fold_mean_defined_targets": 0.3267266720331011,
+    "fold_std_defined_targets": 0.0032046681016493967,
+    "dispersion_interpretation": "Descriptive fold SD; not a confidence interval",
+    "elapsed_seconds": 28.08674556999904,
+    "artifacts": {
+      "fold-assignments.csv": "68d0efdf4e3cd73f559a1767f2c842eb70c74039f45194c3f8944f0ca6eaf0d7",
+      "oof-predictions.csv": "a46cc152672fe1b9f7e28337b625d8d50d4e6f82e3080e9c2fc536c16625ffd8",
+      "split-analysis.json": "3594a4deb9d3bfe88697f7c4e8cac1f622433a90a1a4ed697490c6c9b6a1c6a8",
+      "config.json": "72fb81f9785589f3d8c11f65289c0cfc7fef1583f10b805f05244a5895d028e6"
+    }
+  },
+  "split_analysis": {
+    "rows": 6079,
+    "question_groups": 3583,
+    "folds": 5,
+    "seed": 42,
+    "stratification": "category domain only",
+    "protocol_selection": "Predeclared category stratification; no seed/score search",
+    "target_support": {
+      "question_asker_intent_understanding": {
+        "missing_rows": 0,
+        "non_finite_rows": 0,
+        "out_of_range_rows": 0,
+        "observed_values": 9,
+        "modal_value": 1.0,
+        "nonmodal_question_groups": 2396,
+        "enough_nonmodal_groups_for_every_fold": true
+      },
+      "question_body_critical": {
+        "missing_rows": 0,
+        "non_finite_rows": 0,
+        "out_of_range_rows": 0,
+        "observed_values": 9,
+        "modal_value": 0.3333333333333333,
+        "nonmodal_question_groups": 2838,
+        "enough_nonmodal_groups_for_every_fold": true
+      },
+      "question_conversational": {
+        "missing_rows": 0,
+        "non_finite_rows": 0,
+        "out_of_range_rows": 0,
+        "observed_values": 5,
+        "modal_value": 0.0,
+        "nonmodal_question_groups": 454,
+        "enough_nonmodal_groups_for_every_fold": true
+      },
+      "question_expect_short_answer": {
+        "missing_rows": 0,
+        "non_finite_rows": 0,
+        "out_of_range_rows": 0,
+        "observed_values": 5,
+        "modal_value": 1.0,
+        "nonmodal_question_groups": 2295,
+        "enough_nonmodal_groups_for_every_fold": true
+      },
+      "question_fact_seeking": {
+        "missing_rows": 0,
+        "non_finite_rows": 0,
+        "out_of_range_rows": 0,
+        "observed_values": 5,
+        "modal_value": 1.0,
+        "nonmodal_question_groups": 1827,
+        "enough_nonmodal_groups_for_every_fold": true
+      },
+      "question_has_commonly_accepted_answer": {
+        "missing_rows": 0,
+        "non_finite_rows": 0,
+        "out_of_range_rows": 0,
+        "observed_values": 5,
+        "modal_value": 1.0,
+        "nonmodal_question_groups": 1420,
+        "enough_nonmodal_groups_for_every_fold": true
+      },
+      "question_interestingness_others": {
+        "missing_rows": 0,
+        "non_finite_rows": 0,
+        "out_of_range_rows": 0,
+        "observed_values": 9,
+        "modal_value": 0.6666666666666666,
+        "nonmodal_question_groups": 2893,
+        "enough_nonmodal_groups_for_every_fold": true
+      },
+      "question_interestingness_self": {
+        "missing_rows": 0,
+        "non_finite_rows": 0,
+        "out_of_range_rows": 0,
+        "observed_values": 9,
+        "modal_value": 0.3333333333333333,
+        "nonmodal_question_groups": 2600,
+        "enough_nonmodal_groups_for_every_fold": true
+      },
+      "question_multi_intent": {
+        "missing_rows": 0,
+        "non_finite_rows": 0,
+        "out_of_range_rows": 0,
+        "observed_values": 5,
+        "modal_value": 0.0,
+        "nonmodal_question_groups": 1736,
+        "enough_nonmodal_groups_for_every_fold": true
+      },
+      "question_not_really_a_question": {
+        "missing_rows": 0,
+        "non_finite_rows": 0,
+        "out_of_range_rows": 0,
+        "observed_values": 5,
+        "modal_value": 0.0,
+        "nonmodal_question_groups": 63,
+        "enough_nonmodal_groups_for_every_fold": true
+      },
+      "question_opinion_seeking": {
+        "missing_rows": 0,
+        "non_finite_rows": 0,
+        "out_of_range_rows": 0,
+        "observed_values": 5,
+        "modal_value": 0.0,
+        "nonmodal_question_groups": 2663,
+        "enough_nonmodal_groups_for_every_fold": true
+      },
+      "question_type_choice": {
+        "missing_rows": 0,
+        "non_finite_rows": 0,
+        "out_of_range_rows": 0,
+        "observed_values": 5,
+        "modal_value": 0.0,
+        "nonmodal_question_groups": 1794,
+        "enough_nonmodal_groups_for_every_fold": true
+      },
+      "question_type_compare": {
+        "missing_rows": 0,
+        "non_finite_rows": 0,
+        "out_of_range_rows": 0,
+        "observed_values": 5,
+        "modal_value": 0.0,
+        "nonmodal_question_groups": 305,
+        "enough_nonmodal_groups_for_every_fold": true
+      },
+      "question_type_consequence": {
+        "missing_rows": 0,
+        "non_finite_rows": 0,
+        "out_of_range_rows": 0,
+        "observed_values": 5,
+        "modal_value": 0.0,
+        "nonmodal_question_groups": 109,
+        "enough_nonmodal_groups_for_every_fold": true
+      },
+      "question_type_definition": {
+        "missing_rows": 0,
+        "non_finite_rows": 0,
+        "out_of_range_rows": 0,
+        "observed_values": 5,
+        "modal_value": 0.0,
+        "nonmodal_question_groups": 242,
+        "enough_nonmodal_groups_for_every_fold": true
+      },
+      "question_type_entity": {
+        "missing_rows": 0,
+        "non_finite_rows": 0,
+        "out_of_range_rows": 0,
+        "observed_values": 5,
+        "modal_value": 0.0,
+        "nonmodal_question_groups": 508,
+        "enough_nonmodal_groups_for_every_fold": true
+      },
+      "question_type_instructions": {
+        "missing_rows": 0,
+        "non_finite_rows": 0,
+        "out_of_range_rows": 0,
+        "observed_values": 5,
+        "modal_value": 0.0,
+        "nonmodal_question_groups": 2535,
+        "enough_nonmodal_groups_for_every_fold": true
+      },
+      "question_type_procedure": {
+        "missing_rows": 0,
+        "non_finite_rows": 0,
+        "out_of_range_rows": 0,
+        "observed_values": 5,
+        "modal_value": 0.0,
+        "nonmodal_question_groups": 1642,
+        "enough_nonmodal_groups_for_every_fold": true
+      },
+      "question_type_reason_explanation": {
+        "missing_rows": 0,
+        "non_finite_rows": 0,
+        "out_of_range_rows": 0,
+        "observed_values": 5,
+        "modal_value": 0.0,
+        "nonmodal_question_groups": 2390,
+        "enough_nonmodal_groups_for_every_fold": true
+      },
+      "question_type_spelling": {
+        "missing_rows": 0,
+        "non_finite_rows": 0,
+        "out_of_range_rows": 0,
+        "observed_values": 3,
+        "modal_value": 0.0,
+        "nonmodal_question_groups": 8,
+        "enough_nonmodal_groups_for_every_fold": true
+      },
+      "question_well_written": {
+        "missing_rows": 0,
+        "non_finite_rows": 0,
+        "out_of_range_rows": 0,
+        "observed_values": 9,
+        "modal_value": 1.0,
+        "nonmodal_question_groups": 2919,
+        "enough_nonmodal_groups_for_every_fold": true
+      },
+      "answer_helpful": {
+        "missing_rows": 0,
+        "non_finite_rows": 0,
+        "out_of_range_rows": 0,
+        "observed_values": 9,
+        "modal_value": 1.0,
+        "nonmodal_question_groups": 1843,
+        "enough_nonmodal_groups_for_every_fold": true
+      },
+      "answer_level_of_information": {
+        "missing_rows": 0,
+        "non_finite_rows": 0,
+        "out_of_range_rows": 0,
+        "observed_values": 9,
+        "modal_value": 0.6666666666666666,
+        "nonmodal_question_groups": 1556,
+        "enough_nonmodal_groups_for_every_fold": true
+      },
+      "answer_plausible": {
+        "missing_rows": 0,
+        "non_finite_rows": 0,
+        "out_of_range_rows": 0,
+        "observed_values": 9,
+        "modal_value": 1.0,
+        "nonmodal_question_groups": 1163,
+        "enough_nonmodal_groups_for_every_fold": true
+      },
+      "answer_relevance": {
+        "missing_rows": 0,
+        "non_finite_rows": 0,
+        "out_of_range_rows": 0,
+        "observed_values": 9,
+        "modal_value": 1.0,
+        "nonmodal_question_groups": 1011,
+        "enough_nonmodal_groups_for_every_fold": true
+      },
+      "answer_satisfaction": {
+        "missing_rows": 0,
+        "non_finite_rows": 0,
+        "out_of_range_rows": 0,
+        "observed_values": 17,
+        "modal_value": 1.0,
+        "nonmodal_question_groups": 3082,
+        "enough_nonmodal_groups_for_every_fold": true
+      },
+      "answer_type_instructions": {
+        "missing_rows": 0,
+        "non_finite_rows": 0,
+        "out_of_range_rows": 0,
+        "observed_values": 5,
+        "modal_value": 0.0,
+        "nonmodal_question_groups": 2547,
+        "enough_nonmodal_groups_for_every_fold": true
+      },
+      "answer_type_procedure": {
+        "missing_rows": 0,
+        "non_finite_rows": 0,
+        "out_of_range_rows": 0,
+        "observed_values": 5,
+        "modal_value": 0.0,
+        "nonmodal_question_groups": 1455,
+        "enough_nonmodal_groups_for_every_fold": true
+      },
+      "answer_type_reason_explanation": {
+        "missing_rows": 0,
+        "non_finite_rows": 0,
+        "out_of_range_rows": 0,
+        "observed_values": 5,
+        "modal_value": 1.0,
+        "nonmodal_question_groups": 2734,
+        "enough_nonmodal_groups_for_every_fold": true
+      },
+      "answer_well_written": {
+        "missing_rows": 0,
+        "non_finite_rows": 0,
+        "out_of_range_rows": 0,
+        "observed_values": 9,
+        "modal_value": 1.0,
+        "nonmodal_question_groups": 2457,
+        "enough_nonmodal_groups_for_every_fold": true
+      }
+    },
+    "protocols": {
+      "group_v1": {
+        "folds": [
+          {
+            "fold": 0,
+            "training_rows": 4863,
+            "validation_rows": 1216,
+            "validation_question_groups": 716,
+            "shared_question_groups": 0,
+            "category_total_variation": 0.014044791819984227,
+            "category_counts": {
+              "TECHNOLOGY": 499,
+              "STACKOVERFLOW": 257,
+              "CULTURE": 187,
+              "LIFE_ARTS": 141,
+              "SCIENCE": 132
+            },
+            "constant_targets": [],
+            "target_diagnostics": {
+              "question_asker_intent_understanding": {
+                "train_mean": 0.8916192565174674,
+                "validation_mean": 0.8968384502923975,
+                "validation_std": 0.1291987938735256,
+                "validation_unique_values": 9,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.0039312430195409314
+              },
+              "question_body_critical": {
+                "train_mean": 0.5920556583727467,
+                "validation_mean": 0.6082785087719298,
+                "validation_std": 0.22103500203048648,
+                "validation_unique_values": 9,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.01903000298698712
+              },
+              "question_conversational": {
+                "train_mean": 0.05469874563026938,
+                "validation_mean": 0.06770833333333331,
+                "validation_std": 0.19640763788477966,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.019718714556583923
+              },
+              "question_expect_short_answer": {
+                "train_mean": 0.6964151072726027,
+                "validation_mean": 0.7069627192982456,
+                "validation_std": 0.3475341895053253,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.011220140951160598
+              },
+              "question_fact_seeking": {
+                "train_mean": 0.7732195489752554,
+                "validation_mean": 0.7702850877192982,
+                "validation_std": 0.29951900329651854,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.014905309261391695
+              },
+              "question_has_commonly_accepted_answer": {
+                "train_mean": 0.794434162725341,
+                "validation_mean": 0.7907072368421053,
+                "validation_std": 0.3402391538992479,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.004468576029644761
+              },
+              "question_interestingness_others": {
+                "train_mean": 0.5867891333653209,
+                "validation_mean": 0.5902320906432749,
+                "validation_std": 0.1383345056227708,
+                "validation_unique_values": 9,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.01013370555233288
+              },
+              "question_interestingness_self": {
+                "train_mean": 0.5075627756071927,
+                "validation_mean": 0.5061220760233918,
+                "validation_std": 0.18713129375128648,
+                "validation_unique_values": 9,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.012873535726963384
+              },
+              "question_multi_intent": {
+                "train_mean": 0.24449928027966275,
+                "validation_mean": 0.21573464912280702,
+                "validation_std": 0.328865878049019,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.0431587172405434
+              },
+              "question_not_really_a_question": {
+                "train_mean": 0.004044142847350743,
+                "validation_mean": 0.006167763157894737,
+                "validation_std": 0.048605309223985226,
+                "validation_unique_values": 3,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.00608382178509276
+              },
+              "question_opinion_seeking": {
+                "train_mean": 0.43001576530262525,
+                "validation_mean": 0.4298245614035087,
+                "validation_std": 0.3698892261367742,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.013853640877568171
+              },
+              "question_type_choice": {
+                "train_mean": 0.29278908766879147,
+                "validation_mean": 0.2534265350877193,
+                "validation_std": 0.356065928058694,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.0438234842122579
+              },
+              "question_type_compare": {
+                "train_mean": 0.039653163342244155,
+                "validation_mean": 0.032072368421052634,
+                "validation_std": 0.14224106057213226,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.011853658193435547
+              },
+              "question_type_consequence": {
+                "train_mean": 0.00987045033929673,
+                "validation_mean": 0.01069078947368421,
+                "validation_std": 0.07108099775949618,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.004930963801179189
+              },
+              "question_type_definition": {
+                "train_mean": 0.030673795325245046,
+                "validation_mean": 0.031112938596491224,
+                "validation_std": 0.13630302063655717,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.003610493632089782
+              },
+              "question_type_entity": {
+                "train_mean": 0.06268421413393653,
+                "validation_mean": 0.07538377192982455,
+                "validation_std": 0.21781816795139544,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.014793432524393706
+              },
+              "question_type_instructions": {
+                "train_mean": 0.49718966344506127,
+                "validation_mean": 0.49917763157894735,
+                "validation_std": 0.42439258066389607,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.011091083626981586
+              },
+              "question_type_procedure": {
+                "train_mean": 0.16652957707862087,
+                "validation_mean": 0.16419956140350878,
+                "validation_std": 0.2523657408174759,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.011806580678955195
+              },
+              "question_type_reason_explanation": {
+                "train_mean": 0.38988278840222085,
+                "validation_mean": 0.3723958333333333,
+                "validation_std": 0.3817451780983903,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.019505918779923984
+              },
+              "question_type_spelling": {
+                "train_mean": 0.0009596271163205153,
+                "validation_mean": 0.00027412280701754384,
+                "validation_std": 0.009558988911273405,
+                "validation_unique_values": 2,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.0009871397217340212
+              },
+              "question_well_written": {
+                "train_mean": 0.7998149290561382,
+                "validation_mean": 0.8003929093567251,
+                "validation_std": 0.1813701625054628,
+                "validation_unique_values": 9,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.019939491865871246
+              },
+              "answer_helpful": {
+                "train_mean": 0.9249662988096055,
+                "validation_mean": 0.9271747076023391,
+                "validation_std": 0.11456116845689647,
+                "validation_unique_values": 9,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.003276757344092276
+              },
+              "answer_level_of_information": {
+                "train_mean": 0.6546713277126602,
+                "validation_mean": 0.6554276315789473,
+                "validation_std": 0.10943214278487653,
+                "validation_unique_values": 9,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.004089656150163205
+              },
+              "answer_plausible": {
+                "train_mean": 0.9594100578061097,
+                "validation_mean": 0.9626279239766082,
+                "validation_std": 0.08591465491554792,
+                "validation_unique_values": 8,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.0004872793309148816
+              },
+              "answer_relevance": {
+                "train_mean": 0.9693033564100807,
+                "validation_mean": 0.9659173976608187,
+                "validation_std": 0.07834626030032946,
+                "validation_unique_values": 8,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.005259830001471838
+              },
+              "answer_satisfaction": {
+                "train_mean": 0.8540338611282472,
+                "validation_mean": 0.857264254385965,
+                "validation_std": 0.1306459250412623,
+                "validation_unique_values": 16,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.0044434139098362465
+              },
+              "answer_type_instructions": {
+                "train_mean": 0.478991020631983,
+                "validation_mean": 0.48177083333333326,
+                "validation_std": 0.4255353315043087,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.00876899875325754
+              },
+              "answer_type_procedure": {
+                "train_mean": 0.1307834669956817,
+                "validation_mean": 0.13007127192982457,
+                "validation_std": 0.22439137709598783,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.0021042837291451906
+              },
+              "answer_type_reason_explanation": {
+                "train_mean": 0.5045925011995338,
+                "validation_mean": 0.49396929824561403,
+                "validation_std": 0.41155042412121184,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.01535795685751637
+              },
+              "answer_well_written": {
+                "train_mean": 0.9090639065962939,
+                "validation_mean": 0.905016447368421,
+                "validation_std": 0.10329782287587344,
+                "validation_unique_values": 9,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.009530491077999371
+              }
+            }
+          },
+          {
+            "fold": 1,
+            "training_rows": 4863,
+            "validation_rows": 1216,
+            "validation_question_groups": 717,
+            "shared_question_groups": 0,
+            "category_total_variation": 0.038796606739335576,
+            "category_counts": {
+              "TECHNOLOGY": 483,
+              "STACKOVERFLOW": 239,
+              "LIFE_ARTS": 189,
+              "CULTURE": 171,
+              "SCIENCE": 134
+            },
+            "constant_targets": [],
+            "target_diagnostics": {
+              "question_asker_intent_understanding": {
+                "train_mean": 0.892133342472639,
+                "validation_mean": 0.8947825292397662,
+                "validation_std": 0.12918122491823048,
+                "validation_unique_values": 9,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.004294605674409754
+              },
+              "question_body_critical": {
+                "train_mean": 0.5971965179244636,
+                "validation_mean": 0.587719298245614,
+                "validation_std": 0.2176275169861323,
+                "validation_unique_values": 9,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.02065877676383751
+              },
+              "question_conversational": {
+                "train_mean": 0.05435602166015491,
+                "validation_mean": 0.06907894736842106,
+                "validation_std": 0.19962844219383294,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.018073977714478634
+              },
+              "question_expect_short_answer": {
+                "train_mean": 0.6979916375351292,
+                "validation_mean": 0.7006578947368421,
+                "validation_std": 0.3443123685659555,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.016877559501649347
+              },
+              "question_fact_seeking": {
+                "train_mean": 0.7778120501747893,
+                "validation_mean": 0.7519188596491229,
+                "validation_std": 0.3111933612538438,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.03545599713422391
+              },
+              "question_has_commonly_accepted_answer": {
+                "train_mean": 0.7993693878949895,
+                "validation_mean": 0.7709703947368421,
+                "validation_std": 0.349365784313529,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.03234698725552156
+              },
+              "question_interestingness_others": {
+                "train_mean": 0.5870747366737497,
+                "validation_mean": 0.5890899122807017,
+                "validation_std": 0.13800076427607125,
+                "validation_unique_values": 9,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.009311337131280281
+              },
+              "question_interestingness_self": {
+                "train_mean": 0.507208627504741,
+                "validation_mean": 0.5075383771929826,
+                "validation_std": 0.18243925076814602,
+                "validation_unique_values": 9,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.004043390316966933
+              },
+              "question_multi_intent": {
+                "train_mean": 0.24076358900541503,
+                "validation_mean": 0.23067434210526316,
+                "validation_std": 0.3256189103026865,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.011221223192872776
+              },
+              "question_not_really_a_question": {
+                "train_mean": 0.003975598053327849,
+                "validation_mean": 0.006441885964912281,
+                "validation_std": 0.06292362390478483,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.00361793404386108
+              },
+              "question_opinion_seeking": {
+                "train_mean": 0.4226471999451641,
+                "validation_mean": 0.45929276315789475,
+                "validation_std": 0.36566328931280495,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.03525050648912127
+              },
+              "question_type_choice": {
+                "train_mean": 0.2838097196517924,
+                "validation_mean": 0.28933662280701755,
+                "validation_std": 0.3661569700799667,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.017877821404143707
+              },
+              "question_type_compare": {
+                "train_mean": 0.03883062581396943,
+                "validation_mean": 0.03536184210526316,
+                "validation_std": 0.14512815934278975,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.006257927420541798
+              },
+              "question_type_consequence": {
+                "train_mean": 0.010864349852628692,
+                "validation_mean": 0.006716008771929824,
+                "validation_std": 0.05637776216948868,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.005102228552133731
+              },
+              "question_type_definition": {
+                "train_mean": 0.031907601617657134,
+                "validation_mean": 0.026178728070175437,
+                "validation_std": 0.13068347446835657,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.013821850027272464
+              },
+              "question_type_entity": {
+                "train_mean": 0.06306121050106243,
+                "validation_mean": 0.07387609649122806,
+                "validation_std": 0.20765443313810086,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.01790785361165704
+              },
+              "question_type_instructions": {
+                "train_mean": 0.4965042155048324,
+                "validation_mean": 0.5019188596491228,
+                "validation_std": 0.4209814673830198,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.012757600583544727
+              },
+              "question_type_procedure": {
+                "train_mean": 0.16707793543080404,
+                "validation_mean": 0.16200657894736842,
+                "validation_std": 0.2492351969612779,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.006254274854763145
+              },
+              "question_type_reason_explanation": {
+                "train_mean": 0.3895400644321064,
+                "validation_mean": 0.3737664473684211,
+                "validation_std": 0.37446603923997734,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.022826236352932003
+              },
+              "question_type_spelling": {
+                "train_mean": 0.0008225375282747275,
+                "validation_mean": 0.0008223684210526315,
+                "validation_std": 0.021367510954496717,
+                "validation_unique_values": 3,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.000329136760720685
+              },
+              "question_well_written": {
+                "train_mean": 0.7988667260721548,
+                "validation_mean": 0.8041849415204678,
+                "validation_std": 0.17645584667097,
+                "validation_unique_values": 9,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.007906587388853747
+              },
+              "answer_helpful": {
+                "train_mean": 0.9248520574862339,
+                "validation_mean": 0.9276315789473685,
+                "validation_std": 0.10992313686969596,
+                "validation_unique_values": 9,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.011362455736313984
+              },
+              "answer_level_of_information": {
+                "train_mean": 0.6546827518449974,
+                "validation_mean": 0.6553819444444444,
+                "validation_std": 0.10280855240639857,
+                "validation_unique_values": 9,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.010395337486255478
+              },
+              "answer_plausible": {
+                "train_mean": 0.9593757854090982,
+                "validation_mean": 0.9627649853801169,
+                "validation_std": 0.08193480232076338,
+                "validation_unique_values": 6,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.004776203236335634
+              },
+              "answer_relevance": {
+                "train_mean": 0.9683780016907717,
+                "validation_mean": 0.9696180555555557,
+                "validation_std": 0.07548936227707478,
+                "validation_unique_values": 8,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.005430959472212378
+              },
+              "answer_satisfaction": {
+                "train_mean": 0.8535814654876963,
+                "validation_mean": 0.8590734649122806,
+                "validation_std": 0.12684450909061457,
+                "validation_unique_values": 16,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.004772009549700852
+              },
+              "answer_type_instructions": {
+                "train_mean": 0.4808074576735897,
+                "validation_mean": 0.4745065789473684,
+                "validation_std": 0.42200420356968193,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.014710911593839027
+              },
+              "answer_type_procedure": {
+                "train_mean": 0.13290835561039138,
+                "validation_mean": 0.12157346491228069,
+                "validation_std": 0.21953030146952898,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.019456541501805195
+              },
+              "answer_type_reason_explanation": {
+                "train_mean": 0.5003769963671258,
+                "validation_mean": 0.510827850877193,
+                "validation_std": 0.4085804548451704,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.01077006367910234
+              },
+              "answer_well_written": {
+                "train_mean": 0.9081614001416592,
+                "validation_mean": 0.9086257309941521,
+                "validation_std": 0.09755594712867809,
+                "validation_unique_values": 8,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.006916877343053273
+              }
+            }
+          },
+          {
+            "fold": 2,
+            "training_rows": 4863,
+            "validation_rows": 1216,
+            "validation_question_groups": 717,
+            "shared_question_groups": 0,
+            "category_total_variation": 0.0316320313244041,
+            "category_counts": {
+              "TECHNOLOGY": 512,
+              "STACKOVERFLOW": 237,
+              "CULTURE": 195,
+              "SCIENCE": 155,
+              "LIFE_ARTS": 117
+            },
+            "constant_targets": [],
+            "target_diagnostics": {
+              "question_asker_intent_understanding": {
+                "train_mean": 0.8920990700756278,
+                "validation_mean": 0.8949195906432749,
+                "validation_std": 0.12557514942983344,
+                "validation_unique_values": 9,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.00840644777967291
+              },
+              "question_body_critical": {
+                "train_mean": 0.5967052802339663,
+                "validation_mean": 0.5896838450292399,
+                "validation_std": 0.21557332041433683,
+                "validation_unique_values": 9,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.024455957091280595
+              },
+              "question_conversational": {
+                "train_mean": 0.05850298169854,
+                "validation_mean": 0.05249451754385964,
+                "validation_std": 0.17867364288098417,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.01333768214128018
+              },
+              "question_expect_short_answer": {
+                "train_mean": 0.6993282610185757,
+                "validation_mean": 0.6953125,
+                "validation_std": 0.35373369806892857,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.006049595890944663
+              },
+              "question_fact_seeking": {
+                "train_mean": 0.7696552196860648,
+                "validation_mean": 0.7845394736842105,
+                "validation_std": 0.2976733554007385,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.019642687076302356
+              },
+              "question_has_commonly_accepted_answer": {
+                "train_mean": 0.7911440126122421,
+                "validation_mean": 0.8038651315789473,
+                "validation_std": 0.3346676319309896,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.020284591691846824
+              },
+              "question_interestingness_others": {
+                "train_mean": 0.5873946123791898,
+                "validation_mean": 0.5878106725146199,
+                "validation_std": 0.1322016250213835,
+                "validation_unique_values": 9,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.012070241816088165
+              },
+              "question_interestingness_self": {
+                "train_mean": 0.5086823405762332,
+                "validation_mean": 0.5016447368421053,
+                "validation_std": 0.18584883969803775,
+                "validation_unique_values": 9,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.014871083367243576
+              },
+              "question_multi_intent": {
+                "train_mean": 0.23462882994036602,
+                "validation_mean": 0.2552083333333333,
+                "validation_std": 0.3406874790632747,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.032520687050328526
+              },
+              "question_not_really_a_question": {
+                "train_mean": 0.004832407978614024,
+                "validation_mean": 0.0030153508771929823,
+                "validation_std": 0.03628935864794726,
+                "validation_unique_values": 4,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.0034557330672461985
+              },
+              "question_opinion_seeking": {
+                "train_mean": 0.43231201590239215,
+                "validation_mean": 0.420641447368421,
+                "validation_std": 0.3625504202564359,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.01700824018839664
+              },
+              "question_type_choice": {
+                "train_mean": 0.2797998492014531,
+                "validation_mean": 0.3053728070175438,
+                "validation_std": 0.3795701945581665,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.021830303417286395
+              },
+              "question_type_compare": {
+                "train_mean": 0.03721982315443142,
+                "validation_mean": 0.04180372807017543,
+                "validation_std": 0.1634461955486075,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.00575103245859343
+              },
+              "question_type_consequence": {
+                "train_mean": 0.00976763314826239,
+                "validation_mean": 0.011101973684210526,
+                "validation_std": 0.07733626017199695,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.0024638585380213265
+              },
+              "question_type_definition": {
+                "train_mean": 0.030742340119267936,
+                "validation_mean": 0.030838815789473683,
+                "validation_std": 0.13736760252415042,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.0024638585380212965
+              },
+              "question_type_entity": {
+                "train_mean": 0.06833915964082528,
+                "validation_mean": 0.05276864035087719,
+                "validation_std": 0.1761437534358615,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.019098725335711414
+              },
+              "question_type_instructions": {
+                "train_mean": 0.4973610254301186,
+                "validation_mean": 0.49849232456140347,
+                "validation_std": 0.4219324458674075,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.015202925732244743
+              },
+              "question_type_procedure": {
+                "train_mean": 0.16793474535609018,
+                "validation_mean": 0.1585800438596491,
+                "validation_std": 0.2547283685337293,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.017491596393104825
+              },
+              "question_type_reason_explanation": {
+                "train_mean": 0.3838851189252176,
+                "validation_mean": 0.3963815789473684,
+                "validation_std": 0.3875044977276405,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.012766529077670327
+              },
+              "question_type_spelling": {
+                "train_mean": 0.0005483583521831517,
+                "validation_mean": 0.0019188596491228067,
+                "validation_std": 0.03442612541846238,
+                "validation_unique_values": 3,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.0018091023021445394
+              },
+              "question_well_written": {
+                "train_mean": 0.7988324536751432,
+                "validation_mean": 0.8043220029239767,
+                "validation_std": 0.17642806465013516,
+                "validation_unique_values": 9,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.008931605570514548
+              },
+              "answer_helpful": {
+                "train_mean": 0.9261429844403317,
+                "validation_mean": 0.9224689327485379,
+                "validation_std": 0.11715106203104557,
+                "validation_unique_values": 9,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.001795439000528138
+              },
+              "answer_level_of_information": {
+                "train_mean": 0.654648479447986,
+                "validation_mean": 0.6555190058479532,
+                "validation_std": 0.11015869208862711,
+                "validation_unique_values": 9,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.008519136197955045
+              },
+              "answer_plausible": {
+                "train_mean": 0.9603582607900931,
+                "validation_mean": 0.9588358918128654,
+                "validation_std": 0.08850225260238533,
+                "validation_unique_values": 7,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.006091668037506185
+              },
+              "answer_relevance": {
+                "train_mean": 0.968640756734526,
+                "validation_mean": 0.9685672514619883,
+                "validation_std": 0.07598256180187715,
+                "validation_unique_values": 8,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.0031214556583925896
+              },
+              "answer_satisfaction": {
+                "train_mean": 0.8555487010761532,
+                "validation_mean": 0.8512061403508772,
+                "validation_std": 0.13205286347320916,
+                "validation_unique_values": 15,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.00841510571337045
+              },
+              "answer_type_instructions": {
+                "train_mean": 0.47775721433957086,
+                "validation_mean": 0.4867050438596491,
+                "validation_std": 0.42448124114748215,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.008665238829101043
+              },
+              "answer_type_procedure": {
+                "train_mean": 0.1327027212283227,
+                "validation_mean": 0.12239583333333331,
+                "validation_std": 0.2147511147039177,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.010870035757266167
+              },
+              "answer_type_reason_explanation": {
+                "train_mean": 0.4991774624717253,
+                "validation_mean": 0.515625,
+                "validation_std": 0.40468542147213615,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.01600513740140777
+              },
+              "answer_well_written": {
+                "train_mean": 0.9082984897297053,
+                "validation_mean": 0.9080774853801169,
+                "validation_std": 0.10063728007679201,
+                "validation_unique_values": 9,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.002475763196855388
+              }
+            }
+          },
+          {
+            "fold": 3,
+            "training_rows": 4863,
+            "validation_rows": 1216,
+            "validation_question_groups": 717,
+            "shared_question_groups": 0,
+            "category_total_variation": 0.028703755811638032,
+            "category_counts": {
+              "TECHNOLOGY": 467,
+              "STACKOVERFLOW": 283,
+              "CULTURE": 194,
+              "LIFE_ARTS": 143,
+              "SCIENCE": 129
+            },
+            "constant_targets": [],
+            "target_diagnostics": {
+              "question_asker_intent_understanding": {
+                "train_mean": 0.8938812347202232,
+                "validation_mean": 0.8877923976608187,
+                "validation_std": 0.1377481854936439,
+                "validation_unique_values": 9,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.00410967762183875
+              },
+              "question_body_critical": {
+                "train_mean": 0.5946146640162681,
+                "validation_mean": 0.5980445906432749,
+                "validation_std": 0.22352574677017684,
+                "validation_unique_values": 9,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.016662463961350987
+              },
+              "question_conversational": {
+                "train_mean": 0.05929124682980329,
+                "validation_mean": 0.04934210526315789,
+                "validation_std": 0.16806145128804487,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.014974843291400109
+              },
+              "question_expect_short_answer": {
+                "train_mean": 0.6991568990335184,
+                "validation_mean": 0.6959978070175438,
+                "validation_std": 0.3542265160692306,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.007988296638124344
+              },
+              "question_fact_seeking": {
+                "train_mean": 0.7731167317842209,
+                "validation_mean": 0.7706962719298245,
+                "validation_std": 0.3102887860020087,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.014699953896503054
+              },
+              "question_has_commonly_accepted_answer": {
+                "train_mean": 0.7943656179313181,
+                "validation_mean": 0.7909813596491229,
+                "validation_std": 0.3381841637274134,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.004386460939732089
+              },
+              "question_interestingness_others": {
+                "train_mean": 0.5877716087463156,
+                "validation_mean": 0.5863029970760233,
+                "validation_std": 0.139023944335373,
+                "validation_unique_values": 9,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.009311337131280281
+              },
+              "question_interestingness_self": {
+                "train_mean": 0.506751662211255,
+                "validation_mean": 0.5093658625730995,
+                "validation_std": 0.1871394819680953,
+                "validation_unique_values": 9,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.0035738326940892295
+              },
+              "question_multi_intent": {
+                "train_mean": 0.23970114469806014,
+                "validation_mean": 0.23492324561403505,
+                "validation_std": 0.3307875812609114,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.011064839265460945
+              },
+              "question_not_really_a_question": {
+                "train_mean": 0.0048324079786140235,
+                "validation_mean": 0.0030153508771929823,
+                "validation_std": 0.03157284262621933,
+                "validation_unique_values": 2,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.002961013324559964
+              },
+              "question_opinion_seeking": {
+                "train_mean": 0.4305983960518199,
+                "validation_mean": 0.4274945175438596,
+                "validation_std": 0.3669866292790486,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.011885990164587357
+              },
+              "question_type_choice": {
+                "train_mean": 0.2835355404757009,
+                "validation_mean": 0.2904331140350877,
+                "validation_std": 0.37112372111341213,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.012784250785707496
+              },
+              "question_type_compare": {
+                "train_mean": 0.03745972993351155,
+                "validation_mean": 0.04084429824561403,
+                "validation_std": 0.15937193794089688,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.006899967316300325
+              },
+              "question_type_consequence": {
+                "train_mean": 0.00918500239906779,
+                "validation_mean": 0.013432017543859648,
+                "validation_std": 0.09098631090405755,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.004932993004389551
+              },
+              "question_type_definition": {
+                "train_mean": 0.03108506408938241,
+                "validation_mean": 0.02946820175438596,
+                "validation_std": 0.13207447737979128,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.0052584771993316026
+              },
+              "question_type_entity": {
+                "train_mean": 0.06659126739324146,
+                "validation_mean": 0.05975877192982455,
+                "validation_std": 0.1893163314585344,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.00905525168613262
+              },
+              "question_type_instructions": {
+                "train_mean": 0.49787511138529034,
+                "validation_mean": 0.4964364035087719,
+                "validation_std": 0.4267422150768013,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.026514651388299643
+              },
+              "question_type_procedure": {
+                "train_mean": 0.16454177805195694,
+                "validation_mean": 0.17214912280701752,
+                "validation_std": 0.26452691811957063,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.010997875559518942
+              },
+              "question_type_reason_explanation": {
+                "train_mean": 0.38326821577901155,
+                "validation_mean": 0.3988486842105263,
+                "validation_std": 0.38293806703482347,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.020790133851654957
+              },
+              "question_type_spelling": {
+                "train_mean": 0.0009596271163205153,
+                "validation_mean": 0.00027412280701754384,
+                "validation_std": 0.009558988911273405,
+                "validation_unique_values": 2,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.0009871397217340212
+              },
+              "question_well_written": {
+                "train_mean": 0.8014028834510017,
+                "validation_mean": 0.7940423976608187,
+                "validation_std": 0.18111982325783205,
+                "validation_unique_values": 9,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.020673657587380226
+              },
+              "answer_helpful": {
+                "train_mean": 0.9257088674115201,
+                "validation_mean": 0.9242050438596491,
+                "validation_std": 0.11826115553615113,
+                "validation_unique_values": 9,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.013145178396723873
+              },
+              "answer_level_of_information": {
+                "train_mean": 0.6549683551534261,
+                "validation_mean": 0.6542397660818713,
+                "validation_std": 0.1055917428252087,
+                "validation_unique_values": 9,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.004616572583787101
+              },
+              "answer_plausible": {
+                "train_mean": 0.960061233349327,
+                "validation_mean": 0.9600237573099417,
+                "validation_std": 0.08967097326732486,
+                "validation_unique_values": 9,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.008710963541441203
+              },
+              "answer_relevance": {
+                "train_mean": 0.9686521808668632,
+                "validation_mean": 0.9685215643274854,
+                "validation_std": 0.07483498826180013,
+                "validation_unique_values": 8,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.0027927247383139637
+              },
+              "answer_satisfaction": {
+                "train_mean": 0.8552196860648432,
+                "validation_mean": 0.8525219298245613,
+                "validation_std": 0.1332477073262915,
+                "validation_unique_values": 17,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.0098392005264024
+              },
+              "answer_type_instructions": {
+                "train_mean": 0.48001919254232633,
+                "validation_mean": 0.4776589912280702,
+                "validation_std": 0.41889392355482247,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.015079685457268774
+              },
+              "answer_type_procedure": {
+                "train_mean": 0.12684214133936525,
+                "validation_mean": 0.14583333333333331,
+                "validation_std": 0.23864232658223014,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.026596090077142174
+              },
+              "answer_type_reason_explanation": {
+                "train_mean": 0.5037356912742477,
+                "validation_mean": 0.49739583333333326,
+                "validation_std": 0.4066407805350409,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.0064996731630029
+              },
+              "answer_well_written": {
+                "train_mean": 0.9080243105536133,
+                "validation_mean": 0.9091739766081872,
+                "validation_std": 0.1015037270350714,
+                "validation_unique_values": 8,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.000493096380117949
+              }
+            }
+          },
+          {
+            "fold": 4,
+            "training_rows": 4864,
+            "validation_rows": 1215,
+            "validation_question_groups": 716,
+            "shared_question_groups": 0,
+            "category_total_variation": 0.03623091571401787,
+            "category_counts": {
+              "TECHNOLOGY": 480,
+              "STACKOVERFLOW": 237,
+              "CULTURE": 216,
+              "SCIENCE": 163,
+              "LIFE_ARTS": 119
+            },
+            "constant_targets": [],
+            "target_diagnostics": {
+              "question_asker_intent_understanding": {
+                "train_mean": 0.8935832419590642,
+                "validation_mean": 0.8889803383630546,
+                "validation_std": 0.13803044893820765,
+                "validation_unique_values": 9,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.008139063374756362
+              },
+              "question_body_critical": {
+                "train_mean": 0.5959315606725146,
+                "validation_mean": 0.5927754915409236,
+                "validation_std": 0.21924287274488877,
+                "validation_unique_values": 9,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.001285542821979735
+              },
+              "question_conversational": {
+                "train_mean": 0.05965597587719298,
+                "validation_mean": 0.04787379972565157,
+                "validation_std": 0.1645077263879559,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.015565290208415006
+              },
+              "question_expect_short_answer": {
+                "train_mean": 0.6997327302631579,
+                "validation_mean": 0.6936899862825789,
+                "validation_std": 0.35516953294309683,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.009526556038226441
+              },
+              "question_fact_seeking": {
+                "train_mean": 0.769359923245614,
+                "validation_mean": 0.7857338820301782,
+                "validation_std": 0.2953316817910226,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.01848392597602078
+              },
+              "question_has_commonly_accepted_answer": {
+                "train_mean": 0.7891310307017543,
+                "validation_mean": 0.8119341563786008,
+                "validation_std": 0.3190217911381527,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.020634485447777108
+              },
+              "question_interestingness_others": {
+                "train_mean": 0.5883589181286549,
+                "validation_mean": 0.5839506172839506,
+                "validation_std": 0.13188548207118916,
+                "validation_unique_values": 9,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.016699871445717815
+              },
+              "question_interestingness_self": {
+                "train_mean": 0.5061677631578947,
+                "validation_mean": 0.511705532693187,
+                "validation_std": 0.18748537007316712,
+                "validation_unique_values": 9,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.020027118928619553
+              },
+              "question_multi_intent": {
+                "train_mean": 0.23413514254385967,
+                "validation_mean": 0.2572016460905349,
+                "validation_std": 0.3475642040346861,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.023522658115336006
+              },
+              "question_not_really_a_question": {
+                "train_mean": 0.004660087719298245,
+                "validation_mean": 0.003703703703703704,
+                "validation_std": 0.04289112431209549,
+                "validation_unique_values": 4,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.002133093961062751
+              },
+              "question_opinion_seeking": {
+                "train_mean": 0.4343133223684211,
+                "validation_mean": 0.4126200274348422,
+                "validation_std": 0.36351025676604515,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.02291569777084576
+              },
+              "question_type_choice": {
+                "train_mean": 0.2846422697368421,
+                "validation_mean": 0.28600823045267487,
+                "validation_std": 0.3694417548899984,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.011897262179655123
+              },
+              "question_type_compare": {
+                "train_mean": 0.037520559210526314,
+                "validation_mean": 0.04060356652949245,
+                "validation_std": 0.156900002800258,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.009414451830053837
+              },
+              "question_type_consequence": {
+                "train_mean": 0.01048519736842105,
+                "validation_mean": 0.008230452674897118,
+                "validation_std": 0.07111675491667993,
+                "validation_unique_values": 4,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.005748319283074611
+              },
+              "question_type_definition": {
+                "train_mean": 0.02939967105263158,
+                "validation_mean": 0.03621399176954732,
+                "validation_std": 0.15281819588612988,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.0100654144301674
+              },
+              "question_type_entity": {
+                "train_mean": 0.0654468201754386,
+                "validation_mean": 0.06433470507544581,
+                "validation_std": 0.19371190731790405,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.005045907891770741
+              },
+              "question_type_instructions": {
+                "train_mean": 0.4990063048245614,
+                "validation_mean": 0.4919067215363511,
+                "validation_std": 0.4222480374935108,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.011566229825812006
+              },
+              "question_type_procedure": {
+                "train_mean": 0.16423382675438594,
+                "validation_mean": 0.17338820301783264,
+                "validation_std": 0.26534129157356773,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.009118621280709381
+              },
+              "question_type_reason_explanation": {
+                "train_mean": 0.38534813596491224,
+                "validation_mean": 0.39053497942386833,
+                "validation_std": 0.38989740484539975,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.019775155243342626
+              },
+              "question_type_spelling": {
+                "train_mean": 0.0008223684210526315,
+                "validation_mean": 0.0008230452674897119,
+                "validation_std": 0.016549817163934877,
+                "validation_unique_values": 2,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.001317630620695779
+              },
+              "question_well_written": {
+                "train_mean": 0.8007355628654971,
+                "validation_mean": 0.7967078189300412,
+                "validation_std": 0.17671328444044468,
+                "validation_unique_values": 9,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.008218673609545674
+              },
+              "answer_helpful": {
+                "train_mean": 0.9253700657894737,
+                "validation_mean": 0.9255601280292637,
+                "validation_std": 0.11420965565366939,
+                "validation_unique_values": 9,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.006533454914950382
+              },
+              "answer_level_of_information": {
+                "train_mean": 0.6551420869883041,
+                "validation_mean": 0.653543667123914,
+                "validation_std": 0.11029821835581319,
+                "validation_unique_values": 9,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.008604945718140543
+              },
+              "answer_plausible": {
+                "train_mean": 0.9610631396198831,
+                "validation_mean": 0.9560128029263832,
+                "validation_std": 0.08835066227919576,
+                "validation_unique_values": 8,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.0013414595345102695
+              },
+              "answer_relevance": {
+                "train_mean": 0.9681560672514621,
+                "validation_mean": 0.9705075445816186,
+                "validation_std": 0.06814578482179108,
+                "validation_unique_values": 6,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.0067347821583715484
+              },
+              "answer_satisfaction": {
+                "train_mean": 0.8550164473684211,
+                "validation_mean": 0.8533333333333333,
+                "validation_std": 0.13087939513825483,
+                "validation_unique_values": 16,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.006310465022607016
+              },
+              "answer_type_instructions": {
+                "train_mean": 0.48016036184210525,
+                "validation_mean": 0.47709190672153634,
+                "validation_std": 0.4242458958460367,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.005801798947601439
+              },
+              "answer_type_procedure": {
+                "train_mean": 0.12996847587719298,
+                "validation_mean": 0.13333333333333333,
+                "validation_std": 0.23002280048388504,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.004009756315508336
+              },
+              "answer_type_reason_explanation": {
+                "train_mean": 0.5044544956140351,
+                "validation_mean": 0.49451303155006854,
+                "validation_std": 0.404155467769801,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.012798428374820703
+              },
+              "answer_well_written": {
+                "train_mean": 0.9077234100877194,
+                "validation_mean": 0.910379515317787,
+                "validation_std": 0.10054296252684534,
+                "validation_unique_values": 8,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.0011509636155502513
+              }
+            }
+          }
+        ],
+        "max_category_total_variation": 0.038796606739335576,
+        "max_target_distribution_total_variation": 0.0438234842122579,
+        "validation_row_min": 1215,
+        "validation_row_max": 1216
+      },
+      "category_stratified_group_v1": {
+        "folds": [
+          {
+            "fold": 0,
+            "training_rows": 4862,
+            "validation_rows": 1217,
+            "validation_question_groups": 717,
+            "shared_question_groups": 0,
+            "category_total_variation": 0.0005602757340592568,
+            "category_counts": {
+              "TECHNOLOGY": 488,
+              "STACKOVERFLOW": 251,
+              "CULTURE": 193,
+              "SCIENCE": 143,
+              "LIFE_ARTS": 142
+            },
+            "constant_targets": [],
+            "target_diagnostics": {
+              "question_asker_intent_understanding": {
+                "train_mean": 0.8932766579825404,
+                "validation_mean": 0.8902127271067287,
+                "validation_std": 0.13645816087487325,
+                "validation_unique_values": 9,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.015338173376751398
+              },
+              "question_body_critical": {
+                "train_mean": 0.5936742995566525,
+                "validation_mean": 0.6017985939925135,
+                "validation_std": 0.22135134336085335,
+                "validation_unique_values": 9,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.019123717938407003
+              },
+              "question_conversational": {
+                "train_mean": 0.057109557109557105,
+                "validation_mean": 0.05806628321007942,
+                "validation_std": 0.18512626180670683,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.004006410797952949
+              },
+              "question_expect_short_answer": {
+                "train_mean": 0.6953242835595776,
+                "validation_mean": 0.711311969323473,
+                "validation_std": 0.353962589165273,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.03357545265075301
+              },
+              "question_fact_seeking": {
+                "train_mean": 0.7702591526120938,
+                "validation_mean": 0.7821144891810462,
+                "validation_std": 0.30397978944848275,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.02650029879119668
+              },
+              "question_has_commonly_accepted_answer": {
+                "train_mean": 0.7945632798573976,
+                "validation_mean": 0.7901944672692413,
+                "validation_std": 0.3451002701172617,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.01692911315718016
+              },
+              "question_interestingness_others": {
+                "train_mean": 0.5865898807075277,
+                "validation_mean": 0.5910252898749202,
+                "validation_std": 0.13792538877623037,
+                "validation_unique_values": 9,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.016197443061049213
+              },
+              "question_interestingness_self": {
+                "train_mean": 0.5067644773527126,
+                "validation_mean": 0.5093125171185976,
+                "validation_std": 0.19149685007441017,
+                "validation_unique_values": 9,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.014729101613742787
+              },
+              "question_multi_intent": {
+                "train_mean": 0.23875634169751817,
+                "validation_mean": 0.23870172555464256,
+                "validation_std": 0.3363574903922358,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.007408345580776174
+              },
+              "question_not_really_a_question": {
+                "train_mean": 0.003667900726724256,
+                "validation_mean": 0.007669131744727471,
+                "validation_std": 0.06508246072084088,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.005576804881981867
+              },
+              "question_opinion_seeking": {
+                "train_mean": 0.4322638146167558,
+                "validation_mean": 0.42084360449192,
+                "validation_std": 0.37063386675370613,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.021196670569898435
+              },
+              "question_type_choice": {
+                "train_mean": 0.2853763883175648,
+                "validation_mean": 0.28307313064913725,
+                "validation_std": 0.3733616450366834,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.018540193126842783
+              },
+              "question_type_compare": {
+                "train_mean": 0.04065542300836418,
+                "validation_mean": 0.02807450013694878,
+                "validation_std": 0.12757475850092265,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.014366713376586494
+              },
+              "question_type_consequence": {
+                "train_mean": 0.010249554367201425,
+                "validation_mean": 0.009175568337441797,
+                "validation_std": 0.06576129704585133,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.003108482763850312
+              },
+              "question_type_definition": {
+                "train_mean": 0.028554778554778552,
+                "validation_mean": 0.039578197754039986,
+                "validation_std": 0.16224756913722263,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.012133315076499632
+              },
+              "question_type_entity": {
+                "train_mean": 0.06067461949814891,
+                "validation_mean": 0.08340180772391126,
+                "validation_std": 0.22712657495990204,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.02377393894657076
+              },
+              "question_type_instructions": {
+                "train_mean": 0.49526943644590704,
+                "validation_mean": 0.5068474390577923,
+                "validation_std": 0.4238402694643525,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.03457637950496496
+              },
+              "question_type_procedure": {
+                "train_mean": 0.16659810777457837,
+                "validation_mean": 0.1639276910435497,
+                "validation_std": 0.25798962539974085,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.013550021944696093
+              },
+              "question_type_reason_explanation": {
+                "train_mean": 0.38650075414781293,
+                "validation_mean": 0.3859216652971788,
+                "validation_std": 0.38363702701007746,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.004018846351036998
+              },
+              "question_type_spelling": {
+                "train_mean": 0.0007541478129713423,
+                "validation_mean": 0.0010955902492467817,
+                "validation_std": 0.02338897836454661,
+                "validation_unique_values": 3,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.0006555699180185667
+              },
+              "question_well_written": {
+                "train_mean": 0.798219754102107,
+                "validation_mean": 0.8067652697890989,
+                "validation_std": 0.17827559143289287,
+                "validation_unique_values": 9,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.014926042927258895
+              },
+              "answer_helpful": {
+                "train_mean": 0.9251222633575577,
+                "validation_mean": 0.9265498037067472,
+                "validation_std": 0.11628723167203787,
+                "validation_unique_values": 9,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.010605769582988617
+              },
+              "answer_level_of_information": {
+                "train_mean": 0.6531719914072857,
+                "validation_mean": 0.6614169633890259,
+                "validation_std": 0.10812570439784061,
+                "validation_unique_values": 9,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.01876592544912962
+              },
+              "answer_plausible": {
+                "train_mean": 0.9600644453585632,
+                "validation_mean": 0.9600109559024926,
+                "validation_std": 0.08929475984558045,
+                "validation_unique_values": 8,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.0020088824992974723
+              },
+              "answer_relevance": {
+                "train_mean": 0.9679601444307327,
+                "validation_mean": 0.9712864055509907,
+                "validation_std": 0.0685968871327431,
+                "validation_unique_values": 7,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.00429405054754959
+              },
+              "answer_satisfaction": {
+                "train_mean": 0.8527217880159057,
+                "validation_mean": 0.8625034237195288,
+                "validation_std": 0.12823666191257665,
+                "validation_unique_values": 17,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.019569235144549117
+              },
+              "answer_type_instructions": {
+                "train_mean": 0.4796380090497738,
+                "validation_mean": 0.4791837852643111,
+                "validation_std": 0.4263409683074499,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.013129511013777365
+              },
+              "answer_type_procedure": {
+                "train_mean": 0.1309132044426162,
+                "validation_mean": 0.12955354697343194,
+                "validation_std": 0.2281503614526723,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.012035452680490229
+              },
+              "answer_type_reason_explanation": {
+                "train_mean": 0.4982517482517482,
+                "validation_mean": 0.5193097781429745,
+                "validation_std": 0.40709016607990633,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.027132484462655038
+              },
+              "answer_well_written": {
+                "train_mean": 0.9074912016088488,
+                "validation_mean": 0.9113028394047292,
+                "validation_std": 0.10242086639352066,
+                "validation_unique_values": 8,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.002082549634415014
+              }
+            }
+          },
+          {
+            "fold": 1,
+            "training_rows": 4863,
+            "validation_rows": 1216,
+            "validation_question_groups": 716,
+            "shared_question_groups": 0,
+            "category_total_variation": 0.0007499935065497371,
+            "category_counts": {
+              "TECHNOLOGY": 488,
+              "STACKOVERFLOW": 251,
+              "CULTURE": 192,
+              "SCIENCE": 143,
+              "LIFE_ARTS": 142
+            },
+            "constant_targets": [],
+            "target_diagnostics": {
+              "question_asker_intent_understanding": {
+                "train_mean": 0.8914707427970846,
+                "validation_mean": 0.8974323830409358,
+                "validation_std": 0.1278860061191373,
+                "validation_unique_values": 9,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.006761710937567684
+              },
+              "question_body_critical": {
+                "train_mean": 0.5953800808828569,
+                "validation_mean": 0.594983552631579,
+                "validation_std": 0.22387658935367422,
+                "validation_unique_values": 9,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.019129569224508897
+              },
+              "question_conversational": {
+                "train_mean": 0.057132085818082115,
+                "validation_mean": 0.05797697368421053,
+                "validation_std": 0.184805440321727,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.0018245242465433319
+              },
+              "question_expect_short_answer": {
+                "train_mean": 0.6999451641647816,
+                "validation_mean": 0.6928453947368421,
+                "validation_std": 0.34727363167176145,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.02098940160691249
+              },
+              "question_fact_seeking": {
+                "train_mean": 0.7726026458290493,
+                "validation_mean": 0.7727521929824562,
+                "validation_std": 0.30260788512475517,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.006203409494290064
+              },
+              "question_has_commonly_accepted_answer": {
+                "train_mean": 0.7928919048598259,
+                "validation_mean": 0.796875,
+                "validation_std": 0.3363312546413894,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.008927141323451748
+              },
+              "question_interestingness_others": {
+                "train_mean": 0.5869490712180411,
+                "validation_mean": 0.5895924707602339,
+                "validation_std": 0.13556437196423765,
+                "validation_unique_values": 9,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.0031041397909974677
+              },
+              "question_interestingness_self": {
+                "train_mean": 0.5069572965933237,
+                "validation_mean": 0.5085434941520468,
+                "validation_std": 0.18818045826262256,
+                "validation_unique_values": 9,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.007685674799352379
+              },
+              "question_multi_intent": {
+                "train_mean": 0.24168894372472413,
+                "validation_mean": 0.22697368421052633,
+                "validation_std": 0.32845502586588193,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.01846615505493459
+              },
+              "question_not_really_a_question": {
+                "train_mean": 0.005003769963671259,
+                "validation_mean": 0.0023300438596491227,
+                "validation_std": 0.03199020180579638,
+                "validation_unique_values": 4,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.00510046990935143
+              },
+              "question_opinion_seeking": {
+                "train_mean": 0.43162656796216325,
+                "validation_mean": 0.4233826754385964,
+                "validation_std": 0.368328491654585,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.013530727006692597
+              },
+              "question_type_choice": {
+                "train_mean": 0.28336417849064366,
+                "validation_mean": 0.2911184210526316,
+                "validation_std": 0.3694428770072651,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.013630293244214303
+              },
+              "question_type_compare": {
+                "train_mean": 0.03948180135718692,
+                "validation_mean": 0.032757675438596486,
+                "validation_std": 0.14135873848175917,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.00938655293027767
+              },
+              "question_type_consequence": {
+                "train_mean": 0.010110357118376859,
+                "validation_mean": 0.009731359649122806,
+                "validation_std": 0.08069973485692446,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.005923379451260134
+              },
+              "question_type_definition": {
+                "train_mean": 0.03249023236685174,
+                "validation_mean": 0.023848684210526317,
+                "validation_std": 0.11703371358816694,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.008890886226093263
+              },
+              "question_type_entity": {
+                "train_mean": 0.06388374802933716,
+                "validation_mean": 0.07058662280701752,
+                "validation_std": 0.2038095872695153,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.012979189574116212
+              },
+              "question_type_instructions": {
+                "train_mean": 0.49838919734046194,
+                "validation_mean": 0.4943804824561403,
+                "validation_std": 0.4210297650642471,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.009446346784876346
+              },
+              "question_type_procedure": {
+                "train_mean": 0.16652957707862087,
+                "validation_mean": 0.16419956140350878,
+                "validation_std": 0.2584526054424316,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.010708375901507331
+              },
+              "question_type_reason_explanation": {
+                "train_mean": 0.38775789978751113,
+                "validation_mean": 0.3808936403508772,
+                "validation_std": 0.3809591125940393,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.011909393641613489
+              },
+              "question_type_spelling": {
+                "train_mean": 0.0008225375282747275,
+                "validation_mean": 0.0008223684210526315,
+                "validation_std": 0.016543021974823414,
+                "validation_unique_values": 2,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.0013156000813845342
+              },
+              "question_well_written": {
+                "train_mean": 0.7999977151735326,
+                "validation_mean": 0.7996619152046783,
+                "validation_std": 0.1791209757465854,
+                "validation_unique_values": 9,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.009665771292023478
+              },
+              "answer_helpful": {
+                "train_mean": 0.9255260812941256,
+                "validation_mean": 0.9249360380116959,
+                "validation_std": 0.11571462957216146,
+                "validation_unique_values": 9,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.005605876788945538
+              },
+              "answer_level_of_information": {
+                "train_mean": 0.655185413667832,
+                "validation_mean": 0.6533717105263158,
+                "validation_std": 0.10773754923261109,
+                "validation_unique_values": 9,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.002784743205686571
+              },
+              "answer_plausible": {
+                "train_mean": 0.9602782918637329,
+                "validation_mean": 0.9591557017543861,
+                "validation_std": 0.08563330502207454,
+                "validation_unique_values": 9,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.0006643611310724737
+              },
+              "answer_relevance": {
+                "train_mean": 0.9688463911165947,
+                "validation_mean": 0.9677448830409358,
+                "validation_std": 0.07530024195350835,
+                "validation_unique_values": 7,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.002792724738313952
+              },
+              "answer_satisfaction": {
+                "train_mean": 0.8546027829186373,
+                "validation_mean": 0.8549890350877194,
+                "validation_std": 0.13122740141084666,
+                "validation_unique_values": 16,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.002629306239772816
+              },
+              "answer_type_instructions": {
+                "train_mean": 0.47751730756049077,
+                "validation_mean": 0.4876644736842105,
+                "validation_std": 0.41966244888684473,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.014257317036216147
+              },
+              "answer_type_procedure": {
+                "train_mean": 0.1309548289807389,
+                "validation_mean": 0.1293859649122807,
+                "validation_std": 0.22443129849538926,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.008589211348819507
+              },
+              "answer_type_reason_explanation": {
+                "train_mean": 0.5102131743094112,
+                "validation_mean": 0.47149122807017535,
+                "validation_std": 0.4061828130965698,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.036104936320897646
+              },
+              "answer_well_written": {
+                "train_mean": 0.9090524824639568,
+                "validation_mean": 0.905062134502924,
+                "validation_std": 0.1037691357234891,
+                "validation_unique_values": 9,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.004596280551683566
+              }
+            }
+          },
+          {
+            "fold": 2,
+            "training_rows": 4863,
+            "validation_rows": 1216,
+            "validation_question_groups": 717,
+            "shared_question_groups": 0,
+            "category_total_variation": 0.001204399745456733,
+            "category_counts": {
+              "TECHNOLOGY": 489,
+              "STACKOVERFLOW": 250,
+              "CULTURE": 193,
+              "SCIENCE": 143,
+              "LIFE_ARTS": 141
+            },
+            "constant_targets": [],
+            "target_diagnostics": {
+              "question_asker_intent_understanding": {
+                "train_mean": 0.8927388214865081,
+                "validation_mean": 0.8923611111111113,
+                "validation_std": 0.13151915069271505,
+                "validation_unique_values": 9,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.005575979861646208
+              },
+              "question_body_critical": {
+                "train_mean": 0.5974478488358809,
+                "validation_mean": 0.5867141812865497,
+                "validation_std": 0.21721318941388695,
+                "validation_unique_values": 9,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.011612724132258584
+              },
+              "question_conversational": {
+                "train_mean": 0.05853725409555143,
+                "validation_mean": 0.05235745614035087,
+                "validation_std": 0.17826558015320781,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.013337682141280192
+              },
+              "question_expect_short_answer": {
+                "train_mean": 0.7022756871615602,
+                "validation_mean": 0.6835252192982456,
+                "validation_std": 0.3578934962313099,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.024141701154102566
+              },
+              "question_fact_seeking": {
+                "train_mean": 0.7716772911097401,
+                "validation_mean": 0.776452850877193,
+                "validation_std": 0.29949536885306083,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.006954485242552013
+              },
+              "question_has_commonly_accepted_answer": {
+                "train_mean": 0.7933031736239632,
+                "validation_mean": 0.7952302631578947,
+                "validation_std": 0.33648863534074125,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.005600871421026703
+              },
+              "question_interestingness_others": {
+                "train_mean": 0.5874631571732126,
+                "validation_mean": 0.5875365497076023,
+                "validation_std": 0.14100617048566993,
+                "validation_unique_values": 9,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.015067916078648672
+              },
+              "question_interestingness_self": {
+                "train_mean": 0.5058834281536316,
+                "validation_mean": 0.5128380847953217,
+                "validation_std": 0.18922926490289457,
+                "validation_unique_values": 9,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.011444706106440647
+              },
+              "question_multi_intent": {
+                "train_mean": 0.23459455754335462,
+                "validation_mean": 0.2553453947368421,
+                "validation_std": 0.3458800950960042,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.024962987333442994
+              },
+              "question_not_really_a_question": {
+                "train_mean": 0.004592501199533895,
+                "validation_mean": 0.003974780701754385,
+                "validation_std": 0.03893541841884745,
+                "validation_unique_values": 3,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.0004939080614021012
+              },
+              "question_opinion_seeking": {
+                "train_mean": 0.42573171567619433,
+                "validation_mean": 0.44695723684210525,
+                "validation_std": 0.3637631235546545,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.034301515787742085
+              },
+              "question_type_choice": {
+                "train_mean": 0.2847350743711015,
+                "validation_mean": 0.28563596491228066,
+                "validation_std": 0.37498385561153463,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.019128757543224767
+              },
+              "question_type_compare": {
+                "train_mean": 0.03543765850983618,
+                "validation_mean": 0.04893092105263158,
+                "validation_std": 0.1741259423056838,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.016106868122353936
+              },
+              "question_type_consequence": {
+                "train_mean": 0.009116457605044896,
+                "validation_mean": 0.01370614035087719,
+                "validation_std": 0.08813677639448564,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.007233297763655752
+              },
+              "question_type_definition": {
+                "train_mean": 0.030982246898348068,
+                "validation_mean": 0.029879385964912276,
+                "validation_std": 0.13615983533358145,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.0032927204093470813
+              },
+              "question_type_entity": {
+                "train_mean": 0.06833915964082529,
+                "validation_mean": 0.05276864035087719,
+                "validation_std": 0.17497170982969992,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.01827635691465877
+              },
+              "question_type_instructions": {
+                "train_mean": 0.499691548426897,
+                "validation_mean": 0.48917214912280693,
+                "validation_std": 0.42541213236800635,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.02424897836382371
+              },
+              "question_type_procedure": {
+                "train_mean": 0.1661183083144835,
+                "validation_mean": 0.16584429824561403,
+                "validation_std": 0.2616280844375414,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.02355526142630801
+              },
+              "question_type_reason_explanation": {
+                "train_mean": 0.38261704023579407,
+                "validation_mean": 0.40145285087719296,
+                "validation_std": 0.38572693380114104,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.019967765430602344
+              },
+              "question_type_spelling": {
+                "train_mean": 0.0008910823222976214,
+                "validation_mean": 0.0005482456140350877,
+                "validation_std": 0.01911797782254681,
+                "validation_unique_values": 2,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.0011515051817733283
+              },
+              "question_well_written": {
+                "train_mean": 0.7990609363218862,
+                "validation_mean": 0.8034082602339181,
+                "validation_std": 0.1758568443398155,
+                "validation_unique_values": 9,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.007084218967801134
+              },
+              "answer_helpful": {
+                "train_mean": 0.9257202915438572,
+                "validation_mean": 0.9241593567251463,
+                "validation_std": 0.1128789583865135,
+                "validation_unique_values": 9,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.003138771525787664
+              },
+              "answer_level_of_information": {
+                "train_mean": 0.6554138963145749,
+                "validation_mean": 0.6524579678362573,
+                "validation_std": 0.11087606258681948,
+                "validation_unique_values": 9,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.011830795837265526
+              },
+              "answer_plausible": {
+                "train_mean": 0.9599012954966071,
+                "validation_mean": 0.9606633771929826,
+                "validation_std": 0.08838679956181279,
+                "validation_unique_values": 9,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.001979825932243025
+              },
+              "answer_relevance": {
+                "train_mean": 0.9692005392190464,
+                "validation_mean": 0.9663285818713451,
+                "validation_std": 0.08143025835853719,
+                "validation_unique_values": 8,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.002795836183236521
+              },
+              "answer_satisfaction": {
+                "train_mean": 0.8563849475632327,
+                "validation_mean": 0.8478618421052632,
+                "validation_std": 0.1390772277281349,
+                "validation_unique_values": 16,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.020858585639951202
+              },
+              "answer_type_instructions": {
+                "train_mean": 0.48008773733634935,
+                "validation_mean": 0.47738486842105265,
+                "validation_std": 0.42912409113296285,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.024393998753257547
+              },
+              "answer_type_procedure": {
+                "train_mean": 0.13451915826992938,
+                "validation_mean": 0.11513157894736842,
+                "validation_std": 0.21285487552847565,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.03179206781759467
+              },
+              "answer_type_reason_explanation": {
+                "train_mean": 0.49962300363287404,
+                "validation_mean": 0.5138432017543859,
+                "validation_std": 0.40534300252597527,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.016038957454913835
+              },
+              "answer_well_written": {
+                "train_mean": 0.9085041241117737,
+                "validation_mean": 0.9072551169590645,
+                "validation_std": 0.10146893945010774,
+                "validation_unique_values": 8,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.003280815750512979
+              }
+            }
+          },
+          {
+            "fold": 3,
+            "training_rows": 4864,
+            "validation_rows": 1215,
+            "validation_question_groups": 717,
+            "shared_question_groups": 0,
+            "category_total_variation": 0.000774710482081914,
+            "category_counts": {
+              "TECHNOLOGY": 488,
+              "STACKOVERFLOW": 250,
+              "CULTURE": 193,
+              "LIFE_ARTS": 142,
+              "SCIENCE": 142
+            },
+            "constant_targets": [],
+            "target_diagnostics": {
+              "question_asker_intent_understanding": {
+                "train_mean": 0.8924182200292397,
+                "validation_mean": 0.8936442615454961,
+                "validation_std": 0.13184208186145574,
+                "validation_unique_values": 9,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.014914869174524479
+              },
+              "question_body_critical": {
+                "train_mean": 0.5965597587719298,
+                "validation_mean": 0.5902606310013718,
+                "validation_std": 0.21558396446414535,
+                "validation_unique_values": 9,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.013631221834325441
+              },
+              "question_conversational": {
+                "train_mean": 0.057051809210526314,
+                "validation_mean": 0.058299039780521256,
+                "validation_std": 0.18292084847216522,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.0031888773129108497
+              },
+              "question_expect_short_answer": {
+                "train_mean": 0.6970257675438596,
+                "validation_mean": 0.7045267489711934,
+                "validation_std": 0.34358559932072624,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.015834448621273936
+              },
+              "question_fact_seeking": {
+                "train_mean": 0.7737116228070174,
+                "validation_mean": 0.768312757201646,
+                "validation_std": 0.3027983421709087,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.017872768493301838
+              },
+              "question_has_commonly_accepted_answer": {
+                "train_mean": 0.7918722587719298,
+                "validation_mean": 0.800960219478738,
+                "validation_std": 0.32988883656436835,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.00664271590045204
+              },
+              "question_interestingness_others": {
+                "train_mean": 0.5889528508771931,
+                "validation_mean": 0.581572930955647,
+                "validation_std": 0.1313923223897847,
+                "validation_unique_values": 9,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.01736505015918663
+              },
+              "question_interestingness_self": {
+                "train_mean": 0.5090917397660818,
+                "validation_mean": 0.5,
+                "validation_std": 0.1768791354794056,
+                "validation_unique_values": 9,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.018656008643396935
+              },
+              "question_multi_intent": {
+                "train_mean": 0.23989172149122806,
+                "validation_mean": 0.23415637860082306,
+                "validation_std": 0.33184629766627155,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.006106971514293624
+              },
+              "question_not_really_a_question": {
+                "train_mean": 0.004660087719298245,
+                "validation_mean": 0.003703703703703704,
+                "validation_std": 0.037786067938568306,
+                "validation_unique_values": 3,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.0009821303455125132
+              },
+              "question_opinion_seeking": {
+                "train_mean": 0.4304070723684211,
+                "validation_mean": 0.42825788751714683,
+                "validation_std": 0.3628436705603599,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.010039148468349163
+              },
+              "question_type_choice": {
+                "train_mean": 0.28543037280701755,
+                "validation_mean": 0.2828532235939643,
+                "validation_std": 0.36793686677209037,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.0075576920343055215
+              },
+              "question_type_compare": {
+                "train_mean": 0.03947368421052631,
+                "validation_mean": 0.03278463648834019,
+                "validation_std": 0.13797411986993577,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.009031293727241495
+              },
+              "question_type_consequence": {
+                "train_mean": 0.010450932017543858,
+                "validation_mean": 0.008367626886145405,
+                "validation_std": 0.06522631445774747,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.0026195558209229984
+              },
+              "question_type_definition": {
+                "train_mean": 0.029536732456140347,
+                "validation_mean": 0.03566529492455418,
+                "validation_std": 0.15053463054573366,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.007261319918737997
+              },
+              "question_type_entity": {
+                "train_mean": 0.06750274122807016,
+                "validation_mean": 0.05610425240054869,
+                "validation_std": 0.18521945296872175,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.016546337421481365
+              },
+              "question_type_instructions": {
+                "train_mean": 0.4922902960526316,
+                "validation_mean": 0.518792866941015,
+                "validation_std": 0.4243404359556198,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.02243722401277555
+              },
+              "question_type_procedure": {
+                "train_mean": 0.16608415570175436,
+                "validation_mean": 0.16598079561042522,
+                "validation_std": 0.2527977908189316,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.01041838021604435
+              },
+              "question_type_reason_explanation": {
+                "train_mean": 0.3862390350877193,
+                "validation_mean": 0.3869684499314129,
+                "validation_std": 0.3863392405605819,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.008294086706106207
+              },
+              "question_type_spelling": {
+                "train_mean": 0.0008223684210526315,
+                "validation_mean": 0.0008230452674897119,
+                "validation_std": 0.02137629655957785,
+                "validation_unique_values": 3,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.0003284599142836207
+              },
+              "question_well_written": {
+                "train_mean": 0.8009868421052632,
+                "validation_mean": 0.7957018747142204,
+                "validation_std": 0.17849257649485475,
+                "validation_unique_values": 9,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.00941837818517098
+              },
+              "answer_helpful": {
+                "train_mean": 0.9251758954678363,
+                "validation_mean": 0.9263374485596708,
+                "validation_std": 0.11255393679871996,
+                "validation_unique_values": 9,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.007356500182440129
+              },
+              "answer_level_of_information": {
+                "train_mean": 0.6555761147660819,
+                "validation_mean": 0.6518061271147692,
+                "validation_std": 0.10877633276567493,
+                "validation_unique_values": 9,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.008964681081805564
+              },
+              "answer_plausible": {
+                "train_mean": 0.9600351790935673,
+                "validation_mean": 0.9601280292638318,
+                "validation_std": 0.08386051969668222,
+                "validation_unique_values": 7,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.0031016851509988314
+              },
+              "answer_relevance": {
+                "train_mean": 0.9678705226608187,
+                "validation_mean": 0.9716506630086877,
+                "validation_std": 0.06949469898955325,
+                "validation_unique_values": 7,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.0017965105534333116
+              },
+              "answer_satisfaction": {
+                "train_mean": 0.8549342105263157,
+                "validation_mean": 0.8536625514403291,
+                "validation_std": 0.12511419452151834,
+                "validation_unique_values": 16,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.002412406740604002
+              },
+              "answer_type_instructions": {
+                "train_mean": 0.4755688048245614,
+                "validation_mean": 0.4954732510288065,
+                "validation_std": 0.4217592060958366,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.019591022727503515
+              },
+              "answer_type_procedure": {
+                "train_mean": 0.13044819078947367,
+                "validation_mean": 0.13141289437585732,
+                "validation_std": 0.22193458038384445,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.016267295425051603
+              },
+              "answer_type_reason_explanation": {
+                "train_mean": 0.5045572916666666,
+                "validation_mean": 0.49410150891632365,
+                "validation_std": 0.41113789887947627,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.017159661169092538
+              },
+              "answer_well_written": {
+                "train_mean": 0.9085000913742691,
+                "validation_mean": 0.9072702331961593,
+                "validation_std": 0.09739358335847573,
+                "validation_unique_values": 8,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.008523710784682063
+              }
+            }
+          },
+          {
+            "fold": 4,
+            "training_rows": 4864,
+            "validation_rows": 1215,
+            "validation_question_groups": 716,
+            "shared_question_groups": 0,
+            "category_total_variation": 0.0008061213230191738,
+            "category_counts": {
+              "TECHNOLOGY": 488,
+              "STACKOVERFLOW": 251,
+              "CULTURE": 192,
+              "LIFE_ARTS": 142,
+              "SCIENCE": 142
+            },
+            "constant_targets": [],
+            "target_diagnostics": {
+              "question_asker_intent_understanding": {
+                "train_mean": 0.8934119152046783,
+                "validation_mean": 0.8896662094192958,
+                "validation_std": 0.1324544887179847,
+                "validation_unique_values": 9,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.001746144894689097
+              },
+              "question_body_critical": {
+                "train_mean": 0.5934416118421053,
+                "validation_mean": 0.6027434842249657,
+                "validation_std": 0.2191314267091121,
+                "validation_unique_values": 9,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.016859498089963648
+              },
+              "question_conversational": {
+                "train_mean": 0.05667489035087719,
+                "validation_mean": 0.059807956104252394,
+                "validation_std": 0.1799703019991562,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.016667106689222902
+              },
+              "question_expect_short_answer": {
+                "train_mean": 0.6980537280701754,
+                "validation_mean": 0.7004115226337448,
+                "validation_std": 0.3517103613825955,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.007210818868437989
+              },
+              "question_fact_seeking": {
+                "train_mean": 0.7749109100877194,
+                "validation_mean": 0.7635116598079561,
+                "validation_std": 0.30635485907083476,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.018553111061016217
+              },
+              "question_has_commonly_accepted_answer": {
+                "train_mean": 0.795812774122807,
+                "validation_mean": 0.7851851851851852,
+                "validation_std": 0.33544089357251133,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.02631917069964261
+              },
+              "question_interestingness_others": {
+                "train_mean": 0.5874337536549707,
+                "validation_mean": 0.5876543209876544,
+                "validation_std": 0.13342635110379594,
+                "validation_unique_values": 9,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.004354192433372109
+              },
+              "question_interestingness_self": {
+                "train_mean": 0.5076754385964911,
+                "validation_mean": 0.5056698673982625,
+                "validation_std": 0.18383800025053965,
+                "validation_unique_values": 9,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.00305849524471008
+              },
+              "question_multi_intent": {
+                "train_mean": 0.23879523026315788,
+                "validation_mean": 0.23854595336076817,
+                "validation_std": 0.33237133020201354,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.025365743363952135
+              },
+              "question_not_really_a_question": {
+                "train_mean": 0.004420230263157894,
+                "validation_mean": 0.0046639231824417,
+                "validation_std": 0.04760619690034706,
+                "validation_unique_values": 4,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.0023100507244463416
+              },
+              "question_opinion_seeking": {
+                "train_mean": 0.4298588267543859,
+                "validation_mean": 0.43045267489711936,
+                "validation_std": 0.36415183454103695,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.01376796730564711
+              },
+              "question_type_choice": {
+                "train_mean": 0.2856702302631579,
+                "validation_mean": 0.28189300411522633,
+                "validation_std": 0.3587017205033155,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.028018334724481536
+              },
+              "question_type_compare": {
+                "train_mean": 0.035635964912280695,
+                "validation_mean": 0.04814814814814815,
+                "validation_std": 0.17920952388331676,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.01270663290001265
+              },
+              "question_type_consequence": {
+                "train_mean": 0.010245339912280702,
+                "validation_mean": 0.009190672153635115,
+                "validation_std": 0.06853928023453859,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.001141756989758292
+              },
+              "question_type_definition": {
+                "train_mean": 0.03224369517543859,
+                "validation_mean": 0.02482853223593964,
+                "validation_std": 0.11814550821306238,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.009199585431056239
+              },
+              "question_type_entity": {
+                "train_mean": 0.06572094298245613,
+                "validation_mean": 0.06323731138545953,
+                "validation_std": 0.19146185585055828,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.0032775587819363784
+              },
+              "question_type_instructions": {
+                "train_mean": 0.5022957785087719,
+                "validation_mean": 0.4787379972565157,
+                "validation_std": 0.42059451054346736,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.023653310966648335
+              },
+              "question_type_procedure": {
+                "train_mean": 0.1649876644736842,
+                "validation_mean": 0.17037037037037034,
+                "validation_std": 0.25592020081546757,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.030447394626444566
+              },
+              "question_type_reason_explanation": {
+                "train_mean": 0.3888089364035087,
+                "validation_mean": 0.3766803840877915,
+                "validation_std": 0.38038987605060237,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.014894154266492557
+              },
+              "question_type_spelling": {
+                "train_mean": 0.0008223684210526315,
+                "validation_mean": 0.0008230452674897119,
+                "validation_std": 0.02137629655957785,
+                "validation_unique_values": 3,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.0003284599142836207
+              },
+              "question_well_written": {
+                "train_mean": 0.8013866045321637,
+                "validation_mean": 0.7941015089163237,
+                "validation_std": 0.18031058660142735,
+                "validation_unique_values": 9,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.00860711198303276
+              },
+              "answer_helpful": {
+                "train_mean": 0.9254957054093568,
+                "validation_mean": 0.9250571559213534,
+                "validation_std": 0.11684409220301203,
+                "validation_unique_values": 9,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.005981057367433049
+              },
+              "answer_level_of_information": {
+                "train_mean": 0.654765168128655,
+                "validation_mean": 0.6550525834476452,
+                "validation_std": 0.10252993417992404,
+                "validation_unique_values": 9,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.006944097503582748
+              },
+              "answer_plausible": {
+                "train_mean": 0.9599894919590645,
+                "validation_mean": 0.9603109282121628,
+                "validation_std": 0.08747703141305682,
+                "validation_unique_values": 8,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.006279731139448533
+              },
+              "answer_relevance": {
+                "train_mean": 0.9692525584795323,
+                "validation_mean": 0.9661179698216734,
+                "validation_std": 0.07747715039196484,
+                "validation_unique_values": 8,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.0023187157840152952
+              },
+              "answer_satisfaction": {
+                "train_mean": 0.8547560307017543,
+                "validation_mean": 0.8543758573388203,
+                "validation_std": 0.12943509078371548,
+                "validation_unique_values": 17,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.0038413292201378516
+              },
+              "answer_type_instructions": {
+                "train_mean": 0.48492324561403505,
+                "validation_mean": 0.4580246913580247,
+                "validation_std": 0.41736441668913543,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.029751211246705753
+              },
+              "answer_type_procedure": {
+                "train_mean": 0.1263706140350877,
+                "validation_mean": 0.14773662551440328,
+                "validation_std": 0.23956942458616837,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.03426882128788511
+              },
+              "answer_type_reason_explanation": {
+                "train_mean": 0.49969161184210514,
+                "validation_mean": 0.5135802469135803,
+                "validation_std": 0.4044455206137758,
+                "validation_unique_values": 5,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.02025877388053185
+              },
+              "answer_well_written": {
+                "train_mean": 0.9077234100877192,
+                "validation_mean": 0.910379515317787,
+                "validation_std": 0.09837015225166995,
+                "validation_unique_values": 7,
+                "validation_missing": 0,
+                "validation_non_finite": 0,
+                "distribution_total_variation": 0.0003279183480605079
+              }
+            }
+          }
+        ],
+        "max_category_total_variation": 0.001204399745456733,
+        "max_target_distribution_total_variation": 0.036104936320897646,
+        "validation_row_min": 1215,
+        "validation_row_max": 1217
+      }
+    }
+  },
+  "repeatability": {
+    "identical_fold_assignments": true,
+    "identical_oof_predictions": true,
+    "comparison_source": {
+      "git_dirty": true,
+      "git_commit": "ab361cae8c87fccb3b32a654acf3d94c094f39b5",
+      "python_source_sha256": "e9a5c94453151338ff83db982a43f77892d73ecc095ae3bbae2af87b0c44a326",
+      "legacy_commit": "ef4fb92c470e45c0a07b0ee0e474224d88d3d410"
+    }
+  },
+  "public_data_policy": "Aggregate diagnostics and checksums only; row IDs, text and prediction rows excluded"
+}

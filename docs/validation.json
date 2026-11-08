@@ -1,0 +1,257 @@
+{
+  "schema_version": 1,
+  "project_id": "quest",
+  "verified_date_utc": "2026-11-08",
+  "cross_validation_receipt": "cv-validation.json",
+  "transformer": {
+    "scope": "One saved question-group holdout; not five-fold transformer CV",
+    "run_manifest": {
+      "schema_version": 1,
+      "logical_run_id": "15857179-b47b-45cf-991d-fad47363b2a8",
+      "status": "completed",
+      "source": {
+        "git_dirty": false,
+        "git_commit": "15f9429dff95cb106484da6d3a31ad017e1c354f",
+        "python_source_sha256": "ad989899c113b0a0f07674ef8e60d2e126e532f029452d7a559aef28fefd0fd7",
+        "legacy_commit": "ef4fb92c470e45c0a07b0ee0e474224d88d3d410"
+      },
+      "config": {
+        "name": "deberta-v3-base-question-group",
+        "model": "microsoft/deberta-v3-base",
+        "model_revision": "8ccc9b6f36199bec6961081d44eb72fb3f7353f3",
+        "head_width": 768,
+        "question_length": 384,
+        "answer_length": 512,
+        "fold": 0,
+        "folds": 5,
+        "head_epochs": 1,
+        "epochs": 5,
+        "batch_size": 4,
+        "gradient_accumulation_steps": 2,
+        "head_learning_rate": 0.001,
+        "learning_rate": 2e-05,
+        "weight_decay": 0.01,
+        "warmup_fraction": 0.1,
+        "max_gradient_norm": 1.0,
+        "patience": 2,
+        "seed": 42,
+        "threads": 8,
+        "mixed_precision": true,
+        "device": "auto"
+      },
+      "input_sha256": {
+        "train.csv": "7245cf422073f7e52bacf7d52064807e97424ad7f709a7e7c62dc1a7920d0861",
+        "test.csv": "7895c5654993de7692ed1926170dc1fee323df885b6a6d556e790bc590271f25",
+        "sample_submission.csv": "1160beb08583357e0925d22b5fd1a43fbe9cc863e8e3923b77bb1e05f800b18d"
+      },
+      "environment": {
+        "python": "3.13.16",
+        "platform": "Linux-6.18.55+-x86_64-with-glibc2.39",
+        "device": "cuda",
+        "gpu": "Tesla T4",
+        "packages": {
+          "torch": "2.11.0+cu130",
+          "transformers": "5.20.2",
+          "numpy": "2.1.3",
+          "pandas": "2.3.3",
+          "scipy": "1.16.3",
+          "scikit-learn": "1.6.1"
+        }
+      },
+      "resolved_model_revision": null,
+      "train_rows": 4863,
+      "validation_rows": 1216,
+      "test_rows": 476,
+      "best_validation_spearman": 0.3778628686297344,
+      "elapsed_seconds": 3249.5296208689997,
+      "artifacts": {
+        "config.json": "c5421a6f9639ecbb74de83c3cf7257e192d56f09990368121a552c4fb7471fbf",
+        "history.json": "22c76179ca677f6c7f859371e5cb56c908f36c9984b6cbae4f52f8bcb95e3e4c",
+        "metrics.json": "a2114d2ff64e631ef8dd58981067117312b55e83bd0843735eadf1fd140a0cb6",
+        "model.pt": "4d8ab8c2217e0f1b1347c2c695d44a804c1179586e25eefe924b13f84911601c",
+        "split.csv": "19c75508eac835b4632042a945b82605e9278a90b2f7682c59c293f64477a58f",
+        "submission.csv": "01ed65a7a2ca566b276df7ba2420aa01e3e58af9e6415b6137e706918d0e4add",
+        "tokenizer/tokenizer.json": "e9ddd853a4a31023721c993458663f2019e3154a05dacf0d2b3c217e53d9bdc8",
+        "tokenizer/tokenizer_config.json": "0dbe41323167ba5f2e1e876ccd05068318dd2378b922bdfd924a389dba3bcc7a",
+        "validation.csv": "1d765da975712656018eb241857da6005598881682c92ec94e0b6de1eed072b0"
+      }
+    },
+    "artifact_and_metric_verification": {
+      "project_id": "quest",
+      "manifest_sha256": "e6c618089b3ce083bda6aa760484e200852b93bf805e7d680f2a96666e2f7f70",
+      "metrics": {
+        "mean_spearman_30_zero_fallback": 0.3778628686297344,
+        "mean_spearman_defined_targets": 0.3778628686297344,
+        "defined_targets": 30,
+        "per_target": {
+          "question_asker_intent_understanding": 0.3348787641333986,
+          "question_body_critical": 0.6030029461838146,
+          "question_conversational": 0.40464040371232296,
+          "question_expect_short_answer": 0.2617294736628901,
+          "question_fact_seeking": 0.32592562750102166,
+          "question_has_commonly_accepted_answer": 0.40677712053746423,
+          "question_interestingness_others": 0.32691541435556687,
+          "question_interestingness_self": 0.4259362652180639,
+          "question_multi_intent": 0.5462501129019404,
+          "question_not_really_a_question": 0.06588814878810222,
+          "question_opinion_seeking": 0.4514987583207454,
+          "question_type_choice": 0.7072294363403435,
+          "question_type_compare": 0.32068986192199717,
+          "question_type_consequence": 0.12158313425566589,
+          "question_type_definition": 0.36336168013053766,
+          "question_type_entity": 0.4189303045272543,
+          "question_type_instructions": 0.7595595578685502,
+          "question_type_procedure": 0.3223569200184824,
+          "question_type_reason_explanation": 0.6315454901405902,
+          "question_type_spelling": 0.039433681233330777,
+          "question_well_written": 0.4721750022815651,
+          "answer_helpful": 0.20908352716086193,
+          "answer_level_of_information": 0.40729854254885495,
+          "answer_plausible": 0.1066840472431018,
+          "answer_relevance": 0.10984611894915036,
+          "answer_satisfaction": 0.25330415872503054,
+          "answer_type_instructions": 0.7690536898690559,
+          "answer_type_procedure": 0.2630676038944645,
+          "answer_type_reason_explanation": 0.6866196542010804,
+          "answer_well_written": 0.22062061226678223
+        }
+      },
+      "independent_rank_recalculation": 0.37786286862973434,
+      "test_rows": 476,
+      "test_ids_and_order_match_official_sample": true,
+      "all_artifact_hashes_verified": true,
+      "all_input_hashes_match_official_local_payloads": true,
+      "benchmark_config_bytes_match": true,
+      "elapsed_seconds": 3249.5296208689997,
+      "source": {
+        "git_dirty": false,
+        "git_commit": "15f9429dff95cb106484da6d3a31ad017e1c354f",
+        "python_source_sha256": "ad989899c113b0a0f07674ef8e60d2e126e532f029452d7a559aef28fefd0fd7",
+        "legacy_commit": "ef4fb92c470e45c0a07b0ee0e474224d88d3d410"
+      }
+    }
+  },
+  "fold_drift": {
+    "declared_protocol": "legacy_group_v1",
+    "shared_input_sha256": "7245cf422073f7e52bacf7d52064807e97424ad7f709a7e7c62dc1a7920d0861",
+    "local_regenerated_validation_rows": 1216,
+    "saved_hosted_validation_rows": 1216,
+    "overlapping_validation_ids": 252,
+    "different_membership": true,
+    "local_constant_target_columns": [
+      "question_type_spelling"
+    ],
+    "saved_hosted_constant_target_columns": [],
+    "local_versions": {
+      "numpy": "2.5.4",
+      "pandas": "3.1.1",
+      "scikit-learn": "1.9.1"
+    },
+    "hosted_versions": {
+      "torch": "2.11.0+cu130",
+      "transformers": "5.20.2",
+      "numpy": "2.1.3",
+      "pandas": "2.3.3",
+      "scipy": "1.16.3",
+      "scikit-learn": "1.6.1"
+    },
+    "interpretation": "Same declared legacy grouping procedure and input, different memberships across recorded runtime versions; saved assignments are authoritative."
+  },
+  "frozen_plan_hosted_check": {
+    "sklearn": "1.6.1",
+    "numpy": "2.1.3",
+    "source_sklearn": "1.9.1",
+    "rows": 6079,
+    "fold_counts": [
+      1217,
+      1216,
+      1216,
+      1215,
+      1215
+    ],
+    "assignment_sha256": "68d0efdf4e3cd73f559a1767f2c842eb70c74039f45194c3f8944f0ca6eaf0d7",
+    "frozen_plan_identical": true
+  },
+  "offline_inference": {
+    "rows": 476,
+    "targets": 30,
+    "test_sha256": "7895c5654993de7692ed1926170dc1fee323df885b6a6d556e790bc590271f25",
+    "checkpoint_sha256": "4d8ab8c2217e0f1b1347c2c695d44a804c1179586e25eefe924b13f84911601c",
+    "output_sha256": "5dd278171a941e1aa97f0a62c6555a69e0826ff8a7f42f1d3b3b7b63e8107f1d",
+    "offline_kernel": "cttsai/quest-deberta-inference",
+    "kernel_version": 1,
+    "status": "complete",
+    "official_ids_and_target_order_match": true
+  },
+  "shared_mlflow": {
+    "project_id": "quest",
+    "experiment": "kaggle/quest",
+    "experiment_id": "7",
+    "logical_run_id": "15857179-b47b-45cf-991d-fad47363b2a8",
+    "mlflow_run_id": "540b7b69ca72491f99f5cfe7b39c3d45",
+    "artifact_uri": "mlflow-artifacts:/projects/quest/540b7b69ca72491f99f5cfe7b39c3d45/artifacts",
+    "idempotent_repeat": true,
+    "checkpoint_download_byte_hash_matches": true,
+    "checkpoint_sha256": "4d8ab8c2217e0f1b1347c2c695d44a804c1179586e25eefe924b13f84911601c",
+    "source_commit": "15f9429dff95cb106484da6d3a31ad017e1c354f",
+    "source_sha256": "ad989899c113b0a0f07674ef8e60d2e126e532f029452d7a559aef28fefd0fd7",
+    "backend_scope": "Existing shared MLflow artifact proxy; infrastructure audited separately"
+  },
+  "local_runtime": {
+    "pytest_passed": 14,
+    "ruff_check_and_format": "passed",
+    "walkthrough_executed_cells": 7,
+    "walkthrough_figures": 4,
+    "lab_authentication": {
+      "lab_started": true,
+      "anonymous_rejected": true,
+      "authenticated_contents": true
+    },
+    "docker_frozen_plan": {
+      "train_rows": 4862,
+      "valid_rows": 1217,
+      "source": {
+        "git_dirty": false,
+        "git_commit": "256bb2186841d04a28ee68cefcedcf220d5f8b7c",
+        "python_source_sha256": "4be5b94b8799984beda710f2ca77cd7b1e5df202a6753f99a16c21b6c9e97d89",
+        "legacy_commit": "ef4fb92c470e45c0a07b0ee0e474224d88d3d410"
+      }
+    },
+    "cpu_full_holdout_evaluation": {
+      "status": "completed",
+      "validation_rows": 1216,
+      "mean_spearman": 0.37784883702183997,
+      "saved_gpu_mean_spearman": 0.3778628686297344,
+      "absolute_difference": 1.4031607894426923e-05,
+      "comparison_scope": "CPU float32/current locked libraries versus CUDA mixed precision/recorded hosted libraries; not bitwise equality",
+      "packages": {
+        "torch": "2.15.0+cpu",
+        "transformers": "5.22.2",
+        "numpy": "2.5.4",
+        "pandas": "3.1.1",
+        "scikit-learn": "1.9.1"
+      }
+    },
+    "devcontainer_interactive_session": "not performed; image and bind-import checks used",
+    "devcontainer_component_check": {
+      "module_path": "/workspace/src/quest/__init__.py",
+      "workspace_edits_imported": true,
+      "development_environment_writable": true
+    },
+    "docker_image_id": "sha256:c11debfe9d3a9002406bfe5298e6c3fa63fb812837b05d9ecd0b9bdb11beef65",
+    "docker_offline_pytest_passed": 14
+  },
+  "kaggle_scoring": {
+    "ref": 58139363,
+    "date": "2026-11-08T19:39:07.483000",
+    "status": "SubmissionStatus.COMPLETE",
+    "publicScore": "0.35189",
+    "privateScore": "0.32983",
+    "description": "Modern QUEST benchmark: recorded single holdout, grouped CV diagnostics"
+  },
+  "limitations": [
+    "No five-fold transformer performance claim",
+    "Historical leaderboard score parity not established",
+    "Bitwise cross-platform model equality not claimed"
+  ]
+}

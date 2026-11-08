@@ -1,0 +1,16 @@
+.git
+.venv
+.local
+.env
+legacy
+data
+input
+outputs
+kaggle-bundle
+dist
+__pycache__
+.pytest_cache
+.ruff_cache
+*.pt
+*.safetensors
+*.zip

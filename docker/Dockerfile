@@ -1,50 +1,23 @@
-ARG CONTAINER_IMAGE
-FROM $CONTAINER_IMAGE
+FROM ghcr.io/astral-sh/uv:0.9.24@sha256:816fdce3387ed2142e37d2e56e1b1b97ccc1ea87731ba199dc8a25c04e4997c5 AS uv
+FROM python:3.12-slim-bookworm@sha256:935c3c5b12357a7e10caa9c1e6ca5692344d97cf229832ef584be2cec9fc03df AS runtime
+COPY --from=uv /uv /usr/local/bin/uv
+ENV UV_PROJECT_ENVIRONMENT=/opt/venv UV_LINK_MODE=copy \
+    PATH=/opt/venv/bin:$PATH PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONPATH=/workspace/src MPLCONFIGDIR=/tmp/matplotlib
+RUN useradd --create-home --uid 1000 researcher && \
+    install -d -o researcher -g researcher /opt/quest /opt/venv /workspace
+WORKDIR /opt/quest
+COPY --chown=researcher:researcher pyproject.toml uv.lock README.md LICENSE ./
+COPY --chown=researcher:researcher src ./src
+USER researcher
+RUN uv sync --locked --no-dev
+WORKDIR /workspace
+ENTRYPOINT ["quest"]
 
-LABEL maintainer "Chia-Ta Tsai <cttsai.aws@outllok.com>"
-
-########### LOCAL DOCKER INFO
-ARG CUDA_VERSION_CURRENT=10.1
-ARG PYTHON_VERSION_SHORT=3.6
-
-ENV DEBIAN_FRONTEND noninteractive
-ENV DEBCONF_NONINTERACTIVE_SEEN true
-
-RUN ln -sf /usr/share/zoneinfo/US/Eastern /etc/localtime
-
-ENV LC_ALL=C.UTF-8
-ENV LANG=C.UTF-8
-
-# nvidia-container-runtime
-ENV NVIDIA_VISIBLE_DEVICES all
-ENV NVIDIA_DRIVER_CAPABILITIES compute,utility
-
-# use for CUDA
-RUN export LD_LIBRARY_PATH=/usr/local/cuda/lib64:/usr/local/cuda/lib
-
-# system packages
-RUN apt-get update && apt-get install -y --no-install-recommends htop tmux && rm -rf /var/lib/apt/lists/*
-
-
-########### pip
-COPY requirements_pip.txt /tmp/requirements_pip.txt
-RUN pip install --no-cache-dir --upgrade pip && \
-    pip install --no-cache-dir --upgrade -r /tmp/requirements_pip.txt
-
-# clean up
-COPY ./clean-layer.sh /tmp/clean-layer.sh
-RUN bash /tmp/clean-layer.sh
-
-
-########### General
-EXPOSE 6006 8888
-
-VOLUME ["/log"]
-VOLUME ["/root/src"]
-VOLUME ["/root/src/input"]
-VOLUME ["/root/src/script"]
-
-# COPY jupyter_notebook_config.py /root/.jupyter/
-
-WORKDIR /root/src
-# CMD ["sh", "-c", "jupyter notebook --port=8888 --no-browser --ip=* --allow-root"]
+FROM runtime AS lab
+WORKDIR /opt/quest
+RUN uv sync --locked --group dev --group lab --group data --group tracking --group tracking-test
+COPY docker/jupyter_server_config.py /etc/jupyter/jupyter_server_config.py
+WORKDIR /workspace
+ENTRYPOINT ["jupyter", "lab"]
+CMD ["--config=/etc/jupyter/jupyter_server_config.py"]
