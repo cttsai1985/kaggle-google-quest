@@ -24,7 +24,7 @@ Pooled OOF Spearman is **0.3261137129**. The fold mean is **0.3267266720** and d
 
 A repeat produced byte-identical fold assignment and OOF prediction CSVs. The clean source revision is `5e0c651e019ebc4d495195b3cff64d390d88f1b2`. The assignment SHA-256 is `68d0efdf4e3cd73f559a1767f2c842eb70c74039f45194c3f8944f0ca6eaf0d7`; the OOF SHA-256 is `a46cc152672fe1b9f7e28337b625d8d50d4e6f82e3080e9c2fc536c16625ffd8`.
 
-The saved assignment file is authoritative when reusing folds across scikit-learn/NumPy versions. Input hashes, exact ID membership, protocol and question-group boundaries are checked before fitting.
+The [aggregate CV receipt](cv-validation.json) retains the complete diagnostics, source/environment and artifact fingerprints. The saved assignment file is authoritative when reusing folds across scikit-learn/NumPy versions. Input hashes, exact ID membership, protocol and question-group boundaries are checked before fitting.
 
 ## Historical leaderboard benchmark
 
@@ -34,6 +34,20 @@ The history establishes leaderboard values. Its generic file name does not ident
 
 ## Full transformer experiment
 
-The predeclared DeBERTa run is training on a private Tesla T4 notebook. It uses the earlier first question-group holdout, with 4,863 training and 1,216 validation rows. Its exact configuration remains in `configs/benchmark.json`; the current default recipe now uses category-stratified groups.
+The predeclared DeBERTa experiment completed one frozen-head epoch and five full fine-tuning epochs on a Tesla T4. It used the earlier first question-group holdout: 4,863 training and 1,216 validation rows. Its exact configuration remains in `configs/benchmark.json`; the current default now uses category-stratified groups.
 
-This earlier holdout has a constant `question_type_spelling` label. Its all-30 metric assigns zero to that undefined correlation; the defined-target counterpart averages the remaining 29. The result and target coverage will be recorded when the full recipe completes. No reproduced or improved leaderboard result is claimed while that measurement is pending.
+The best checkpoint, selected at fine-tuning epoch 4, achieved **0.3778628686 mean Spearman**. All 30 saved holdout targets vary, so its all-30 zero-fallback and defined-target summaries agree. The completed train/reload/test-inference function took **3,249.530 seconds**. All 476 downloadable test IDs and their order match the official sample.
+
+An independent calculation joined saved validation predictions to labels by `qa_id` and correlated average ranks; it reproduced **0.37786286862973434**. Every input hash and output artifact checksum matched, and the frozen benchmark configuration matched the hosted configuration byte for byte.
+
+### Runtime drift and authoritative IDs
+
+Recreating the legacy split locally with newer libraries produces a different 1,216-row holdout: only **252 IDs overlap** the saved hosted holdout. The recreated local split also has a constant spelling target, while the actual hosted split does not. Confusing these partitions would misstate both model performance and target coverage.
+
+The new CV plan is therefore reusable as a verified assignment file rather than a promise about seed behavior. A private CPU-only Kaggle check using scikit-learn **1.6.1** and NumPy **2.1.3** reconstructed the exact file created locally with scikit-learn **1.9.1** and NumPy **2.5.4**, including its byte hash. The first hosted transformer run’s configuration and checkpoint indices remain unchanged.
+
+### Deployment and artifact checks
+
+A separate offline Kaggle notebook successfully loaded the saved model/tokenizer and generated test predictions with internet disabled. The completed run was imported into the existing shared `kaggle/quest` MLflow experiment; repeating the import reused the same logical run. Downloading the 709 MiB checkpoint through the artifact proxy reproduced its original byte hash.
+
+These are measured engineering and model results. They do not establish five-fold transformer performance, original-source numerical reproduction, or improvement over the historical leaderboard submission. One late notebook-scoring request was accepted as submission `58139363`; its score is pending and is not a release gate. The [validation receipt](validation.json) retains the completed checks and their limits.

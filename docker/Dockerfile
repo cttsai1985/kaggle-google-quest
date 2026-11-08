@@ -17,6 +17,7 @@ FROM runtime AS lab
 USER root
 WORKDIR /opt/quest
 RUN uv sync --locked --no-dev --group lab --group data --group tracking
+RUN chown -R researcher:researcher /opt/venv /opt/quest
 COPY docker/jupyter_server_config.py /etc/jupyter/jupyter_server_config.py
 USER researcher
 WORKDIR /workspace

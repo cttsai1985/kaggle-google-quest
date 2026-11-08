@@ -24,11 +24,11 @@ The earlier full transformer benchmark retains its original single question-grou
 
 Mean column-wise Spearman evaluates within-target ranks. The maintained primary metric averages all 30 contributions, assigning zero to undefined constant-target or constant-prediction correlations. A second score averages only targets whose held-out labels vary; a constant prediction still contributes zero. Both scores and the number of defined targets are reported.
 
-The benchmark holdout has one constant label column, `question_type_spelling`: its primary score uses 30 contributions, while the defined-target score uses 29. All five new stratified folds have 30 defined targets, so both summaries agree there. The original `nanmean` implementation could silently exclude undefined correlations; metric coverage now accompanies the result.
+The actual saved hosted benchmark holdout has 30 defined targets, so both summaries agree there. A locally regenerated legacy fold instead has a constant `question_type_spelling` column and only 29 defined targets. Those regenerated IDs are not the recorded benchmark partition. All five new stratified folds have 30 defined targets. The original `nanmean` implementation could silently exclude undefined correlations; metric coverage now accompanies each result.
 
 ### Frozen assignments across runtimes
 
-A fixed seed does not promise identical group assignments across scikit-learn or NumPy versions. The CV run saves `fold-assignments.csv` with its checksum, input-file checksum, protocol, seed and source library versions. Training can consume this file as the authority instead of rerunning the splitter. It rejects changed inputs, duplicate/missing IDs, invalid fold values, protocol mismatches and question-group leakage.
+A fixed seed does not promise identical group assignments across scikit-learn or NumPy versions. This occurred in the actual legacy comparison: the local and hosted holdouts both contain 1,216 rows but share only 252 IDs, despite the same input and declared grouping procedure. Checkpoint evaluation therefore uses saved indices, never a newly generated split. The CV run saves `fold-assignments.csv` with its checksum, input-file checksum, protocol, seed and source library versions. Training can consume this file as the authority instead of rerunning the splitter. It rejects changed inputs, duplicate/missing IDs, invalid fold values, protocol mismatches and question-group leakage.
 
 Export includes competition-derived fold IDs only when explicitly requested; code-only packaging remains the default. A retrieved checkpoint needs neither a splitter nor the full training dataset for test inference.
 

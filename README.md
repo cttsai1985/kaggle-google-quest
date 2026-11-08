@@ -25,7 +25,7 @@ A train-only **TF-IDF + Ridge** baseline provides an empirical stability check:
 | Held-out prediction coverage | All 6,079 rows, exactly once |
 | CPU runtime | About 28 seconds in the recorded environment |
 
-Each fold fits its own vocabulary and IDF on training text only. These are text-baseline CV results, not five-fold transformer performance. Repeating the fixed recipe reproduced identical assignment and OOF prediction files. Saved assignments and input hashes provide the cross-runtime contract; the seed alone does not.
+Each fold fits its own vocabulary and IDF on training text only. These are text-baseline CV results, not five-fold transformer performance. Repeating the fixed recipe reproduced identical assignment and OOF prediction files. Saved assignments and input hashes provide the cross-runtime contract; the seed alone does not. The [aggregate CV receipt](docs/cv-validation.json) retains all target diagnostics and fingerprints.
 
 ## Shared transformer representations
 
@@ -48,7 +48,7 @@ The recorded full transformer experiment uses the earlier single question-group 
 | Experiment | Evaluation | Score |
 |---|---|---|
 | Historical account submission, 10 February 2020 | Public / private leaderboard | 0.43155 / 0.40232 |
-| Modern DeBERTa benchmark | One question-group holdout | Full-data GPU experiment in progress |
+| Modern DeBERTa benchmark | One saved question-group holdout, 30 defined targets | **0.3779** |
 
 Historical values come from Kaggle submission history. They are separate from either local CV result and do not prove the original source revision produced that submission. [Measured results](docs/results.md) report evaluation scope, target coverage and runtime evidence.
 
@@ -87,7 +87,7 @@ Open http://127.0.0.1:8892/lab using `.local/jupyter_token`. The CPU image suppo
 
 [The training notebook](notebooks/kaggle/train.ipynb) installs a verified code wheel and trains against the competition input. [Offline inference](notebooks/kaggle/inference.ipynb) reuses the completed training notebook's model/tokenizer outputs, verifies their hashes and writes `submission.csv`. QUEST scoring requires a notebook version; a local CSV alone does not establish a leaderboard result.
 
-Completed model runs can be imported into the canonical `kaggle/quest` MLflow experiment, retaining their logical run ID and source fingerprint. Shared MLflow, Prefect and SeaweedFS deployment is managed in [mlops-platform](https://github.com/cttsai1985/mlops-platform), independently of local or offline Kaggle execution. The runbook describes optional client-network and filesystem mounts.
+The completed model run was imported into the canonical `kaggle/quest` MLflow experiment, retaining its logical run ID and source fingerprint. A repeat import reused the same run, and a 709 MiB checkpoint round trip through the artifact proxy matched its byte hash. Shared MLflow, Prefect and SeaweedFS deployment is managed in [mlops-platform](https://github.com/cttsai1985/mlops-platform), independently of local or offline Kaggle execution. The runbook describes optional client-network and filesystem mounts. The [validation receipt](docs/validation.json) records completed checks and their limits.
 
 ## Development
 
