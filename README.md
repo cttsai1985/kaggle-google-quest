@@ -49,6 +49,7 @@ The recorded full transformer experiment uses the earlier single question-group 
 |---|---|---|
 | Historical account submission, 10 February 2020 | Public / private leaderboard | 0.43155 / 0.40232 |
 | Modern DeBERTa benchmark | One saved question-group holdout, 30 defined targets | **0.3779** |
+| Same modern model, late notebook submission | Public / private leaderboard | **0.35189 / 0.32983** |
 
 Historical values come from Kaggle submission history. They are separate from either local CV result and do not prove the original source revision produced that submission. [Measured results](docs/results.md) report evaluation scope, target coverage and runtime evidence.
 
@@ -107,4 +108,4 @@ legacy/           Original TensorFlow source and notebooks
 .venv/bin/pytest -q
 ```
 
-The original implementation is preserved in [legacy/](legacy/README.md) at `ef4fb92`. Code uses the [Apache 2.0 license](LICENSE); pretrained model and competition data retain their own terms. Raw text, trained weights, credentials, fold IDs and prediction rows stay outside Git.
+The original implementation is preserved in [legacy/](legacy/README.md) at `ef4fb92`. Code uses the [Apache 2.0 license](LICENSE); pretrained model and competition data retain their own terms. The maintained workflow keeps new raw-data copies, weights, credentials, fold IDs and prediction rows outside Git. Historical notebooks remain in the preserved legacy tree.

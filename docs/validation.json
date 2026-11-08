@@ -238,20 +238,20 @@
       "workspace_edits_imported": true,
       "development_environment_writable": true
     },
-    "docker_image_id": "sha256:92de61b217e1d90b138ab9850b9806b643a59ee755e94b199b36f2f88c4e6d2a"
+    "docker_image_id": "sha256:c11debfe9d3a9002406bfe5298e6c3fa63fb812837b05d9ecd0b9bdb11beef65",
+    "docker_offline_pytest_passed": 14
   },
   "kaggle_scoring": {
     "ref": 58139363,
     "date": "2026-11-08T19:39:07.483000",
-    "status": "SubmissionStatus.PENDING",
-    "publicScore": "",
-    "privateScore": "",
+    "status": "SubmissionStatus.COMPLETE",
+    "publicScore": "0.35189",
+    "privateScore": "0.32983",
     "description": "Modern QUEST benchmark: recorded single holdout, grouped CV diagnostics"
   },
   "limitations": [
     "No five-fold transformer performance claim",
     "Historical leaderboard score parity not established",
-    "Late scoring pending; not a release gate",
     "Bitwise cross-platform model equality not claimed"
   ]
 }

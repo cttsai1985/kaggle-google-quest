@@ -4,22 +4,20 @@ COPY --from=uv /uv /usr/local/bin/uv
 ENV UV_PROJECT_ENVIRONMENT=/opt/venv UV_LINK_MODE=copy \
     PATH=/opt/venv/bin:$PATH PYTHONDONTWRITEBYTECODE=1 \
     PYTHONPATH=/workspace/src MPLCONFIGDIR=/tmp/matplotlib
+RUN useradd --create-home --uid 1000 researcher && \
+    install -d -o researcher -g researcher /opt/quest /opt/venv /workspace
 WORKDIR /opt/quest
-COPY pyproject.toml uv.lock README.md LICENSE ./
-COPY src ./src
-RUN uv sync --locked --no-dev
-RUN useradd --create-home --uid 1000 researcher
+COPY --chown=researcher:researcher pyproject.toml uv.lock README.md LICENSE ./
+COPY --chown=researcher:researcher src ./src
 USER researcher
+RUN uv sync --locked --no-dev
 WORKDIR /workspace
 ENTRYPOINT ["quest"]
 
 FROM runtime AS lab
-USER root
 WORKDIR /opt/quest
-RUN uv sync --locked --no-dev --group lab --group data --group tracking
-RUN chown -R researcher:researcher /opt/venv /opt/quest
+RUN uv sync --locked --group dev --group lab --group data --group tracking --group tracking-test
 COPY docker/jupyter_server_config.py /etc/jupyter/jupyter_server_config.py
-USER researcher
 WORKDIR /workspace
 ENTRYPOINT ["jupyter", "lab"]
 CMD ["--config=/etc/jupyter/jupyter_server_config.py"]
