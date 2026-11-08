@@ -40,6 +40,8 @@ The best checkpoint, selected at fine-tuning epoch 4, achieved **0.3778628686 me
 
 An independent calculation joined saved validation predictions to labels by `qa_id` and correlated average ranks; it reproduced **0.37786286862973434**. Every input hash and output artifact checksum matched, and the frozen benchmark configuration matched the hosted configuration byte for byte.
 
+A separate full CPU checkpoint reload evaluated all 1,216 saved holdout rows with the current locked libraries. It scored **0.3778488370**, an absolute difference of **0.0000140316** from the recorded CUDA mixed-precision result. This measured difference is retained rather than asserting bitwise cross-runtime equality.
+
 ### Runtime drift and authoritative IDs
 
 Recreating the legacy split locally with newer libraries produces a different 1,216-row holdout: only **252 IDs overlap** the saved hosted holdout. The recreated local split also has a constant spelling target, while the actual hosted split does not. Confusing these partitions would misstate both model performance and target coverage.

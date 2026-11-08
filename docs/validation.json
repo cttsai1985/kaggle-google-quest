@@ -218,10 +218,27 @@
       }
     },
     "cpu_full_holdout_evaluation": {
-      "status": "in_progress",
-      "budget_minutes": 30
+      "status": "completed",
+      "validation_rows": 1216,
+      "mean_spearman": 0.37784883702183997,
+      "saved_gpu_mean_spearman": 0.3778628686297344,
+      "absolute_difference": 1.4031607894426923e-05,
+      "comparison_scope": "CPU float32/current locked libraries versus CUDA mixed precision/recorded hosted libraries; not bitwise equality",
+      "packages": {
+        "torch": "2.15.0+cpu",
+        "transformers": "5.22.2",
+        "numpy": "2.5.4",
+        "pandas": "3.1.1",
+        "scikit-learn": "1.9.1"
+      }
     },
-    "devcontainer_interactive_session": "not performed; image and bind-import checks used"
+    "devcontainer_interactive_session": "not performed; image and bind-import checks used",
+    "devcontainer_component_check": {
+      "module_path": "/workspace/src/quest/__init__.py",
+      "workspace_edits_imported": true,
+      "development_environment_writable": true
+    },
+    "docker_image_id": "sha256:92de61b217e1d90b138ab9850b9806b643a59ee755e94b199b36f2f88c4e6d2a"
   },
   "kaggle_scoring": {
     "ref": 58139363,
