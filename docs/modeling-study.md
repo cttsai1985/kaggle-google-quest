@@ -1,8 +1,18 @@
-# What does each text field contribute?
+# Answer text improves the aggregate score but exposes a target tradeoff
 
-## Finding
+This study uses a conventional competition model to examine evaluation and reproducibility decisions. Its role in the portfolio is engineering validation; the component comparison is not presented as a novel modeling contribution.
 
-Adding the question body and then the answer improves the lightweight text baseline on every one of three predeclared grouped split plans. The effects are much larger than the observed variation between these plans. This identifies a useful input representation; it does not establish transformer architecture quality.
+**The best aggregate input representation is not uniformly better for both kinds of label.** Adding answer text improves the nine answer-target mean while slightly worsening the 21 question-target mean in **all three grouped split plans**. The research decision is to retain the answer for the current 30-target baseline, while treating a separate representation for question targets as the next hypothesis rather than assuming every target benefits from the same inputs.
+
+The aggregate comparison alone would support a simpler story: title, body and answer produce progressively better predictions. Mean out-of-fold Spearman rises from **0.220134** with the title to **0.294286** with the body and **0.325638** with the answer. The matched effects repeat across three predeclared grouped splits, so the pattern is not confined to one favorable question partition. Holding repeated question bodies together also prevents the same question from appearing on both sides of a fit/validation split.
+
+Breaking the final improvement down by label family changes its interpretation. The answer-target mean gains **0.108188**, while the question-target mean loses **0.001579**, averaged across plans. Since the overall metric averages 30 targets equally, the nine answer targets contribute about **+0.032456** to the aggregate change and the 21 question targets contribute **−0.001105**. The resulting **+0.031351** aggregate gain is a net tradeoff, not evidence of improvement for every task. These figures are a decomposition of the retained per-family metrics, not a new model result.
+
+There is a plausible representation explanation, but this experiment does not settle it. Both text slots share a capped, refitted vocabulary and IDF, so adding answer text can change how the unchanged question text is encoded. Extra answer features can also change the fitted question-target predictions. The study does not separate these possibilities. The repeated negative question-family effect motivates testing separate vocabularies or target-specific inputs; it does not demonstrate that either would fix the loss.
+
+For the current equally weighted 30-target objective, retaining both body and answer is supported by the observed gain. For question-only quality assessment, that aggregate is the wrong acceptance criterion: the question-family result would need to lead the comparison. No target-specific replacement or transformer improvement is claimed here.
+
+## Retained aggregate comparison
 
 | Input information | Mean OOF Spearman across 3 split plans | Split-plan range | Sample SD across plans |
 |---|---:|---:|---:|
@@ -26,7 +36,7 @@ The aggregate improvement hides a tradeoff. Adding the answer raises the **nine 
 | Title + body | 0.341852 | 0.183301 |
 | Title + body + answer | 0.340272 | 0.291489 |
 
-The answer-addition effect on question-target means ranges from **−0.002154 to −0.001116**, while answer-target means gain **+0.104545 to +0.111165**. Because both slots share a refitted vocabulary, this experiment does not isolate the mechanism behind the question-target decrease. A separate target-specific representation would be a justified next hypothesis; no such improvement is claimed here.
+The answer-addition effect on question-target means ranges from **−0.002154 to −0.001116**, while answer-target means gain **+0.104545 to +0.111165**. These are family averages; they do not mean every individual question target worsens or every answer target improves. The [study receipt](modeling-study.json) retains the per-target results and matched split assignments.
 
 ## Hypothesis and controlled comparison
 

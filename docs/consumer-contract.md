@@ -2,6 +2,14 @@
 
 The solution owns the modeling question, validation method and acceptance criteria. It consumes shared execution, tracking and storage services. Its scientific claims do not become stronger merely because a run appears in MLflow.
 
+## Why the evaluation partition travels with the model
+
+The hosted-to-local comparison exposed a portability problem that a successful model load would miss. Both regenerated and saved holdouts had 1,216 rows, yet only **252 IDs overlapped**. The declared seed and grouping procedure did not preserve the same evaluation population across library versions.
+
+The engineering decision is to carry evaluation identity as an artifact: input hash, actual row assignments, protocol and group-boundary checks. A checkpoint is evaluated on its saved indices; a supplied fold plan is authoritative only after its IDs and input fingerprint validate. Otherwise a plausible score could describe a different cohort and different target coverage while appearing to reproduce the original run.
+
+This [observed cross-runtime comparison](results.md) explains the requirement more directly than a list of pinned packages. Environment reproducibility and evaluation identity solve related but distinct problems. The inference handoff also preserves model/tokenizer identities and official test IDs; the model's transferred bytes were independently checked. Same-run import recovery is additionally covered by controlled fixtures, rather than presented as an observed outage of this model.
+
 ## From scientific evidence to an executable job
 
 | Boundary | This solution supplies | What it expects from shared services |

@@ -1,26 +1,24 @@
 # Google QUEST Q&A Labeling
 
-**Question quality is multidimensional—and repeated questions can make validation deceptively easy.** This project predicts 30 quality labels while making the boundary between model performance, split design and operational reliability explicit.
+Chia-Ta Tsai's 2020 question-quality solution, revisited as a **case study in reliable ML engineering**: preserve the intended evaluation across environments, make metric scope explicit, and hand off verifiable model artifacts. Model quality and operational correctness are evaluated separately.
 
-| What matters | What the evidence says |
-|---|---|
-| Competition context | The historical public score **0.43155** corresponds to approximately **top 5.2%** of the downloaded public leaderboard; the modern DeBERTa score **0.35189** corresponds to **top 75.9%**. The modern model has a substantial performance gap. These are score-equivalent positions, not new official competition ranks. |
-| Validation finding | Question bodies stay in one fold. Category-stratified groups reduce maximum category distribution distance from **0.0388 to 0.0012**, while retaining variation in all 30 targets. |
-| Controlled ablation | Across three grouped split plans, the CPU baseline improves **0.2201 → 0.2943 → 0.3256** when adding body, then answer text. Adding answers helps answer targets but slightly hurts question targets. |
+The historical public score **0.43155** corresponds to approximately **top 5.2%** of the downloaded public leaderboard; the modern DeBERTa rerun's **0.35189** corresponds to **top 75.9%**. The performance gap remains explicit. [Percentile method and snapshot](docs/results.md#leaderboard-percentile-context). These are score-equivalent positions, separate from official late-entry ranks.
 
-The competition metric measures agreement in ranking, rather than exact-score accuracy. The small CPU baseline tests the validation design cheaply; a separate GPU transformer experiment tests the model. Frozen assignments and input hashes preserve the intended split across library versions—one random seed alone did not. [Leaderboard percentile method and snapshot](docs/results.md#leaderboard-percentile-context) · [Executed walkthrough](notebooks/01-question-quality.ipynb).
+## The same seed did not preserve the same evaluation
 
-The [controlled study](docs/modeling-study.md) distinguishes input-component effects from split-plan sensitivity. The answer-text tradeoff motivates a target-specific representation as a future hypothesis; no such improvement is claimed. These are text-baseline studies, not transformer ablations. [Executed ablation notebook](notebooks/02-controlled-ablations.ipynb).
+During the hosted-to-local comparison, regenerating a group holdout produced the expected **1,216 validation rows**, but only **252 IDs overlapped** the saved hosted partition. The model could load and an evaluation could run while answering a different question. A matching row count and a fixed seed were insufficient evidence of reproduction.
 
-## From applied science to an operated experiment
+The handoff contract therefore includes saved assignments and the input fingerprint. Checkpoint evaluation uses its actual retained indices; external fold plans are checked for ID coverage and question-group separation. This is why evaluation identity travels with the model, rather than being reconstructed from a seed. [Observed evidence](docs/results.md) · [Runtime contract](docs/architecture.md#frozen-assignments-across-runtimes).
 
-[Consumer contract](docs/consumer-contract.md) · [Controlled modeling study](docs/modeling-study.md)
+## An overall metric can approve the wrong behavior
 
-The same model package runs locally and in Kaggle. Offline inference verifies model/tokenizer artifacts and preserves test identity; a completed 709 MiB checkpoint round trip through shared storage reproduced its byte hash. The [shared operations case study](https://github.com/cttsai1985/mlops-platform/blob/main/docs/batch-operations.md) demonstrates orchestration and recovery on Iceberg; it is not evidence of a deployed Q&A product or a scheduled QUEST transformer pipeline.
+The lightweight input ablation improves the overall 30-target score when answer text is added. Breaking it down shows a tradeoff: the **nine answer-target mean improves**, while the **21 question-target mean slightly worsens** across all three split plans. Those are family averages, not a claim about every individual label.
 
-The scope is **batch research operations**, with explicit evidence for each control. Continuous quality monitoring on live questions, automatic retraining and online serving remain outside this implementation. [MLOps capability assessment](https://github.com/cttsai1985/mlops-platform/blob/main/docs/mlops-assessment.md).
+For the current equally weighted objective, retaining answer text is supported. A question-only consumer would need a different acceptance criterion. The engineering requirement is to preserve the metric's target scope in evaluation and delivery reports, so an aggregate gain does not silently stand in for every use case. A target-specific representation is an untested follow-up, not a claimed improvement. [Evidence and interpretation](docs/modeling-study.md) · [Executed notebook](notebooks/02-controlled-ablations.ipynb).
 
-The official dataset contains **6,079 labeled pairs** and **476 downloadable test pairs**. Labels describe clarity, relevance, helpfulness and intent as fractional scores. Multiple answers can share one question, making the validation boundary especially important.
+This solution consumes shared tracking and storage. Its actual model was independently evaluated and its checkpoint bytes verified after transfer; interrupted-import recovery is also tested with controlled fixtures. The shared batch-operation drill uses Iceberg, without implying a scheduled QUEST production service. [Consumer contract](docs/consumer-contract.md) · [Original walkthrough](notebooks/01-question-quality.ipynb).
+
+The official dataset contains **6,079 labeled pairs** and **476 downloadable test pairs**, with 30 fractional question/answer quality labels. Multiple answers can share a question.
 
 ## Cross-validation without repeated-question leakage
 
