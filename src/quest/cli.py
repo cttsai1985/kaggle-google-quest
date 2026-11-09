@@ -151,6 +151,11 @@ def main():
     sub = commands.add_parser("track")
     sub.add_argument("--run-dir", type=Path, required=True)
     sub.add_argument("--tracking-uri", default=os.getenv("MLFLOW_TRACKING_URI"))
+    sub.add_argument(
+        "--resume",
+        action="store_true",
+        help="Resume an incomplete import after its previous writer has stopped",
+    )
     sub = commands.add_parser("analyze-cv")
     sub.add_argument("--data-dir", type=Path, required=True)
     sub.add_argument("--output", type=Path, required=True)
@@ -217,7 +222,7 @@ def main():
 
         if not args.tracking_uri:
             parser.error("Set MLFLOW_TRACKING_URI or provide --tracking-uri")
-        result = track(args.run_dir, args.tracking_uri)
+        result = track(args.run_dir, args.tracking_uri, resume=args.resume)
     elif args.command == "lab-token":
         import secrets
 
