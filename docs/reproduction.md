@@ -113,7 +113,7 @@ export MLFLOW_TRACKING_URI=http://your-existing-tracker:5000
 .venv/bin/quest track --run-dir .local/my-run
 ```
 
-Use an address reachable from the runtime. The platform bootstrap must create the active `kaggle/quest` experiment first, including its `projects/quest` artifact namespace. The client does not create a fallback experiment with a different storage layout. Import targets the `kaggle/quest` experiment and tags the project as `quest`, retaining the logical run ID, source commit where available, and source-file hash. The shared artifact namespace is `projects/quest`; model registry name `kaggle-quest` is reserved for an explicit future registration step. Import verifies artifact hashes and rejects conflicting or incomplete repeats of the same logical run ID. Tracker availability does not affect saved local training artifacts. The client is tested with an isolated SQLite MLflow backend, including artifact retrieval, duplicate import and conflicting-run rejection; the existing shared server remains a separate integration check.
+Use an address reachable from the runtime. The platform bootstrap must create the active `kaggle/quest` experiment first, including its `projects/quest` artifact namespace. The client does not create a fallback experiment with a different storage layout. Import targets the `kaggle/quest` experiment and tags the project as `quest`, retaining the logical run ID, source commit where available, and source-file hash. The shared artifact namespace is `projects/quest`; model registry name `kaggle-quest` is reserved for an explicit future registration step. Import verifies artifact hashes and rejects conflicting manifests and requires explicit recovery for incomplete imports. Tracker availability does not affect saved local training artifacts. The client is tested with an isolated SQLite MLflow backend, including artifact retrieval, duplicate import and conflicting-run rejection; the existing shared server remains a separate integration check.
 
 An existing SeaweedFS client mount is a filesystem route; MLflow's artifact proxy is a separate route. Avoid distributing storage administration credentials to notebooks. Prefect orchestration and W&B mirroring need a configured external endpoint and their own end-to-end evidence before being described as active integrations.
 
@@ -127,3 +127,29 @@ docker compose -f docker/compose.yaml -f docker/compose.mlops.yaml up -d lab
 ```
 
 The external network must already exist. This override routes the client to `http://mlflow:5000`; it does not join database or storage-administration networks. Host-side CLI calls can use an explicitly configured host endpoint. A host port bound only to `127.0.0.1` is not reachable through a bridge-container host-gateway address.
+
+## Recover an interrupted tracking import
+
+A tracker outage does not require retraining. The importer validates the unchanged local
+bundle, uploads it, and downloads every artifact to verify its SHA-256 before marking the
+MLflow run `FINISHED`. A normal repeat also verifies the remote bytes. This adds an artifact
+read-back cost, including the full model checkpoint.
+
+If an upload fails, `tracking.json` records its remote run ID and exception type;
+`tracking-events.jsonl` retains timestamped attempt transitions. Confirm that the previous
+importer has stopped, then explicitly recover the same bundle:
+
+```bash
+.venv/bin/quest track --run-dir .local/benchmark --resume
+```
+
+Recovery reuses the original MLflow run ID and uploads the same immutable artifact paths;
+changed manifests and duplicate remote identities are rejected. `RUNNING` can mean a live
+writer or a crashed importer, so it is never resumed implicitly. This is a single-writer
+consumer contract, not a distributed lock. A supplied `PREFECT_FLOW_RUN_ID` links the import
+attempt to its orchestrator. Training manifests and checkpoints are not rewritten.
+
+The isolated SQLite integration tests inject a partial-upload interruption and corrupt
+read-back bytes, check that completion is blocked, then recover with the same run ID.
+These tests verify client behavior; they do not establish availability or recovery
+objectives for the shared infrastructure.

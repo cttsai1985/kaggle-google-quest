@@ -6,7 +6,7 @@ from pathlib import Path
 from urllib.parse import urlparse
 
 from quest.data import sha256
-from quest.runtime import write_json
+from quest.import_support import import_verified
 
 ARTIFACTS = {
     "model.pt",
@@ -31,7 +31,7 @@ TOKENIZER_FILES = {
 }
 
 
-def track(run_dir: Path, tracking_uri: str) -> dict:
+def track(run_dir: Path, tracking_uri: str, *, resume: bool = False) -> dict:
     import mlflow
     from mlflow import MlflowClient
 
@@ -66,17 +66,6 @@ def track(run_dir: Path, tracking_uri: str) -> dict:
             "Provision the active kaggle/quest experiment with the mlops-platform bootstrap "
             "before importing: https://github.com/cttsai1985/mlops-platform"
         )
-    matches = client.search_runs(
-        [experiment.experiment_id], f"tags.logical_run_id = '{logical_id}'"
-    )
-    if matches:
-        previous = matches[0]
-        if (
-            previous.data.tags.get("manifest_sha256") != digest
-            or previous.info.status != "FINISHED"
-        ):
-            raise ValueError("Conflicting or incomplete import for this logical run")
-        return {"status": "already_imported", "mlflow_run_id": previous.info.run_id}
     tags = {
         "project_id": "quest",
         "logical_run_id": logical_id,
@@ -85,20 +74,20 @@ def track(run_dir: Path, tracking_uri: str) -> dict:
     }
     if manifest["source"].get("git_commit"):
         tags["source_commit"] = manifest["source"]["git_commit"]
-    with mlflow.start_run(
-        experiment_id=experiment.experiment_id, run_name=manifest["config"]["name"], tags=tags
-    ) as active:
-        mlflow.log_params(manifest["config"])
-        metrics = json.loads((run_dir / "metrics.json").read_text())
-        mlflow.log_metric("mean_spearman", metrics["mean_spearman"])
-        mlflow.log_metrics(
-            {f"spearman_{key}": value for key, value in metrics["per_target"].items()}
-        )
-        for filename in [*manifest["artifacts"], "manifest.json"]:
-            parent = Path(filename).parent
-            mlflow.log_artifact(
-                str(run_dir / filename), artifact_path=None if parent == Path(".") else str(parent)
-            )
-        result = {"status": "imported", "mlflow_run_id": active.info.run_id}
-    write_json(run_dir / "tracking.json", result)
-    return result
+    metrics = json.loads((run_dir / "metrics.json").read_text())
+    return import_verified(
+        client,
+        experiment_id=experiment.experiment_id,
+        run_dir=run_dir,
+        logical_id=logical_id,
+        manifest_digest=digest,
+        artifacts={**manifest["artifacts"], "manifest.json": digest},
+        run_name=manifest["config"]["name"],
+        tags=tags,
+        params=manifest["config"],
+        metrics={
+            "mean_spearman": metrics["mean_spearman"],
+            **{f"spearman_{key}": value for key, value in metrics["per_target"].items()},
+        },
+        resume=resume,
+    )

@@ -55,3 +55,19 @@ A separate offline Kaggle notebook successfully loaded the saved model/tokenizer
 These are measured engineering and model results. They do not establish five-fold transformer performance, original-source numerical reproduction, or improvement over the historical leaderboard submission. DeBERTa-v3 uses different pretrained assets from the historical BERT/DistilRoBERTa pipeline. This is a retrospective modern baseline; late evaluation does not establish original-weight reproduction or historical-period competition eligibility.
 
 The single late notebook-scoring request completed as submission `58139363`: public **0.35189**, private **0.32983**. It falls below the historical account result; no further tuning or submission search was performed. Stable CV and verified engineering, rather than matching a favorable historical score, define this release’s scope. The [validation receipt](validation.json) retains the completed checks and their limits.
+
+## Leaderboard percentile context
+
+A score becomes easier to interpret when compared with other teams. The official **public** leaderboard export provides this reference population; the private leaderboard is not included in that download.
+
+| Submission | Public score | Score-equivalent position | Top share of reference teams | Strictly outperforms |
+|---|---:|---:|---:|---:|
+| Historical account submission, 2020-02-10 15:32 UTC | 0.43155 | 82 / 1,572 | 5.22% | 94.78% |
+| Historical final submission, 2020-02-10 | 0.42654 | 104 / 1,572 | 6.62% | 93.45% |
+| Modern DeBERTa late notebook submission | 0.35189 | 1193 / 1,572 | 75.89% | 24.17% |
+
+Snapshot: **2026-11-09T00:02:27Z**, **1,572 unique scored teams** in the [official public leaderboard](https://www.kaggle.com/competitions/google-quest-challenge/leaderboard?tab=public). Smaller top-share percentages and larger outperformed percentages are better.
+
+Position is `1 + teams with a strictly better displayed score`; equal scores share the starting position and the table retains the full tie interval. Top share is that starting position divided by the reference-team count. The outperformed percentile counts only strictly worse scores, so tied teams are excluded. Comparisons use the exported decimal scores without a tolerance.
+
+These are **score-equivalent placements**, not awarded final ranks for late submissions. The dated snapshot is the denominator; it may differ from competition-era participant counts. Public/private leaderboard populations and internal OOF/holdout populations are separate: no private or CV percentile is inferred. The [aggregate receipt](leaderboard-context.json) records source hashes, tie counts, formulas and scope.
