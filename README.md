@@ -6,6 +6,26 @@ The controlled TF-IDF/Ridge study raises mean OOF Spearman from **0.2201** with 
 
 [Why the problem matters](docs/problem-and-value.md) · [Controlled experiments](docs/modeling-study.md) · [Run the model](#run-the-cpu-analysis)
 
+<!-- portfolio-results:start -->
+## Results
+
+**Public leaderboard — mean Spearman ↑.**
+
+| Model / submission | Public score | Public reference rank / teams | Top % | Reference ties |
+|---|---:|---:|---:|---:|
+| Historical account submission, 2020-02-10 15:32 UTC | 0.43155 | 82 / 1,572 | **5.22%** | 1 |
+| Historical final submission, 2020-02-10 | 0.42654 | 104 / 1,572 | **6.62%** | 0 |
+| Modern DeBERTa late notebook submission | 0.35189 | 1,193 / 1,572 | **75.89%** | 0 |
+
+Reference: **2026-11-09T00:02:27Z**, **1,572 unique scored teams**. Ranks are score-equivalent comparisons with the dated public export, not awarded final ranks. Lower Top % is better. A zero tie count denotes an insertion position; ties occupy the shown interval.
+
+**OOF/holdout rank and Top %: not applicable. Private leaderboard rank and Top %: unavailable without a matching private reference population.** Internal validation and private scores remain separately reported in [detailed results](docs/results.md). [Reference data and calculation](docs/leaderboard-context.json).
+<!-- portfolio-results:end -->
+
+## Learning from difficult answers
+
+On the saved 1,216-row holdout, the 122 examples with the largest mean target-rank disagreement have higher answer-family disagreement (0.359 versus 0.231 on the remaining examples). Answer relevance and plausibility offer better-supported next investigations than spelling, whose label is almost constant in this holdout. Difficult answers are shorter on median, so a larger context budget is not yet justified. [Hard-case analysis, label support and next experiments](docs/error-analysis.md).
+
 ## Shared transformer representations
 
 A shared DeBERTa-v3 encoder reads title/body and title/answer pairs. Padding-aware mean pooling produces one vector for each. A prediction head combines both vectors and their difference, then predicts 30 independent sigmoid scores.

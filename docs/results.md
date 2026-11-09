@@ -1,5 +1,7 @@
 # QUEST evaluation results
 
+[Hard-case diagnostics and next experiments](error-analysis.md) · [Acceptance audit](requirements-audit.md)
+
 ## A fixed grouped CV plan
 
 The dataset has 6,079 training rows, 3,583 unique question bodies and 30 targets. The current protocol is `category_stratified_group_v1`: five `StratifiedGroupKFold` partitions, category-domain strata, exact question-body groups and seed 42. This plan was declared before model fitting; no seed search was performed.

@@ -6,6 +6,7 @@ import os
 import shutil
 import subprocess
 import sys
+import tomllib
 import zipfile
 from pathlib import Path
 
@@ -62,7 +63,8 @@ def export(output, owner="cttsai", cv_run=None):
     subprocess.run(["uv", "build", "--wheel"], check=True)
     assets = output / "code-dataset"
     assets.mkdir(parents=True, exist_ok=True)
-    wheel = project / "dist/quest_labeling-0.1.0-py3-none-any.whl"
+    version = tomllib.loads((project / "pyproject.toml").read_text())["project"]["version"]
+    wheel = project / f"dist/quest_labeling-{version}-py3-none-any.whl"
     for path in (wheel, project / "LICENSE", project / "configs/deberta.json"):
         shutil.copy2(path, assets / path.name)
     for name in ("fold-assignments.csv", "fold-plan.json"):
