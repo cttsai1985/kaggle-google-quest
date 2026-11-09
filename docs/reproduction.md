@@ -103,7 +103,7 @@ Late-scoring availability and submission acceptance are determined by Kaggle. A 
 
 ## Existing MLOps services
 
-The run directory is portable and does not require a private server to survive training. Shared MLflow, SeaweedFS and Prefect deployment lives in [mlops-platform](https://github.com/cttsai1985/mlops-platform); service upgrades, credentials and backups are managed there. A Kaggle worker need not reach the private network. Retrieve its completed run, verify it locally and import deliberately into the chosen tracker.
+The run directory is portable and does not require a private server to survive training. Shared MLflow, SeaweedFS and Prefect deployment lives in [ML infrastructure](https://github.com/cttsai1985/ml-infrastructure); service upgrades, credentials and backups are managed there. A Kaggle worker need not reach the private network. Retrieve its completed run, verify it locally and import deliberately into the chosen tracker.
 
 The optional MLflow client validates a completed run and imports it explicitly:
 

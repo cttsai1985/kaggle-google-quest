@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "release": "v0.2.0-canary.1",
+  "package_version": "0.2.0.dev1",
+  "status": "verified_real_model_canary",
+  "adapter_source_commit": "ef59810c242e895e6b206bf663d8e3b059d106bc",
+  "adapter_source_dirty_at_export": false,
+  "controller_source_commit": "f6d9fe64aeec6aec04edca3e368875a7a3b270fe",
+  "client_lock_sha256": "dcdd4394556f3666aa83bc92aacd168fb2927c622afd4ad0fdc9f1cb14e5bc33",
+  "producer_manifest_sha256": "e6c618089b3ce083bda6aa760484e200852b93bf805e7d680f2a96666e2f7f70",
+  "model_training_repeated": false,
+  "quality_evaluation_reference": "results.md",
+  "validation_scope": "A small real-input inference parity and input-contract check; existing full-data evaluation remains separately recorded.",
+  "unit_tests_passed": 17,
+  "http_verification": {
+    "started_at": "2026-11-09T16:27:00.260228+00:00",
+    "finished_at": "2026-11-09T16:27:14.584555+00:00",
+    "engine": "MLflow Model Serving",
+    "model_package_sha256": "4d60a5f1e4e5afd6ed69ef8c4cda4657cdcfff76042747fc07b8f63b233770c6",
+    "controller_sha256": "c217c809003ea189485f127bbe305d57c2e0e6695335eb905156fdb49019fe5a",
+    "runtime": {
+      "python": "3.12.16",
+      "mlflow": "3.18.0"
+    },
+    "runtime_packages_sha256": "e29c1b73aad5a528d8943a59f2a1eb72f7fed7b4255587df4a6feb8dc04b01a0",
+    "request_sha256": "12dc93d4e5d40db350a62e16ab1facf27a3cea157c571c41abc1eed39d48edb7",
+    "expected_sha256": "ef27363d090edea73296f5e1e4db7b2365c15323fa756290dd5e6c5c03704992",
+    "health_status": 200,
+    "parity": {
+      "numeric_values": 60,
+      "maximum_absolute_error": 0.0,
+      "atol": 1e-07,
+      "rtol": 0.0
+    },
+    "prediction_rows": 2,
+    "schema_rejection": {
+      "status": 400,
+      "scope": "client_supplied_invalid_request"
+    },
+    "prediction_parity": true,
+    "package_integrity_verified": true,
+    "cleanup_complete": true,
+    "declared_digest_checked": true,
+    "production_ingress_verified": false,
+    "container_image_verified": false,
+    "zero_downtime_claimed": false,
+    "shared_services_modified": false
+  },
+  "private_assets_published": false,
+  "output_boundary": "30 quality annotation scores, not factuality probabilities"
+}
