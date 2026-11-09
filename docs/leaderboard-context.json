@@ -48,7 +48,11 @@
       "score_equivalent_last_tied_position": 82,
       "top_percent_by_best_position": 5.216284987277354,
       "strictly_outperformed_percent": 94.78371501272265,
-      "weak_percentile_including_ties": 94.8473282442748
+      "weak_percentile_including_ties": 94.8473282442748,
+      "private_score": "0.40232",
+      "private_score_source": {
+        "path": "docs/results.md"
+      }
     },
     {
       "id": "historical-final",
@@ -62,7 +66,11 @@
       "score_equivalent_last_tied_position": 104,
       "top_percent_by_best_position": 6.6157760814249365,
       "strictly_outperformed_percent": 93.44783715012723,
-      "weak_percentile_including_ties": 93.44783715012723
+      "weak_percentile_including_ties": 93.44783715012723,
+      "private_score": "0.40321",
+      "private_score_source": {
+        "path": "docs/results.md"
+      }
     },
     {
       "id": "modern-deberta",
@@ -76,7 +84,12 @@
       "score_equivalent_last_tied_position": 1193,
       "top_percent_by_best_position": 75.89058524173028,
       "strictly_outperformed_percent": 24.173027989821882,
-      "weak_percentile_including_ties": 24.173027989821882
+      "weak_percentile_including_ties": 24.173027989821882,
+      "private_score": "0.32983",
+      "private_score_source": {
+        "path": "docs/validation.json",
+        "pointer": "/kaggle_scoring"
+      }
     }
   ]
 }

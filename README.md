@@ -9,17 +9,17 @@ The controlled TF-IDF/Ridge study raises mean OOF Spearman from **0.2201** with 
 <!-- portfolio-results:start -->
 ## Results
 
-**Public leaderboard — mean Spearman ↑.**
+**Leaderboard scores — mean Spearman ↑.**
 
-| Model / submission | Public score | Public reference rank / teams | Top % | Reference ties |
-|---|---:|---:|---:|---:|
-| Historical account submission, 2020-02-10 15:32 UTC | 0.43155 | 82 / 1,572 | **5.22%** | 1 |
-| Historical final submission, 2020-02-10 | 0.42654 | 104 / 1,572 | **6.62%** | 0 |
-| Modern DeBERTa late notebook submission | 0.35189 | 1,193 / 1,572 | **75.89%** | 0 |
+| Model / submission | Public LB | Private LB | Public Top % |
+|---|---:|---:|---:|
+| Historical account submission, 2020-02-10 15:32 UTC | 0.43155 | 0.40232 | **5.22%** |
+| Historical final submission, 2020-02-10 | 0.42654 | 0.40321 | **6.62%** |
+| Modern DeBERTa late notebook submission | 0.35189 | 0.32983 | **75.89%** |
 
-Reference: **2026-11-09T00:02:27Z**, **1,572 unique scored teams**. Ranks are score-equivalent comparisons with the dated public export, not awarded final ranks. Lower Top % is better. A zero tie count denotes an insertion position; ties occupy the shown interval.
+Public Top % uses the **2026-11-09 public leaderboard snapshot** (score-equivalent comparison, not an awarded final rank). [Detailed results](docs/results.md) · [Reference ranks, ties and calculation](docs/leaderboard-context.json).
 
-**OOF/holdout rank and Top %: not applicable. Private leaderboard rank and Top %: unavailable without a matching private reference population.** Internal validation and private scores remain separately reported in [detailed results](docs/results.md). [Reference data and calculation](docs/leaderboard-context.json).
+Private Top % is unavailable without a matched private leaderboard; OOF/holdout results have no leaderboard percentile.
 <!-- portfolio-results:end -->
 
 ## Learning from difficult answers
@@ -51,8 +51,6 @@ The recorded full transformer experiment uses the earlier single question-group 
 | Same modern model, late notebook submission | Public / private leaderboard | **0.35189 / 0.32983** |
 
 Historical values come from Kaggle submission history. They are separate from either local CV result and do not prove the original source revision produced that submission. [Measured results](docs/results.md) report evaluation scope, target coverage and runtime evidence.
-
-The historical public score **0.43155** corresponds to approximately **top 5.2%** of the downloaded public leaderboard; the modern DeBERTa rerun's **0.35189** corresponds to **top 75.9%**. The performance gap remains explicit. [Percentile method and snapshot](docs/results.md#leaderboard-percentile-context). These are score-equivalent positions, separate from official late-entry ranks.
 
 ## What answer text adds
 
@@ -107,7 +105,12 @@ The [executed notebook](notebooks/01-question-quality.ipynb) covers annotation d
 
 ## Run the CPU analysis
 
-The tested local environment is Linux/Python 3.12; the inspected Kaggle CUDA image uses Python 3.13. Source supports both Python versions.
+Start with the [executed walkthrough](notebooks/01-question-quality.ipynb) for the data, model decisions and measured results. The [reproduction guide](docs/reproduction.md) contains the complete download, training, evaluation and artifact recipe.
+
+Use Python 3.12 or 3.13, authorized competition inputs and a fresh run directory.
+
+<details>
+<summary>Command-line reproduction</summary>
 
 ```bash
 uv sync --locked --group dev --group lab --group data
@@ -119,16 +122,9 @@ export QUEST_DATA_DIR=/absolute/path/outside/git/google-quest
   --run-dir .local/cv-run
 ```
 
-Download requires Kaggle authentication and accepted competition rules. Use a fresh run directory for each experiment. Full transformer training uses a GPU; the [runbook](docs/reproduction.md) covers its CLI recipe, frozen fold plans and independent checkpoint evaluation.
+</details>
 
-For Docker JupyterLab:
-
-```bash
-.venv/bin/quest lab-token
-docker compose -f docker/compose.yaml up --build -d lab
-```
-
-Open http://127.0.0.1:8892/lab using `.local/jupyter_token`. The CPU image supports exploration, CV and checkpoint inference, and also backs the dev container.
+Full transformer training uses a GPU; the lightweight CV recipe runs on CPU. [Docker JupyterLab and dev container](docs/reproduction.md) use the same scientific code.
 
 ## Kaggle execution and model delivery
 

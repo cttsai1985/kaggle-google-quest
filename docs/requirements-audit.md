@@ -1,8 +1,22 @@
 # Google QUEST requirements audit
 
-Review date: **2026-11-09** · Acceptance standard: [Portfolio standard 1.0](portfolio-standard.md).
+## Presentation update — standard 1.1
 
-This audit covers the current `fix/portfolio-evidence` correction, the recorded
+The current primary display pairs **Public LB** and **Private LB** scores with
+**Public Top %**. Rank/team counts and ties remain in detailed source evidence;
+they are no longer repeated in the README table or GitHub description. Private
+scores do not inherit public percentiles. This supersedes the canary-2 presentation
+format reviewed below; its historical regression and source-preservation review
+remain dated evidence. Local reproducibility may use scientific functions, a
+notebook, script or existing thin command entry point; no bespoke CLI is required.
+The existing canary-2 releases and completed merge/branch cleanup remain intact.
+The original profile/standard are retained at `v0.2.0-canary.2`; the current
+profile receipt records the latest approved compact description.
+
+
+Review date: **2026-11-09** · Acceptance standard: [Portfolio standard 1.1](portfolio-standard.md).
+
+This audit covers the canary-2 `fix/portfolio-evidence` correction, the recorded
 canary and the retained modeling/evaluation evidence. **Evidenced** means the
 linked implementation or scoped check exists; **release gate** means the current
 correction still needs final CI/merge/release confirmation. **Open P1** remains
@@ -12,7 +26,7 @@ accepted work. This document does not declare production readiness.
 
 The canary editorial change preserved the score data but weakened its visibility:
 
-| Surface | Before the editorial change | Prior canary presentation | Current correction |
+| Surface | Before the editorial change | Prior canary presentation | Canary-2 correction |
 |---|---|---|---|
 | README ranking paragraph | Line **5** at `b497e29` | Line **35** at `e55547f`, after model detail | A primary **Results** section immediately after the brief opening and before model/architecture/reproduction detail |
 | GitHub description | Score/ranking context was a portfolio requirement | Replaced by a problem-only description; score, reference position/team count and Top % were absent | Live description again pairs historical and modern public scores with position/N and Top % |
@@ -38,8 +52,8 @@ historical score to the modern checkpoint.
 |---|---|---|---|
 | R01 | P0 | Evidenced; portfolio-wide review remains a release responsibility | All 26 requirements are mapped here against [standard 1.0](portfolio-standard.md). Branding or serving work cannot silently replace the modeling, ranking or production requirements. |
 | R02 | P0 | Evidenced — solution | [README](../README.md) presents the Q&A problem, shared transformer, controlled input comparison, grouped evaluation, executable scripts and saved-model interface. |
-| R03 | P0 | Restored; source-backed guard added | The first README Results display pairs each public score with reference rank/N and Top %. [Public profile](public-profile.json) retains both historical and modern description entries. [Portfolio check](../scripts/check_portfolio.py) validates the display against the reference receipt. The regression is documented above. |
-| R04 | P0 | Evidenced — score scope | [Results](results.md) separates column-wise mean Spearman, grouped Ridge OOF, selected transformer holdout and public/private submissions. [Leaderboard context](leaderboard-context.json) binds each public comparison to its dated population, direction and ties. |
+| R03 | P0 | Verified compact presentation | Primary README and description retain public/private scores and public Top %. Rank/N and ties stay in linked detailed evidence. |
+| R04 | P0 | Verified source scope | The metric/direction and submission are identified; private scores are paired with the same public submission. Detailed evidence retains reference counts, ties and snapshot. |
 | R05 | P0 | Evidenced — comparison semantics | The primary Results display and detailed results explicitly distinguish score-equivalent from awarded rank, historical account metadata from a source-reproduced checkpoint, public/private populations and internal OOF/holdout. No CV percentile is inferred. |
 | R06 | P0 | Evidenced — controlled ML insight | [Modeling study](modeling-study.md) compares title, body and answer inputs on three fixed grouped plans: aggregate mean OOF Spearman 0.220134 → 0.294286 → 0.325638, with an answer-family gain and a small question-family decline. It retains variation, a use-dependent decision and the next hypothesis. This is a Ridge experiment, not a claimed DeBERTa component gain. |
 | R07 | P0 | Evidenced within the retained holdout; future causes unresolved | [Error analysis](error-analysis.md) traces question/answer inputs through the shared representation to supported answer-quality disagreements. It reports category/length support and a rare-label tie diagnostic, then proposes a controlled answer-side context experiment. It does not identify an unmeasured causal mechanism. |
@@ -61,7 +75,7 @@ historical score to the modern checkpoint.
 | R23 | P1 | **Open P1 — shared and model-specific operations** | Hosting/ownership, SLOs, model resources, TLS/authentication, request/service monitoring and alert delivery, off-host backup/restore and production rollout/rollback require actual deployment evidence. Current canary flags explicitly exclude production ingress, serving-image and zero-downtime proof. |
 | R24 | P1 | Client recovery evidenced; production batch operation **open P1** | [Consumer contract](consumer-contract.md), [tracking tests](../tests/test_tracking.py) and import recovery preserve logical identity and verify artifacts before completion. The shared real saved-model fault drill used Iceberg; no QUEST scheduled production batch is inferred from it. |
 | R25 | P1 | Current mining implemented; hypothesis validation **open P1** | [Error analysis](error-analysis.md) exactly reconciles retained mean Spearman, profiles all target families/domains and interprets rare-label ties. Its question-context/truncation and target-support follow-ups have not been fitted or prospectively validated. |
-| R26 | P0 | Canonical URLs reviewed; final branch/release hygiene gate | [Public profile](public-profile.json) records the live `*-solution` URL. Current metadata/export URLs are reviewed separately from immutable old receipts. Retain the active `fix/portfolio-evidence` branch until merged and verified; delete only verified merged branches, preserving active worktrees/unmerged work. |
+| R26 | P0 | Canonical URLs reviewed; final branch/release hygiene gate | [Public profile](public-profile.json) records the live `*-solution` URL. Canary-2 metadata/export URLs are reviewed separately from immutable old receipts. Retain the active `fix/portfolio-evidence` branch until merged and verified; delete only verified merged branches, preserving active worktrees/unmerged work. |
 
 ## Scientific preservation: exact comparison scope
 
@@ -71,7 +85,7 @@ Two distinct comparisons were inspected:
    `b497e2953f5dc23159bdb86616c5f0e4ec1ff95f`.
 2. **Published prior-canary merge:**
    `e55547ff5c63d21640157a89f74b2d1da1666183`.
-3. **Current correction:** the working tree based on that prior-canary merge,
+3. **Canary-2 correction:** the working tree based on that prior-canary merge,
    reviewed before the final correction commit/release.
 
 `git diff --name-status` is empty for the following path scope in both
@@ -85,7 +99,7 @@ before→canary and canary→current comparisons:
 
 The canary added `src/quest/serving.py` and changed package identity metadata in
 `src/quest/__init__.py`; those additions are not described as preserved training
-code. The current correction leaves the serving adapter unchanged, updates package
+code. The canary-2 correction leaves the serving adapter unchanged, updates package
 version metadata to `0.2.0.dev2`, and fixes the CLI exporter to read that declared
 version instead of a hardcoded `0.1.0` wheel path. The CLI is therefore excluded
 from the current unchanged-file scope. The local `.local/canary2-export-check`
