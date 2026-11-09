@@ -1,0 +1,418 @@
+{
+  "schema_version": 1,
+  "analyzed_at": "2026-11-09T18:11:49.806185+00:00",
+  "scope": "Retained DeBERTa hosted holdout only; no fitting, score filtering or submission",
+  "source_sha256": {
+    "analysis_script": "8ba5d86568abeee7be521fb5197ecf67ec830c8e798e7474fb16cbcc7a4c5c22",
+    "producer_manifest": "e6c618089b3ce083bda6aa760484e200852b93bf805e7d680f2a96666e2f7f70",
+    "train.csv": "7245cf422073f7e52bacf7d52064807e97424ad7f709a7e7c62dc1a7920d0861",
+    "validation.csv": "1d765da975712656018eb241857da6005598881682c92ec94e0b6de1eed072b0",
+    "split.csv": "19c75508eac835b4632042a945b82605e9278a90b2f7682c59c293f64477a58f"
+  },
+  "population": {
+    "validation_qa_pairs": 1216,
+    "question_groups": 716,
+    "all_targets": 30,
+    "defined_targets": 30,
+    "exact_ids_and_group_separation_verified": true
+  },
+  "headline": {
+    "mean_spearman": 0.3778628686297344,
+    "retained_mean_spearman": 0.3778628686297344,
+    "absolute_metric_delta": 0.0
+  },
+  "diagnostic": {
+    "name": "mean absolute per-target rank gap divided by n-1",
+    "ties": "average ranks",
+    "is_additive_spearman_error_decomposition": false,
+    "cohort_fraction_declared": 0.1,
+    "hard_cohort_rows": 122,
+    "actual_cohort_fraction": 0.10032894736842106,
+    "tie_break": "retained prediction file row order; stable descending diagnostic sort",
+    "all_row_mean_gap": 0.23287048317810988,
+    "hard_cohort_mean_gap": 0.32426364433650406,
+    "remaining_mean_gap": 0.22267855844198184,
+    "hard_cohort_rank_gap_mass_share": 0.1397043956027986,
+    "selection_is_retrospective_description_not_a_deployment_rule": true
+  },
+  "target_families": {
+    "question": {
+      "targets": 21,
+      "mean_spearman": 0.3957289573349356,
+      "mean_gap": 0.22800535933455035,
+      "hard_cohort_mean_gap": 0.30926520240424304,
+      "remaining_mean_gap": 0.2189434755552976
+    },
+    "answer": {
+      "targets": 9,
+      "mean_spearman": 0.3361753283175981,
+      "mean_gap": 0.24422243881308206,
+      "hard_cohort_mean_gap": 0.35926000884511305,
+      "remaining_mean_gap": 0.231393751844245
+    }
+  },
+  "per_target": [
+    {
+      "target": "question_asker_intent_understanding",
+      "spearman": 0.33487876413339857,
+      "defined": true,
+      "spearman_ceiling_given_observed_rank_ties": 0.9368684452422826,
+      "nonmodal_label_rows": 648,
+      "distinct_truth_values": 9,
+      "mean_absolute_normalized_rank_gap": 0.2544062703053931,
+      "hard_cohort_mean_gap": 0.38319166160696216
+    },
+    {
+      "target": "question_body_critical",
+      "spearman": 0.6030029461838146,
+      "defined": true,
+      "spearman_ceiling_given_observed_rank_ties": 0.985842759661299,
+      "nonmodal_label_rows": 903,
+      "distinct_truth_values": 9,
+      "mean_absolute_normalized_rank_gap": 0.19973670673597574,
+      "hard_cohort_mean_gap": 0.2039330769749713
+    },
+    {
+      "target": "question_conversational",
+      "spearman": 0.40464040371232296,
+      "defined": true,
+      "spearman_ceiling_given_observed_rank_ties": 0.5433713987276124,
+      "nonmodal_label_rows": 134,
+      "distinct_truth_values": 5,
+      "mean_absolute_normalized_rank_gap": 0.22455734243014944,
+      "hard_cohort_mean_gap": 0.32439452202658037
+    },
+    {
+      "target": "question_expect_short_answer",
+      "spearman": 0.2617294736628901,
+      "defined": true,
+      "spearman_ceiling_given_observed_rank_ties": 0.9295662080328045,
+      "nonmodal_label_rows": 614,
+      "distinct_truth_values": 5,
+      "mean_absolute_normalized_rank_gap": 0.2701300898852068,
+      "hard_cohort_mean_gap": 0.36703433852796324
+    },
+    {
+      "target": "question_fact_seeking",
+      "spearman": 0.32592562750102166,
+      "defined": true,
+      "spearman_ceiling_given_observed_rank_ties": 0.8985927700719333,
+      "nonmodal_label_rows": 533,
+      "distinct_truth_values": 5,
+      "mean_absolute_normalized_rank_gap": 0.25376055880441845,
+      "hard_cohort_mean_gap": 0.3168083383930379
+    },
+    {
+      "target": "question_has_commonly_accepted_answer",
+      "spearman": 0.40677712053746423,
+      "defined": true,
+      "spearman_ceiling_given_observed_rank_ties": 0.8370683526929052,
+      "nonmodal_label_rows": 406,
+      "distinct_truth_values": 5,
+      "mean_absolute_normalized_rank_gap": 0.2283923543426468,
+      "hard_cohort_mean_gap": 0.3198542805100182
+    },
+    {
+      "target": "question_interestingness_others",
+      "spearman": 0.32691541435556687,
+      "defined": true,
+      "spearman_ceiling_given_observed_rank_ties": 0.9652460532403584,
+      "nonmodal_label_rows": 807,
+      "distinct_truth_values": 9,
+      "mean_absolute_normalized_rank_gap": 0.2636892191899502,
+      "hard_cohort_mean_gap": 0.3023746879848883
+    },
+    {
+      "target": "question_interestingness_self",
+      "spearman": 0.4259362652180639,
+      "defined": true,
+      "spearman_ceiling_given_observed_rank_ties": 0.9700475872709113,
+      "nonmodal_label_rows": 787,
+      "distinct_truth_values": 9,
+      "mean_absolute_normalized_rank_gap": 0.23627423110244747,
+      "hard_cohort_mean_gap": 0.33129595898266206
+    },
+    {
+      "target": "question_multi_intent",
+      "spearman": 0.5462501129019404,
+      "defined": true,
+      "spearman_ceiling_given_observed_rank_ties": 0.8871818428304851,
+      "nonmodal_label_rows": 499,
+      "distinct_truth_values": 5,
+      "mean_absolute_normalized_rank_gap": 0.20530782975958414,
+      "hard_cohort_mean_gap": 0.2987418201443703
+    },
+    {
+      "target": "question_not_really_a_question",
+      "spearman": 0.0658881487881022,
+      "defined": true,
+      "spearman_ceiling_given_observed_rank_ties": 0.19118414443574305,
+      "nonmodal_label_rows": 15,
+      "distinct_truth_values": 4,
+      "mean_absolute_normalized_rank_gap": 0.25080747779943685,
+      "hard_cohort_mean_gap": 0.32270795385549483
+    },
+    {
+      "target": "question_opinion_seeking",
+      "spearman": 0.4514987583207453,
+      "defined": true,
+      "spearman_ceiling_given_observed_rank_ties": 0.9667550306343293,
+      "nonmodal_label_rows": 819,
+      "distinct_truth_values": 5,
+      "mean_absolute_normalized_rank_gap": 0.2305724767164826,
+      "hard_cohort_mean_gap": 0.31656209944005936
+    },
+    {
+      "target": "question_type_choice",
+      "spearman": 0.7072294363403436,
+      "defined": true,
+      "spearman_ceiling_given_observed_rank_ties": 0.9193890663579312,
+      "nonmodal_label_rows": 582,
+      "distinct_truth_values": 5,
+      "mean_absolute_normalized_rank_gap": 0.16596748429716265,
+      "hard_cohort_mean_gap": 0.21265600755582537
+    },
+    {
+      "target": "question_type_compare",
+      "spearman": 0.3206898619219972,
+      "defined": true,
+      "spearman_ceiling_given_observed_rank_ties": 0.4195216417787935,
+      "nonmodal_label_rows": 76,
+      "distinct_truth_values": 5,
+      "mean_absolute_normalized_rank_gap": 0.23407718756768467,
+      "hard_cohort_mean_gap": 0.3184308169736221
+    },
+    {
+      "target": "question_type_consequence",
+      "spearman": 0.1215831342556659,
+      "defined": true,
+      "spearman_ceiling_given_observed_rank_ties": 0.2552284770246974,
+      "nonmodal_label_rows": 27,
+      "distinct_truth_values": 5,
+      "mean_absolute_normalized_rank_gap": 0.25009272796188003,
+      "hard_cohort_mean_gap": 0.3602307225258045
+    },
+    {
+      "target": "question_type_definition",
+      "spearman": 0.36336168013053766,
+      "defined": true,
+      "spearman_ceiling_given_observed_rank_ties": 0.4143111985618445,
+      "nonmodal_label_rows": 74,
+      "distinct_truth_values": 5,
+      "mean_absolute_normalized_rank_gap": 0.22806476066709985,
+      "hard_cohort_mean_gap": 0.3376610672603386
+    },
+    {
+      "target": "question_type_entity",
+      "spearman": 0.4189303045272544,
+      "defined": true,
+      "spearman_ceiling_given_observed_rank_ties": 0.5643263724183593,
+      "nonmodal_label_rows": 146,
+      "distinct_truth_values": 5,
+      "mean_absolute_normalized_rank_gap": 0.22024312324019926,
+      "hard_cohort_mean_gap": 0.2949740268501653
+    },
+    {
+      "target": "question_type_instructions",
+      "spearman": 0.7595595578685502,
+      "defined": true,
+      "spearman_ceiling_given_observed_rank_ties": 0.9603093753780974,
+      "nonmodal_label_rows": 804,
+      "distinct_truth_values": 5,
+      "mean_absolute_normalized_rank_gap": 0.15193916504223523,
+      "hard_cohort_mean_gap": 0.2244046414356068
+    },
+    {
+      "target": "question_type_procedure",
+      "spearman": 0.3223569200184823,
+      "defined": true,
+      "spearman_ceiling_given_observed_rank_ties": 0.8542814388851653,
+      "nonmodal_label_rows": 440,
+      "distinct_truth_values": 5,
+      "mean_absolute_normalized_rank_gap": 0.2525720164609053,
+      "hard_cohort_mean_gap": 0.3148654118599474
+    },
+    {
+      "target": "question_type_reason_explanation",
+      "spearman": 0.6315454901405902,
+      "defined": true,
+      "spearman_ceiling_given_observed_rank_ties": 0.9562114846956165,
+      "nonmodal_label_rows": 731,
+      "distinct_truth_values": 5,
+      "mean_absolute_normalized_rank_gap": 0.18671012020792724,
+      "hard_cohort_mean_gap": 0.25309991229845513
+    },
+    {
+      "target": "question_type_spelling",
+      "spearman": 0.03943368123333078,
+      "defined": true,
+      "spearman_ceiling_given_observed_rank_ties": 0.04964966082745793,
+      "nonmodal_label_rows": 1,
+      "distinct_truth_values": 2,
+      "mean_absolute_normalized_rank_gap": 0.24996209659952348,
+      "hard_cohort_mean_gap": 0.37318356607974096
+    },
+    {
+      "target": "question_well_written",
+      "spearman": 0.4721750022815651,
+      "defined": true,
+      "spearman_ceiling_given_observed_rank_ties": 0.979482133930606,
+      "nonmodal_label_rows": 892,
+      "distinct_truth_values": 9,
+      "mean_absolute_normalized_rank_gap": 0.23084930690924846,
+      "hard_cohort_mean_gap": 0.3181643392025906
+    },
+    {
+      "target": "answer_helpful",
+      "spearman": 0.20908352716086195,
+      "defined": true,
+      "spearman_ceiling_given_observed_rank_ties": 0.8772337528428692,
+      "nonmodal_label_rows": 481,
+      "distinct_truth_values": 8,
+      "mean_absolute_normalized_rank_gap": 0.2741857537361923,
+      "hard_cohort_mean_gap": 0.45948188625784264
+    },
+    {
+      "target": "answer_level_of_information",
+      "spearman": 0.4072985425488549,
+      "defined": true,
+      "spearman_ceiling_given_observed_rank_ties": 0.8337383345023809,
+      "nonmodal_label_rows": 399,
+      "distinct_truth_values": 9,
+      "mean_absolute_normalized_rank_gap": 0.23203852609919864,
+      "hard_cohort_mean_gap": 0.3057984213721919
+    },
+    {
+      "target": "answer_plausible",
+      "spearman": 0.1066840472431018,
+      "defined": true,
+      "spearman_ceiling_given_observed_rank_ties": 0.7399736173995871,
+      "nonmodal_label_rows": 284,
+      "distinct_truth_values": 6,
+      "mean_absolute_normalized_rank_gap": 0.2797609378384232,
+      "hard_cohort_mean_gap": 0.4627200971463266
+    },
+    {
+      "target": "answer_relevance",
+      "spearman": 0.10984611894915036,
+      "defined": true,
+      "spearman_ceiling_given_observed_rank_ties": 0.6829962239505876,
+      "nonmodal_label_rows": 231,
+      "distinct_truth_values": 6,
+      "mean_absolute_normalized_rank_gap": 0.27211663417803766,
+      "hard_cohort_mean_gap": 0.42258652094717664
+    },
+    {
+      "target": "answer_satisfaction",
+      "spearman": 0.25330415872503054,
+      "defined": true,
+      "spearman_ceiling_given_observed_rank_ties": 0.9860781365557907,
+      "nonmodal_label_rows": 964,
+      "distinct_truth_values": 14,
+      "mean_absolute_normalized_rank_gap": 0.27912131795538225,
+      "hard_cohort_mean_gap": 0.4210315050934359
+    },
+    {
+      "target": "answer_type_instructions",
+      "spearman": 0.7690536898690559,
+      "defined": true,
+      "spearman_ceiling_given_observed_rank_ties": 0.9567902870014638,
+      "nonmodal_label_rows": 780,
+      "distinct_truth_values": 5,
+      "mean_absolute_normalized_rank_gap": 0.1483667695473251,
+      "hard_cohort_mean_gap": 0.20798421372191864
+    },
+    {
+      "target": "answer_type_procedure",
+      "spearman": 0.26306760389446454,
+      "defined": true,
+      "spearman_ceiling_given_observed_rank_ties": 0.80595408033991,
+      "nonmodal_label_rows": 366,
+      "distinct_truth_values": 5,
+      "mean_absolute_normalized_rank_gap": 0.2626624431448993,
+      "hard_cohort_mean_gap": 0.33152195911758753
+    },
+    {
+      "target": "answer_type_reason_explanation",
+      "spearman": 0.6866196542010804,
+      "defined": true,
+      "spearman_ceiling_given_observed_rank_ties": 0.962089559761052,
+      "nonmodal_label_rows": 819,
+      "distinct_truth_values": 5,
+      "mean_absolute_normalized_rank_gap": 0.1710905349794239,
+      "hard_cohort_mean_gap": 0.2292214801322269
+    },
+    {
+      "target": "answer_well_written",
+      "spearman": 0.22062061226678226,
+      "defined": true,
+      "spearman_ceiling_given_observed_rank_ties": 0.9327851318926,
+      "nonmodal_label_rows": 688,
+      "distinct_truth_values": 8,
+      "mean_absolute_normalized_rank_gap": 0.2786590318388564,
+      "hard_cohort_mean_gap": 0.392993995817311
+    }
+  ],
+  "category_support": [
+    {
+      "category": "CULTURE",
+      "rows": 193,
+      "hard_cohort_rows": 16,
+      "hard_cohort_rate": 0.08290155440414508,
+      "representation_ratio": 0.8262974602904953,
+      "mean_gap": 0.23988606722247097
+    },
+    {
+      "category": "LIFE_ARTS",
+      "rows": 147,
+      "hard_cohort_rows": 8,
+      "hard_cohort_rate": 0.05442176870748299,
+      "representation_ratio": 0.5424333667893387,
+      "mean_gap": 0.2234803990183179
+    },
+    {
+      "category": "SCIENCE",
+      "rows": 145,
+      "hard_cohort_rows": 14,
+      "hard_cohort_rate": 0.09655172413793103,
+      "representation_ratio": 0.962351611079706,
+      "mean_gap": 0.2296954732510288
+    },
+    {
+      "category": "STACKOVERFLOW",
+      "rows": 247,
+      "hard_cohort_rows": 34,
+      "hard_cohort_rate": 0.13765182186234817,
+      "representation_ratio": 1.3720050441361915,
+      "mean_gap": 0.23999011457101127
+    },
+    {
+      "category": "TECHNOLOGY",
+      "rows": 484,
+      "hard_cohort_rows": 50,
+      "hard_cohort_rate": 0.10330578512396695,
+      "representation_ratio": 1.0296707763175723,
+      "mean_gap": 0.23024271899692775
+    }
+  ],
+  "text_length_associations": {
+    "question_title": {
+      "hard_cohort_median_characters": 48.5,
+      "remaining_median_characters": 50.0
+    },
+    "question_body": {
+      "hard_cohort_median_characters": 442.5,
+      "remaining_median_characters": 538.0
+    },
+    "answer": {
+      "hard_cohort_median_characters": 463.5,
+      "remaining_median_characters": 567.5
+    }
+  },
+  "limitations": [
+    "This is one retained selected-checkpoint holdout, not all-fold transformer OOF.",
+    "Rank gap is a diagnostic, not an additive Spearman contribution or error probability.",
+    "The hard cohort uses observed labels and cannot select unseen production cases.",
+    "Category/length associations are not causal; no observations were removed."
+  ]
+}
