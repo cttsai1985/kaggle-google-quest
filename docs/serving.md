@@ -44,3 +44,5 @@ Use `--timeout 180 --inference-timeout 120` for the CPU transformer check. An an
 ## Verified canary
 
 [The aggregate receipt](canary-validation.json) records this release's real-model package, producing model identity, locked runtime fingerprint, native-reference comparison, invalid-request rejection and cleanup. The checked request sample is an interface/parity test; full model evaluation remains in [results](results.md).
+
+After verification, use the same package with [MLflow's foreground serving command](https://github.com/cttsai1985/ml-infrastructure/blob/main/docs/serving.md#use-the-verified-model) to expose `/invocations` to an application. The canary verifier is intentionally bounded; the application endpoint has an explicitly managed lifetime.
