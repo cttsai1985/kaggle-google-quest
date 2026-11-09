@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "quest-labeling"
-version = "0.1.0"
+version = "0.2.0.dev1"
 description = "Reproducible multi-target transformer learning for Google QUEST"
 authors = [{name = "Chia-Ta Tsai"}]
 readme = "README.md"
@@ -23,8 +23,8 @@ dependencies = [
 ]
 
 [project.urls]
-Repository = "https://github.com/cttsai1985/kaggle-quest-solution-mlops"
-Documentation = "https://github.com/cttsai1985/kaggle-quest-solution-mlops/tree/master/docs"
+Repository = "https://github.com/cttsai1985/kaggle-google-quest"
+Documentation = "https://github.com/cttsai1985/kaggle-google-quest/tree/master/docs"
 
 [project.scripts]
 quest = "quest.cli:main"
@@ -34,6 +34,7 @@ dev = ["pytest>=8,<10", "ruff>=0.11,<1"]
 lab = ["jupyterlab>=4,<5", "nbclient>=0.10,<1", "nbconvert>=7,<8", "matplotlib>=3.10,<4"]
 data = ["kaggle>=2,<3"]
 tracking = ["mlflow-skinny>=3,<4"]
+serving = ["mlflow==3.18.0"]
 tracking-test = ["sqlalchemy>=2,<3", "alembic>=1.15,<2"]
 
 [tool.uv.sources]
