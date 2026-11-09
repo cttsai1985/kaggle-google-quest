@@ -44,6 +44,12 @@ This solution consumes shared tracking and storage. Its actual model was indepen
 
 The official dataset contains **6,079 labeled pairs** and **476 downloadable test pairs**, with 30 fractional question/answer quality labels. Multiple answers can share a question.
 
+## Use the saved model
+
+The [model packaging and serving guide](docs/serving.md) explains the actual input/output contract, export from saved artifacts and the shared HTTP parity check. A canary release retains the tested source, dependency lock and aggregate verification evidence; private model weights and request rows are not release assets.
+
+[Real-model canary verification](docs/canary-validation.json) records the source, package/runtime identity, native-to-HTTP parity and rejected invalid request.
+
 ## Cross-validation without repeated-question leakage
 
 The current protocol stratifies category domains while keeping every question body wholly within one fold. Five folds and seed 42 are declared before modeling. An analyzer checks category balance, all 30 target distributions, missing values, rare-label support and fold coverage.
@@ -130,10 +136,6 @@ uv sync --locked --group dev --group serving --group tracking --group tracking-t
 ```
 
 The original implementation is preserved in [legacy/](legacy/README.md) at `ef4fb92`. The maintained workflow keeps new raw-data copies, weights, credentials, fold IDs and prediction rows outside Git. Historical notebooks remain in the preserved legacy tree.
-
-## Use the saved model
-
-The [model packaging and serving guide](docs/serving.md) explains the actual input/output contract, export from saved artifacts and the shared HTTP parity check. A canary release retains the tested source, dependency lock and aggregate verification evidence; private model weights and request rows are not release assets.
 
 ## License
 
