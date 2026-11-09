@@ -13,7 +13,7 @@ from mlflow.models import infer_signature
 from transformers import AutoTokenizer
 
 from quest.data import TARGETS, TEXT_COLUMNS, TokenizedPairs, sha256
-from quest.runtime import load_model, probabilities
+from quest.runtime import load_model, probabilities, source_identity
 
 
 class QuestionQualityModel(mlflow.pyfunc.PythonModel):
@@ -57,6 +57,7 @@ def export_model(run_dir, output, example):
     if output.exists():
         raise ValueError("Serving export already exists; select a fresh output directory")
     manifest = json.loads((run_dir / "manifest.json").read_text())
+    export_source = source_identity()
     if manifest.get("status") != "completed":
         raise ValueError("Export requires a completed transformer run")
     names = [
@@ -83,6 +84,7 @@ def export_model(run_dir, output, example):
             "files": {name: sha256(bundle / name) for name in names},
             "producer_manifest_sha256": sha256(run_dir / "manifest.json"),
             "producer_source": manifest["source"],
+            "export_source": export_source,
             "targets": list(TARGETS),
             "input_fields": list(TEXT_COLUMNS),
         }
@@ -125,10 +127,12 @@ def export_model(run_dir, output, example):
                 "producer_manifest_sha256": contract["producer_manifest_sha256"],
                 "input_boundary": "question title, body and answer text",
                 "target_count": 30,
+                "export_source": export_source,
             },
         )
     return {
         "status": "exported",
+        "export_source": export_source,
         "targets": len(TARGETS),
         "example_rows": len(example),
         "producer_manifest_sha256": contract["producer_manifest_sha256"],
