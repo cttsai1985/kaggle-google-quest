@@ -1,10 +1,10 @@
 {
   "repository": "cttsai1985/kaggle-google-quest-solution",
-  "verified_utc": "2026-11-09T18:18:17.947430+00:00",
+  "verified_utc": "2026-11-09T19:36:21.321631+00:00",
   "metadata": {
-    "description": "Google QUEST solution. Historical public Spearman 0.43155: 82/1,572 (Top 5.22%); modern DeBERTa 0.35189: 1,193/1,572 (Top 75.89%). Public score-equivalent ranks, 2026-11-09 snapshot.",
+    "description": "Google QUEST solution. Historical Spearman: public 0.43155 / private 0.40232 (public Top 5.22%); modern DeBERTa: 0.35189 / 0.32983 (public Top 75.89%). Public reference: 2026-11-09.",
     "name": "kaggle-google-quest-solution",
     "url": "https://github.com/cttsai1985/kaggle-google-quest-solution"
   },
-  "scope": "Public score-equivalent rank against the dated official snapshot; not an awarded final rank."
+  "scope": "Public and private scores are paired per submission; Top % refers only to the dated public reference. Rank/team counts are retained in detailed evidence."
 }
