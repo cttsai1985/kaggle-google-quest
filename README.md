@@ -123,6 +123,7 @@ legacy/           Original TensorFlow source and notebooks
 ```
 
 ```bash
+uv sync --locked --group dev --group serving --group tracking --group tracking-test
 .venv/bin/ruff check src tests
 .venv/bin/ruff format --check src tests
 .venv/bin/pytest -q
