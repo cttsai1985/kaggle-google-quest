@@ -35,7 +35,7 @@ def test_completed_run_import_is_idempotent_and_checks_artifacts(
     try:
         mlflow.set_tracking_uri(uri)
         client = mlflow.MlflowClient()
-        with pytest.raises(ValueError, match="mlops-platform bootstrap"):
+        with pytest.raises(ValueError, match="authorized MLflow operator"):
             track(run, uri)
         client.create_experiment(
             "kaggle/quest", artifact_location=(tmp_path / "artifacts").as_uri()
