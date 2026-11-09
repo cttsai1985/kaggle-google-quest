@@ -63,8 +63,8 @@ def track(run_dir: Path, tracking_uri: str, *, resume: bool = False) -> dict:
     experiment = client.get_experiment_by_name(name)
     if experiment is None or experiment.lifecycle_stage != "active":
         raise ValueError(
-            "Provision the active kaggle/quest experiment with the mlops-platform bootstrap "
-            "before importing: https://github.com/cttsai1985/mlops-platform"
+            "Active experiment kaggle/quest must be provisioned by an authorized MLflow operator "
+            "using the client-owned namespace before import"
         )
     tags = {
         "project_id": "quest",
