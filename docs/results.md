@@ -2,6 +2,14 @@
 
 [Hard-case diagnostics and next experiments](error-analysis.md) · [Acceptance audit](requirements-audit.md)
 
+## Metric-aware post-processing
+
+The original solution's random-search rounding and selective target application are restored in maintained code. A predeclared nested TF-IDF/Ridge assessment improves mean outer-fold Spearman **0.326727 → 0.345104** across five folds; pooled OOF improves **0.326114 → 0.331345**. All five outer-fold deltas are positive. These are fixed-recipe baseline results, not a new transformer or leaderboard score.
+
+The saved DeBERTa diagnostic is mixed: selective rounding improves grouped calibration-crossfit fold mean **0.375006 → 0.382324**, but pooled Spearman falls **0.377863 → 0.365200**. Checkpoint selection used this entire holdout. Same-label fit/evaluation gives **0.411136**, an explicitly optimistic diagnostic. Raw inference remains the default and no new predictions were submitted.
+
+The archived notebook's **0.386 → 0.415** also reuses labels for threshold fitting, column selection and evaluation; it does not independently reproduce the historical leaderboard submission. [Protocol, all conditions, acceptance decision and reproduction](postprocessing-study.md) · [Aggregate receipt](postprocessing-study.json) · [Executed walkthrough](../notebooks/03-metric-aware-postprocessing.ipynb).
+
 ## A fixed grouped CV plan
 
 The dataset has 6,079 training rows, 3,583 unique question bodies and 30 targets. The current protocol is `category_stratified_group_v1`: five `StratifiedGroupKFold` partitions, category-domain strata, exact question-body groups and seed 42. This plan was declared before model fitting; no seed search was performed.

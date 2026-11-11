@@ -153,3 +153,7 @@ The isolated SQLite integration tests inject a partial-upload interruption and c
 read-back bytes, check that completion is blocked, then recover with the same run ID.
 These tests verify client behavior; they do not establish availability or recovery
 objectives for the shared infrastructure.
+
+## Reproduce metric-aware post-processing
+
+The [post-processing guide](postprocessing-study.md#reproduce-and-apply) runs the frozen nested Ridge study and audits saved transformer predictions without GPU retraining. The [executed walkthrough](../notebooks/03-metric-aware-postprocessing.ipynb) needs only aggregate evidence and synthetic examples. The explicit saved-policy Python API preserves the original raw prediction file and IDs; it does not add another CLI or change default inference.

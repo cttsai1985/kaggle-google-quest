@@ -129,3 +129,9 @@ entire repository is unchanged or that every historical revision has been audite
   portfolio guard, verify live description and source-backed Results, publish the
   appropriate canary/source/lock/checksums, then clean only verified merged branches.
   The old canary's source and metric evidence must retain their original identity.
+
+## Metric-aware method restoration — canary 3
+
+The original random-search rounding method and selective target application are restored in `src/quest/postprocessing.py`; archived source is unchanged. The protocol and code were committed at `fa949d2729d9707164bbba2f9473f07f6a8fa3e0` before fitting. `docs/postprocessing-study.json` retains source/input/split/policy hashes, all targets and folds, the nested Ridge assessment and explicitly selected-checkpoint DeBERTa diagnostics. Both fold mean and pooled OOF remain visible.
+
+The saved-policy application helper validates target order and IDs, reloads JSON state, and writes separate predictions. It does not change raw model inference, hosted notebook scoring, the serving adapter, historical leaderboard values or prior receipts. Package metadata and lock now agree on `0.2.0.dev3`. The existing canary HTTP receipt retains its original source; it is not presented as a fresh serving test for this release. No fitted policy is promoted, and the independent transformer model-plus-policy acceptance gate remains open.
