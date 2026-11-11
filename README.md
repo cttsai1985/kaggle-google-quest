@@ -1,10 +1,10 @@
 # Google QUEST: Question and Answer Quality
 
-A useful answer needs to address the question, communicate clearly and fit the asker's needs. [Google QUEST](https://www.kaggle.com/c/google-quest-challenge) studies these judgments across **30 question-and-answer quality labels**. This solution combines a shared DeBERTa encoder with grouped evaluation and a lightweight text baseline to test what information improves the predictions.
+A useful answer needs to address the question, communicate clearly and fit the asker's needs. [Google QUEST](https://www.kaggle.com/c/google-quest-challenge) evaluates **30 question-and-answer quality labels using mean Spearman**. This solution's central idea is metric-aware post-processing: learn per-target cut points and selectively tie predictions, because Spearman rewards the ordering and tie structure rather than the numerical score scale.
 
-The controlled TF-IDF/Ridge study raises mean OOF Spearman from **0.2201** with titles to **0.2943** with question bodies and **0.3256** with answers. The last gain comes from answer targets; question-target performance slightly declines. An answer-review workflow can use that extra information, while unanswered-question routing needs a question-only contract.
+The original notebook records **0.386 → 0.415** after fitting and evaluating its rounder on the same validation labels. The restored method now has a separate nested assessment: selective rounding raises TF-IDF/Ridge's five-fold mean **0.3267 → 0.3451**, with all five outer folds improving; pooled OOF improves **0.3261 → 0.3313**. The saved DeBERTa diagnostics are mixed, so no transformer policy is promoted. Historical and modern leaderboard results remain distinct below.
 
-[Why the problem matters](docs/problem-and-value.md) · [Controlled experiments](docs/modeling-study.md) · [Run the model](#run-the-cpu-analysis)
+[Metric-aware post-processing](docs/postprocessing-study.md) · [Executed walkthrough](notebooks/03-metric-aware-postprocessing.ipynb) · [Why the problem matters](docs/problem-and-value.md) · [Input ablations](docs/modeling-study.md) · [Run the model](#run-the-cpu-analysis)
 
 <!-- portfolio-results:start -->
 ## Results
@@ -21,6 +21,12 @@ Public Top % uses the **2026-11-09 public leaderboard snapshot** (score-equivale
 
 Private Top % is unavailable without a matched private leaderboard; OOF/holdout results have no leaderboard percentile.
 <!-- portfolio-results:end -->
+
+## The metric is part of the solution
+
+A strictly increasing rescaling leaves Spearman unchanged. Discretization can change ties, making post-processing a modeling decision that needs its own calibration and acceptance data. The maintained `OptimalRounder` preserves the original random-search method and target-selection margin, with calibration-only label support, explicit constant-target handling and reloadable JSON state.
+
+The nested Ridge study fits each policy from inner OOF predictions, without outer-assessment labels. For the saved DeBERTa checkpoint, grouped postprocessor diagnostics improve fold mean **0.3750 → 0.3823** but reduce pooled Spearman **0.3779 → 0.3652**; the checkpoint was also selected on this holdout. Those limits prevent an automatic promotion. [Full comparisons, original-method scope and prediction API](docs/postprocessing-study.md).
 
 ## Learning from difficult answers
 
@@ -105,7 +111,7 @@ The [executed notebook](notebooks/01-question-quality.ipynb) covers annotation d
 
 ## Run the CPU analysis
 
-Start with the [executed walkthrough](notebooks/01-question-quality.ipynb) for the data, model decisions and measured results. The [reproduction guide](docs/reproduction.md) contains the complete download, training, evaluation and artifact recipe.
+Start with the [metric-aware walkthrough](notebooks/03-metric-aware-postprocessing.ipynb) for the original contribution and its validation, then the [data and model walkthrough](notebooks/01-question-quality.ipynb). The [reproduction guide](docs/reproduction.md) contains the complete download, training, evaluation and artifact recipe.
 
 Use Python 3.12 or 3.13, authorized competition inputs and a fresh run directory.
 

@@ -2419,7 +2419,7 @@ wheels = [
 
 [[package]]
 name = "quest-labeling"
-version = "0.2.0.dev2"
+version = "0.2.0.dev3"
 source = { editable = "." }
 dependencies = [
     { name = "numpy" },
