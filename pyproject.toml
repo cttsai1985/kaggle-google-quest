@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "quest-labeling"
-version = "0.2.0.dev2"
+version = "0.2.0.dev3"
 description = "Reproducible multi-target transformer learning for Google QUEST"
 authors = [{name = "Chia-Ta Tsai"}]
 readme = "README.md"
