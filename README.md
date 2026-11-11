@@ -4,6 +4,8 @@ A useful answer needs to address the question, communicate clearly and fit the a
 
 Holding the DeBERTa checkpoint fixed, a single post-processing evaluation improves public/private leaderboard Spearman **0.35189/0.32983 → 0.36136/0.34370**. Fresh offline inference reproduces the raw control predictions exactly, so the comparison isolates the fixed rounding step. The historical account result remains stronger; both generations and their evaluation scopes are retained below.
 
+The historical leaderboard models were trained and tuned by a **teammate on Five Experts**. My contribution was **metric-aware post-processing**. Modern encoder experiments and checkpoint adapters are retrospective engineering/validation work. [Contribution and recovered model lineage](docs/original-solution-lineage.md).
+
 [Metric-aware post-processing](docs/postprocessing-study.md) · [Executed walkthrough](notebooks/03-metric-aware-postprocessing.ipynb) · [Why the problem matters](docs/problem-and-value.md) · [Input ablations](docs/modeling-study.md) · [Run the model](#run-the-cpu-analysis)
 
 <!-- portfolio-results:start -->
@@ -13,8 +15,8 @@ Holding the DeBERTa checkpoint fixed, a single post-processing evaluation improv
 
 | Model / submission | Public LB | Private LB | Public Top % |
 |---|---:|---:|---:|
-| Historical account submission, 2020-02-10 15:32 UTC | 0.43155 | 0.40232 | **5.22%** |
-| Historical final submission, 2020-02-10 | 0.42654 | 0.40321 | **6.62%** |
+| Historical team submission, 2020-02-10 15:32 UTC | 0.43155 | 0.40232 | **5.22%** |
+| Historical team final submission, 2020-02-10 | 0.42654 | 0.40321 | **6.62%** |
 | Modern DeBERTa late notebook submission | 0.35189 | 0.32983 | **75.89%** |
 | Modern DeBERTa + fixed rounding, one-shot late submission | 0.36136 | 0.34370 | **72.84%** |
 
@@ -107,6 +109,8 @@ During the hosted-to-local comparison, regenerating a group holdout produced the
 The handoff contract therefore includes saved assignments and the input fingerprint. Checkpoint evaluation uses its actual retained indices; external fold plans are checked for ID coverage and question-group separation. This is why evaluation identity travels with the model, rather than being reconstructed from a seed. [Observed evidence](docs/results.md) · [Runtime contract](docs/architecture.md#frozen-assignments-across-runtimes).
 
 ## Explore the solution
+
+The [checkpoint-lineage walkthrough](notebooks/04-checkpoint-lineage.ipynb) reuses a public tuned RoBERTa fold on current libraries, traces the original team artifacts, and shows why equal-sized folds can contain different IDs. Its post-processing gains are concentrated: 18/30 targets worsen in each calibration direction. [Protocol, score reconciliation and model-consumer contract](docs/public-checkpoint-probe.md).
 
 The [executed notebook](notebooks/01-question-quality.ipynb) covers annotation distributions, repeated questions, split diagnostics, five-fold baseline results, model design and saved transformer artifacts. It also recomputes Spearman from ranked labels and saved predictions.
 

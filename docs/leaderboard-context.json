@@ -38,7 +38,7 @@
   "scores": [
     {
       "id": "historical-public-best",
-      "label": "Historical account submission, 2020-02-10 15:32 UTC",
+      "label": "Historical team submission, 2020-02-10 15:32 UTC",
       "public_score": "0.43155",
       "reference_teams": 1572,
       "teams_with_strictly_better_score": 81,
@@ -56,7 +56,7 @@
     },
     {
       "id": "historical-final",
-      "label": "Historical final submission, 2020-02-10",
+      "label": "Historical team final submission, 2020-02-10",
       "public_score": "0.42654",
       "reference_teams": 1572,
       "teams_with_strictly_better_score": 103,

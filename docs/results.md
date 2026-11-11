@@ -40,7 +40,7 @@ The [aggregate CV receipt](cv-validation.json) retains the complete diagnostics,
 
 The authenticated Kaggle account history contains a submission named `submission.csv` on 10 February 2020 at 15:32:29 UTC, with public Spearman **0.43155** and private Spearman **0.40232**. The final submission that day scored public **0.42654** and private **0.40321**.
 
-The history establishes leaderboard values. Its generic file name does not identify the exact training recipe or prove that submission came from this source revision. These leaderboard populations are separate from the local CV data and the modern model's holdout.
+Structured history now identifies the Five Experts team's submitting account, notebook URL and exact script-version IDs: 28452096 for the 0.43155/0.40232 result and 28458995 for the final 0.42654/0.40321 result. Model training/tuning belongs to the teammate; the repository author's contribution is metric-aware post-processing. Notebook source and cached outputs were recovered, alongside four older fine-tuned checkpoints, but the best team's RoBERTa weights remain unresolved. A numerical replay or byte-level match to the historical submission is not established. [Recovered lineage, artifacts and access limits](original-solution-lineage.md). These leaderboard populations remain separate from local CV and the modern model's holdout.
 
 ## Full transformer experiment
 
@@ -94,3 +94,7 @@ Submission **58240856**, made on 11 November 2026, evaluates the same DeBERTa ch
 Against the preserved public snapshot, the rounded score has 1,144 strictly better reference scores, no equal displayed scores and 428 strictly worse scores: score-equivalent position 1,145/1,572, **Public Top 72.84%**. This is a dated public reference rather than an awarded final rank; no private percentile is inferred. The historical account result remains higher.
 
 [Source-backed submission receipt](deberta-rounding-scoring.json) · [Hosted runtime, policy and prediction checks](deberta-rounding-hosted.json) · [Study interpretation and limits](deberta-rounding-transfer.md). The hosted base wheel remains the recorded benchmark runtime, while the postprocessor is the exact maintained canary-3 source snapshot; those identities are not conflated with the new release wheel.
+
+## Borrowed tuned-checkpoint diagnostic
+
+A published Bibimorph RoBERTa fold loads all 202 state tensors strictly in current PyTorch/Transformers. Reconstructing the declared assessment partition with the author's numerical versions gives **0.419363**, versus their recorded **0.419461** (difference −0.0000978). The two calibration directions average **0.417749 raw → 0.428676 rounded**, paired gain **+0.010927**. This is a selected-checkpoint, reconstructed-population diagnostic; original saved IDs remain unavailable, and no new leaderboard score or percentile applies. Eighteen of 30 targets worsen in each direction, so the macro benefit is not uniform. [All targets, failed native reconstructions and reproducibility checks](public-checkpoint-probe.md).
