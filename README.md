@@ -26,7 +26,7 @@ Private Top % is unavailable without a matched private leaderboard; OOF/holdout 
 
 A strictly increasing rescaling leaves Spearman unchanged. Discretization can change ties, making post-processing a modeling decision that needs its own calibration and acceptance data. The maintained `OptimalRounder` preserves the original random-search method and target-selection margin, with calibration-only label support, explicit constant-target handling and reloadable JSON state.
 
-The nested Ridge study fits each policy from inner OOF predictions, without outer-assessment labels. For the saved DeBERTa checkpoint, grouped postprocessor diagnostics improve fold mean **0.3750 → 0.3823** but reduce pooled Spearman **0.3779 → 0.3652**; the checkpoint was also selected on this holdout. Those limits prevent an automatic promotion. [Full comparisons, original-method scope and prediction API](docs/postprocessing-study.md).
+The nested Ridge study fits each policy from inner OOF predictions, without outer-assessment labels. For the saved DeBERTa checkpoint, grouped postprocessor diagnostics improve fold mean **0.3750 → 0.3823** but reduce pooled Spearman **0.3779 → 0.3652**; the checkpoint was also selected on this holdout. Those limits prevent an automatic promotion. [Full comparisons, original-method scope and prediction API](docs/postprocessing-study.md). A fixed follow-up tests one policy on each assessment population: **8/10 transfers improve**, averaging **+0.00449**; one split seed worsens in both directions. [Transfer stability, the failed normalization diagnostic and fixed external-test candidate](docs/deberta-rounding-transfer.md).
 
 ## Learning from difficult answers
 

@@ -135,3 +135,18 @@ entire repository is unchanged or that every historical revision has been audite
 The original random-search rounding method and selective target application are restored in `src/quest/postprocessing.py`; archived source is unchanged. The protocol and code were committed at `fa949d2729d9707164bbba2f9473f07f6a8fa3e0` before fitting. `docs/postprocessing-study.json` retains source/input/split/policy hashes, all targets and folds, the nested Ridge assessment and explicitly selected-checkpoint DeBERTa diagnostics. Both fold mean and pooled OOF remain visible.
 
 The saved-policy application helper validates target order and IDs, reloads JSON state, and writes separate predictions. It does not change raw model inference, hosted notebook scoring, the serving adapter, historical leaderboard values or prior receipts. Package metadata and lock now agree on `0.2.0.dev3`. The existing canary HTTP receipt retains its original source; it is not presented as a fresh serving test for this release. No fitted policy is promoted, and the independent transformer model-plus-policy acceptance gate remains open.
+
+## Fixed DeBERTa transfer follow-up
+
+The follow-up protocol and script were committed at
+`2f9499e2d86b6116afa7df0f1e0809e2270aecbe` before fitting; the aggregate receipt's
+full `source.git_commit` is authoritative. Five predeclared question-group seeds
+produce ten bidirectional half-split calibration/assessment transfers. All ten
+scores and all 30 targets remain in `docs/deberta-rounding-transfer.json`, including
+the two negative transfers. Partition-rank normalization is retained as an
+unsuccessful diagnostic, not silently promoted. The full-holdout canary-3 policy
+was fixed before these results. Local snapshot application reproduces 476×30
+candidate values exactly. No fitted policy, row-level data or candidate notebook
+is published to Git; no new hosted execution, serving promotion or leaderboard
+score is claimed. Existing historical/current leaderboard rows and old receipts
+remain unchanged. The current walkthrough executes the aggregate follow-up.
