@@ -1,0 +1,71 @@
+{
+  "status": "completed",
+  "kernel": "cttsai/quest-deberta-frozen-rounding-inference",
+  "kernel_version": 1,
+  "kernel_url": "https://www.kaggle.com/code/cttsai/quest-deberta-frozen-rounding-inference",
+  "is_private": true,
+  "enable_internet": false,
+  "machine_shape": "NvidiaTeslaT4",
+  "container_image": "gcr.io/kaggle-private-byod/python@sha256:de153e6d303881930c51286216393d56f56b26458d0661350305a1e8144eea01",
+  "input_code_snapshot_matches_local_candidate": true,
+  "local_notebook_sha256": "e52c664081cd2fdfa1cde1c4e0800832d3dbd6ba9a58641a9121a9a644d01677",
+  "hosted_notebook_sha256": "829a40ed42c3c43a043cce337a42e1e1627cb57106b71c2f60575f2c9224b0dc",
+  "raw_max_probability_delta_vs_previous_scored_inference": 0.0,
+  "rounded_max_probability_delta_vs_local_candidate": 0.0,
+  "all_ids_and_target_order_match": true,
+  "rows": 476,
+  "targets": 30,
+  "rounding_receipt": {
+    "status": "completed",
+    "rows": 476,
+    "targets": 30,
+    "policy_sha256": "27ee88acbc793d99957cd3f7febcc2a2cbac34ea8e960687a99e8ec950ed448d",
+    "postprocessor_sha256": "d8441fe1a2b6aade6756e323f22705c5739f39f631e1b9dbba8ff5be526664f5",
+    "checkpoint_sha256": "4d8ab8c2217e0f1b1347c2c695d44a804c1179586e25eefe924b13f84911601c",
+    "raw_predictions_sha256": "5dd278171a941e1aa97f0a62c6555a69e0826ff8a7f42f1d3b3b7b63e8107f1d",
+    "predictions_sha256": "6d5effb49f5183159a0964e70230c1e36af30aa3bd7568231195b94e75481c93",
+    "ids_order_preserved": true,
+    "raw_unchanged": true,
+    "fitted_on_test_labels": false,
+    "policy_promoted": false,
+    "base_inference": {
+      "rows": 476,
+      "targets": 30,
+      "test_sha256": "7895c5654993de7692ed1926170dc1fee323df885b6a6d556e790bc590271f25",
+      "checkpoint_sha256": "4d8ab8c2217e0f1b1347c2c695d44a804c1179586e25eefe924b13f84911601c",
+      "output_sha256": "5dd278171a941e1aa97f0a62c6555a69e0826ff8a7f42f1d3b3b7b63e8107f1d"
+    }
+  },
+  "receipt_sha256": "8fe86aae20c8f537447f2c22d2690536dbf1456a94270ae6b5bfa4256a3bd6f3",
+  "competition_submission_performed": true,
+  "leaderboard_score": {
+    "public": "0.36136",
+    "private": "0.34370"
+  },
+  "policy_promoted": false,
+  "private_rows_policies_weights_or_predictions_published": false,
+  "hosted_runtime": {
+    "python": "3.13.16",
+    "versions": {
+      "torch": "2.11.0+cu130",
+      "transformers": "5.20.2",
+      "numpy": "2.1.3",
+      "pandas": "2.3.3",
+      "scikit-learn": "1.6.1"
+    },
+    "py7zr": null,
+    "code": {
+      "git_dirty": false,
+      "git_commit": "32da9ceb5d97c9a56e1a3c91277fea716f879d2e",
+      "python_source_sha256": "4be5b94b8799984beda710f2ca77cd7b1e5df202a6753f99a16c21b6c9e97d89",
+      "legacy_commit": "ef4fb92c470e45c0a07b0ee0e474224d88d3d410",
+      "wheel_sha256": "1b5732252772fbcc2cb87c37c8d5336c0f99d0c69dd196a981cb94e0daf4e958",
+      "contains_data_derived_folds": true
+    }
+  },
+  "base_runtime_scope": "Retained benchmark wheel 0.1.0 plus exact canary-3 postprocessor source snapshot; not a claim that the hosted base package is the new release wheel.",
+  "observed_inference_complete_seconds": 69.741662226,
+  "private_execution_log_sha256": "52f7e3684bf9bb4b5e26f8b27ac009f4e64202b4dde447211eba7949d37cd1ec",
+  "submission_ref": 58240856,
+  "scoring_receipt": "docs/deberta-rounding-scoring.json"
+}

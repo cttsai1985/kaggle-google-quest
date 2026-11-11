@@ -1385,7 +1385,13 @@
       "competition_submission_performed": false
     },
     "raw_ids_labels_policies_or_predictions_included": false,
-    "hosted_execution": "not performed",
-    "new_kaggle_score": null
+    "hosted_execution": "completed; see docs/deberta-rounding-hosted.json",
+    "new_kaggle_score": {
+      "submission_ref": 58240856,
+      "public": "0.36136",
+      "private": "0.34370",
+      "receipt": "docs/deberta-rounding-scoring.json"
+    },
+    "candidate_status_boundary": "candidate.scored_or_submitted=false is the pre-upload study state; this publication records the later completed submission"
   }
 }

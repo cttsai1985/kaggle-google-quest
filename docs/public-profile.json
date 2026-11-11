@@ -1,8 +1,8 @@
 {
   "repository": "cttsai1985/kaggle-google-quest-solution",
-  "verified_utc": "2026-11-09T19:36:21.321631+00:00",
+  "verified_utc": "2026-11-11T14:31:15.493110+00:00",
   "metadata": {
-    "description": "Google QUEST solution with metric-aware post-processing. Historical Spearman: public 0.43155 / private 0.40232 (public Top 5.22%); modern DeBERTa: 0.35189 / 0.32983 (public Top 75.89%). Public reference: 2026-11-09.",
+    "description": "Google QUEST: metric-aware post-processing. Public/private Spearman \u2014 historical 0.43155/0.40232 (public Top 5.22%); modern raw 0.35189/0.32983 (Top 75.89%); rounded 0.36136/0.34370 (Top 72.84%). Public reference: 2026-11-09.",
     "name": "kaggle-google-quest-solution",
     "url": "https://github.com/cttsai1985/kaggle-google-quest-solution"
   },

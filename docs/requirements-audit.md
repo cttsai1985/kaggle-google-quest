@@ -147,6 +147,13 @@ the two negative transfers. Partition-rank normalization is retained as an
 unsuccessful diagnostic, not silently promoted. The full-holdout canary-3 policy
 was fixed before these results. Local snapshot application reproduces 476×30
 candidate values exactly. No fitted policy, row-level data or candidate notebook
-is published to Git; no new hosted execution, serving promotion or leaderboard
-score is claimed. Existing historical/current leaderboard rows and old receipts
+is published to Git. At this pre-upload study checkpoint, no new hosted execution,
+serving promotion or leaderboard score was claimed; the subsequent hosted/scoring
+phase is recorded below. Existing historical/current leaderboard rows and old receipts
 remain unchanged. The current walkthrough executes the aggregate follow-up.
+
+## Hosted fixed-policy evaluation — canary 4
+
+After explicit authorization, private Kaggle notebook version 1 completed offline Tesla T4 inference. `docs/deberta-rounding-hosted.json` verifies checkpoint/policy/source identities and maximum raw/rounded prediction differences of zero versus the controls. It explicitly retains the benchmark base wheel identity and current postprocessor snapshot rather than asserting the hosted environment uses the new release wheel.
+
+One scoring request (58240856) improves public/private scores to 0.36136/0.34370; the paired receipt, previous raw scores, dated Public Top 72.84% and all earlier result rows remain visible. No private percentile is inferred, no additional scoring search was performed, and no default serving policy is promoted. The pre-upload candidate fields in the frozen follow-up receipt retain their temporal scope; its publication record points to the subsequent hosted/scoring evidence. Release artifacts exclude fitted policy state, notebook payload, private rows, weights and predictions.

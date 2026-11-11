@@ -1,5 +1,9 @@
 # Does one frozen DeBERTa rounding policy transfer?
 
+**One fixed external evaluation improves both leaderboard scores:** public **0.35189 → 0.36136 (+0.00947)** and private **0.32983 → 0.34370 (+0.01387)**. Public Top share improves **75.89% → 72.84%** against the same 2026-11-09 reference. The encoder/checkpoint and raw predictions are unchanged; this comparison isolates the fixed post-processing step on these competition populations.
+
+This is a single late submission, not an awarded historical rank, a new SOTA result or acceptance of a production serving policy. It remains below the historical account result. [Paired scoring receipt](deberta-rounding-scoring.json) · [Hosted inference evidence](deberta-rounding-hosted.json).
+
 **Eight of ten** question-group calibration/assessment transfers improve Spearman. The mean paired delta is **+0.004489**, ranging from **−0.003345 to +0.019306**. Four of five split seeds have a positive bidirectional mean; seed 2027 is negative in both directions. This is evidence of a modest, split-sensitive effect, not a uniformly successful postprocessor.
 
 The earlier five-fold fold-mean/pooled disagreement did not warrant abandoning the method without testing a single policy per assessment population. This follow-up does that, while retaining the original encoder and random-search rounder. It does not turn a selected checkpoint's holdout into independent model validation.
@@ -37,9 +41,13 @@ That rejects this normalization as a useful repair in this diagnostic. It does n
 
 The external-test candidate is the canary-3 policy fitted on all 1,216 saved validation predictions, with SHA-256 `27ee88acbc793d99957cd3f7febcc2a2cbac34ea8e960687a99e8ec950ed448d`. Its full-holdout selective score **0.411136** is optimistic fit/evaluation evidence; it is not an additional independent gain.
 
-Reloading that policy reproduces the already generated **476 × 30** test predictions exactly. The original prediction bytes and ID order are preserved. A private notebook is prepared locally: it performs fresh inference using the recorded checkpoint on competition-mounted test inputs, then applies the frozen source/policy snapshots. Its actual application cell, executed locally against retained inference outputs, matches every candidate value with **maximum difference 0**. Full hosted execution has not occurred; local application parity is not a new hosted inference or leaderboard result.
+Reloading that policy reproduces the already generated **476 × 30** test predictions exactly. The original prediction bytes and ID order are preserved. A private notebook is prepared locally: it performs fresh inference using the recorded checkpoint on competition-mounted test inputs, then applies the frozen source/policy snapshots. Its actual application cell, executed locally against retained inference outputs, matches every candidate value with **maximum difference 0**. The private Kaggle version 1 subsequently completed fresh Tesla T4 inference with internet disabled. All raw values match the previously scored raw inference; all rounded values match the local candidate (maximum difference **0** in both comparisons). Policy, checkpoint, source and output hashes match. The [hosted receipt](deberta-rounding-hosted.json) preserves those checks.
 
-The notebook contains fitted calibration state and remains outside Git. It reuses existing code/checkpoint assets and prepares separate raw and postprocessed outputs and receipts. The candidate is staged locally; external notebook execution and scoring have not been performed. One external evaluation is proposed, with no leaderboard tuning or automatic serving promotion. No old leaderboard row or receipt is replaced.
+The notebook contains fitted calibration state and remains outside Git. It reuses existing code/checkpoint assets and prepares separate raw and postprocessed outputs and receipts. The uploaded notebook remains private. One scoring request, submission **58240856**, completed with public **0.36136** and private **0.34370**. No leaderboard tuning, repeated scoring or automatic serving promotion followed. No old leaderboard row or receipt is replaced.
+
+The base inference deliberately reuses the retained benchmark wheel **0.1.0**, with its exact source and wheel hash recorded in the hosted receipt. The rounder is the exact **canary-3 maintained module snapshot**; its source hash is verified before execution. This holds the encoder/inference control fixed and avoids relabeling the old base runtime as the latest release wheel. The new canary packages the current source and evidence; the hosted runtime identities remain explicit.
+
+The unchanged raw predictions and improvements on both public and private subsets support this fixed candidate's value for the competition metric. That is narrower than a universal threshold policy or production guarantee: the diagnostic remains split-sensitive, labels are subjective and the downloadable test population has only 476 rows. Broader independently grouped model-plus-policy acceptance and the existing production operation gates remain open.
 
 ## Reproduce
 

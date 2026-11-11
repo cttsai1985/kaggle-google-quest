@@ -4,7 +4,7 @@
   "metric": "mean_spearman",
   "higher_is_better": true,
   "leaderboard": "public",
-  "verified_at_utc": "2026-11-09T00:04:04.265690+00:00",
+  "verified_at_utc": "2026-11-11T14:32:09.340211+00:00",
   "source": {
     "kind": "official Kaggle CLI full leaderboard export",
     "competition": "google-quest-challenge",
@@ -90,6 +90,25 @@
         "path": "docs/validation.json",
         "pointer": "/kaggle_scoring"
       }
+    },
+    {
+      "id": "modern-deberta-rounded",
+      "label": "Modern DeBERTa + fixed rounding, one-shot late submission",
+      "public_score": "0.36136",
+      "private_score": "0.34370",
+      "private_score_source": {
+        "path": "docs/deberta-rounding-scoring.json",
+        "pointer": "/submission"
+      },
+      "reference_teams": 1572,
+      "teams_with_strictly_better_score": 1144,
+      "teams_with_equal_displayed_score": 0,
+      "teams_with_strictly_worse_score": 428,
+      "score_equivalent_best_position": 1145,
+      "score_equivalent_last_tied_position": 1145,
+      "top_percent_by_best_position": 72.83715012722647,
+      "strictly_outperformed_percent": 27.2264631043257,
+      "weak_percentile_including_ties": 27.2264631043257
     }
   ]
 }
