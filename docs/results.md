@@ -6,7 +6,7 @@
 
 The original solution's random-search rounding and selective target application are restored in maintained code. A predeclared nested TF-IDF/Ridge assessment improves mean outer-fold Spearman **0.326727 → 0.345104** across five folds; pooled OOF improves **0.326114 → 0.331345**. All five outer-fold deltas are positive. These are fixed-recipe baseline results, not a new transformer or leaderboard score.
 
-The saved DeBERTa diagnostic is mixed: selective rounding improves grouped calibration-crossfit fold mean **0.375006 → 0.382324**, but pooled Spearman falls **0.377863 → 0.365200**. Checkpoint selection used this entire holdout. Same-label fit/evaluation gives **0.411136**, an explicitly optimistic diagnostic. Raw inference remains the default and no new predictions were submitted.
+The saved DeBERTa diagnostic is mixed: selective rounding improves grouped calibration-crossfit fold mean **0.375006 → 0.382324**, but pooled Spearman falls **0.377863 → 0.365200**. Checkpoint selection used this entire holdout. Same-label fit/evaluation gives **0.411136**, an explicitly optimistic diagnostic. Raw serving remains the default. These initial diagnostics made no submission; the later one-shot post-processing evaluation is reported below.
 
 The archived notebook's **0.386 → 0.415** also reuses labels for threshold fitting, column selection and evaluation; it does not independently reproduce the historical leaderboard submission. [Protocol, all conditions, acceptance decision and reproduction](postprocessing-study.md) · [Aggregate receipt](postprocessing-study.json) · [Executed walkthrough](../notebooks/03-metric-aware-postprocessing.ipynb).
 
@@ -75,9 +75,22 @@ A score becomes easier to interpret when compared with other teams. The official
 | Historical account submission, 2020-02-10 15:32 UTC | 0.43155 | 82 / 1,572 | 5.22% | 94.78% |
 | Historical final submission, 2020-02-10 | 0.42654 | 104 / 1,572 | 6.62% | 93.45% |
 | Modern DeBERTa late notebook submission | 0.35189 | 1193 / 1,572 | 75.89% | 24.17% |
+| Same checkpoint + fixed rounding, 2026-11-11 | 0.36136 | 1145 / 1,572 | 72.84% | 27.23% |
 
 Snapshot: **2026-11-09T00:02:27Z**, **1,572 unique scored teams** in the [official public leaderboard](https://www.kaggle.com/competitions/google-quest-challenge/leaderboard?tab=public). Smaller top-share percentages and larger outperformed percentages are better.
 
 Position is `1 + teams with a strictly better displayed score`; equal scores share the starting position and the table retains the full tie interval. Top share is that starting position divided by the reference-team count. The outperformed percentile counts only strictly worse scores, so tied teams are excluded. Comparisons use the exported decimal scores without a tolerance.
 
 These are **score-equivalent placements**, not awarded final ranks for late submissions. The dated snapshot is the denominator; it may differ from competition-era participant counts. Public/private leaderboard populations and internal OOF/holdout populations are separate: no private or CV percentile is inferred. The [aggregate receipt](leaderboard-context.json) records source hashes, tie counts, formulas and scope.
+
+## DeBERTa rounding transfer follow-up
+
+Five predeclared two-half question-group split seeds yield ten calibration-to-assessment transfers. Eight improve; mean paired Spearman delta is **+0.004489**, with one seed negative in both directions. The selected checkpoint's holdout remains a diagnostic population, not independent transformer validation. Partition-wise rank normalization does not repair the earlier pooled loss. A single canary-3 policy is fixed as the external-test candidate, and its 476×30 application outputs match exactly after reload. Hosted version 1 subsequently completed with exact raw/rounded parity, and one submission scored **0.36136 public / 0.34370 private**. Relative to raw, the deltas are **+0.00947 / +0.01387**. Public Top share is **72.84%** against the same dated reference, compared with raw **75.89%**. No policy is automatically promoted to serving. [All results and limitations](deberta-rounding-transfer.md).
+
+## Fixed-policy one-shot leaderboard comparison
+
+Submission **58240856**, made on 11 November 2026, evaluates the same DeBERTa checkpoint plus the previously frozen canary-3 rounding policy. Public/private Spearman improves **0.35189 / 0.32983 → 0.36136 / 0.34370**. The private offline notebook's fresh raw inference is numerically identical to the earlier scored raw predictions; processed predictions match the local fixed candidate exactly. No encoder retraining, seed selection from the follow-up or further scoring search occurred.
+
+Against the preserved public snapshot, the rounded score has 1,144 strictly better reference scores, no equal displayed scores and 428 strictly worse scores: score-equivalent position 1,145/1,572, **Public Top 72.84%**. This is a dated public reference rather than an awarded final rank; no private percentile is inferred. The historical account result remains higher.
+
+[Source-backed submission receipt](deberta-rounding-scoring.json) · [Hosted runtime, policy and prediction checks](deberta-rounding-hosted.json) · [Study interpretation and limits](deberta-rounding-transfer.md). The hosted base wheel remains the recorded benchmark runtime, while the postprocessor is the exact maintained canary-3 source snapshot; those identities are not conflated with the new release wheel.

@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "competition": "google-quest-challenge",
+  "kernel": "cttsai/quest-deberta-frozen-rounding-inference",
+  "kernel_version": 1,
+  "submission": {
+    "ref": "58240856",
+    "fileName": "submission.csv",
+    "date": "2026-11-11 14:25:09.810000",
+    "description": "QUEST fixed canary-3 rounding policy: one-shot postprocessing evaluation",
+    "status": "SubmissionStatus.COMPLETE",
+    "publicScore": "0.36136",
+    "privateScore": "0.34370"
+  },
+  "query_source": "Authenticated Kaggle CLI competition submission history",
+  "submissions_csv_sha256": "677f0302fb4b89ed2138277eb17f26afa750f01128942fccf656eec12c453c5e",
+  "request": {
+    "kernel": "cttsai/quest-deberta-frozen-rounding-inference",
+    "version": 1,
+    "file": "submission.csv",
+    "message": "QUEST fixed canary-3 rounding policy: one-shot postprocessing evaluation",
+    "requested_utc": "2026-11-11T14:25:08.954957+00:00",
+    "policy_sha256": "27ee88acbc793d99957cd3f7febcc2a2cbac34ea8e960687a99e8ec950ed448d",
+    "status": "request_returned",
+    "returncode": 0
+  },
+  "base_raw_submission_ref": 58139363,
+  "base_raw_public_score": "0.35189",
+  "base_raw_private_score": "0.32983",
+  "public_delta": 0.00947,
+  "private_delta": 0.01387,
+  "raw_inference_numeric_parity_verified": true,
+  "one_scoring_request_only": true,
+  "candidate_selected_before_transfer_followup": true,
+  "encoder_retrained": false,
+  "policy_promoted_to_default_serving": false,
+  "private_percentile": null,
+  "private_request_receipt_sha256": "664a126b665c3af2fff854039c9ef0debe3c84de766a9a76726c208beb6e9244"
+}

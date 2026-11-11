@@ -2,7 +2,7 @@
 
 A useful answer needs to address the question, communicate clearly and fit the asker's needs. [Google QUEST](https://www.kaggle.com/c/google-quest-challenge) evaluates **30 question-and-answer quality labels using mean Spearman**. This solution's central idea is metric-aware post-processing: learn per-target cut points and selectively tie predictions, because Spearman rewards the ordering and tie structure rather than the numerical score scale.
 
-The original notebook records **0.386 → 0.415** after fitting and evaluating its rounder on the same validation labels. The restored method now has a separate nested assessment: selective rounding raises TF-IDF/Ridge's five-fold mean **0.3267 → 0.3451**, with all five outer folds improving; pooled OOF improves **0.3261 → 0.3313**. The saved DeBERTa diagnostics are mixed, so no transformer policy is promoted. Historical and modern leaderboard results remain distinct below.
+Holding the DeBERTa checkpoint fixed, a single post-processing evaluation improves public/private leaderboard Spearman **0.35189/0.32983 → 0.36136/0.34370**. Fresh offline inference reproduces the raw control predictions exactly, so the comparison isolates the fixed rounding step. The historical account result remains stronger; both generations and their evaluation scopes are retained below.
 
 [Metric-aware post-processing](docs/postprocessing-study.md) · [Executed walkthrough](notebooks/03-metric-aware-postprocessing.ipynb) · [Why the problem matters](docs/problem-and-value.md) · [Input ablations](docs/modeling-study.md) · [Run the model](#run-the-cpu-analysis)
 
@@ -16,6 +16,7 @@ The original notebook records **0.386 → 0.415** after fitting and evaluating i
 | Historical account submission, 2020-02-10 15:32 UTC | 0.43155 | 0.40232 | **5.22%** |
 | Historical final submission, 2020-02-10 | 0.42654 | 0.40321 | **6.62%** |
 | Modern DeBERTa late notebook submission | 0.35189 | 0.32983 | **75.89%** |
+| Modern DeBERTa + fixed rounding, one-shot late submission | 0.36136 | 0.34370 | **72.84%** |
 
 Public Top % uses the **2026-11-09 public leaderboard snapshot** (score-equivalent comparison, not an awarded final rank). [Detailed results](docs/results.md) · [Reference ranks, ties and calculation](docs/leaderboard-context.json).
 
@@ -26,7 +27,9 @@ Private Top % is unavailable without a matched private leaderboard; OOF/holdout 
 
 A strictly increasing rescaling leaves Spearman unchanged. Discretization can change ties, making post-processing a modeling decision that needs its own calibration and acceptance data. The maintained `OptimalRounder` preserves the original random-search method and target-selection margin, with calibration-only label support, explicit constant-target handling and reloadable JSON state.
 
-The nested Ridge study fits each policy from inner OOF predictions, without outer-assessment labels. For the saved DeBERTa checkpoint, grouped postprocessor diagnostics improve fold mean **0.3750 → 0.3823** but reduce pooled Spearman **0.3779 → 0.3652**; the checkpoint was also selected on this holdout. Those limits prevent an automatic promotion. [Full comparisons, original-method scope and prediction API](docs/postprocessing-study.md).
+The original notebook records **0.386 → 0.415** after fitting and evaluating thresholds on the same validation labels. A separate nested Ridge study fits each policy from inner OOF predictions and improves five-fold mean **0.3267 → 0.3451**, with pooled OOF **0.3261 → 0.3313**. [Original-method scope and independent calibration boundaries](docs/postprocessing-study.md).
+
+The saved DeBERTa diagnostic initially improves fold mean **0.3750 → 0.3823** while reducing pooled Spearman **0.3779 → 0.3652**. A fixed follow-up finds **8/10 calibration transfers improve**, averaging **+0.00449**, with one seed worsening in both directions. One policy, fixed before that follow-up, then improves **both public and private leaderboard scores**. This supports the candidate's competition value while preserving the observed split sensitivity; the serving default remains raw. [Transfer stability, the failed normalization diagnostic and paired scoring evidence](docs/deberta-rounding-transfer.md).
 
 ## Learning from difficult answers
 
