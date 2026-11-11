@@ -1,0 +1,164 @@
+{
+  "schema_version": 1,
+  "verified_utc": "2026-11-11T15:20:34.791998+00:00",
+  "historical_team": "Five Experts",
+  "contribution_scope": {
+    "original_leaderboard_model_training_tuning": "teammate contribution, per author clarification",
+    "repository_author": "metric-aware post-processing design and experiments",
+    "modernization": "retrospective implementation, artifact recovery, validation and delivery",
+    "training_authorship_inferred_from_uploader_or_submitter": false
+  },
+  "historical_submissions": [
+    {
+      "ref": 14442348,
+      "totalBytes": 0,
+      "date": "2020-02-10T17:59:31.713Z",
+      "description": "[bert+RoBERTa] using diffirent spelling processing",
+      "errorDescription": null,
+      "fileName": "submission.csv",
+      "publicScore": "0.42654",
+      "privateScore": "0.40321",
+      "status": "COMPLETE",
+      "submittedBy": "guozhiyu0914",
+      "submittedByRef": "guozhiyu0914",
+      "teamName": "Five Experts",
+      "url": "/code/guozhiyu0914/bert-roberta?scriptVersionId=28458995"
+    },
+    {
+      "ref": 14440999,
+      "totalBytes": 0,
+      "date": "2020-02-10T15:32:29.040Z",
+      "description": "adding classfier for not_reallyaquestion",
+      "errorDescription": null,
+      "fileName": "submission.csv",
+      "publicScore": "0.43155",
+      "privateScore": "0.40232",
+      "status": "COMPLETE",
+      "submittedBy": "guozhiyu0914",
+      "submittedByRef": "guozhiyu0914",
+      "teamName": "Five Experts",
+      "url": "/code/guozhiyu0914/post-pro-roberta-5fold?scriptVersionId=28452096"
+    }
+  ],
+  "historical_submission_metadata_source_sha256": "9142d095062e5e31aee54796ac6b349dfe7c707133c73e5de2308853dff6fbc4",
+  "retrieved_team_notebook": {
+    "reference": "guozhiyu0914/post-pro-roberta-5fold",
+    "requested_version_label": "v5",
+    "source_sha256": "365841104772191e490eb0d3d538666c0bd1f0e63cd8f98cb44620c82f741bba",
+    "current_metadata_version": 5,
+    "historical_public_best_script_version_id": 28452096,
+    "historical_final_script_version_id": 28458995,
+    "notebook_is_private": true,
+    "exact_v5_to_script_version_id_mapping_independently_verified": false
+  },
+  "older_recovered_weights": {
+    "dataset": "cttsai/google-quest-challenge-weights",
+    "dataset_is_private": true,
+    "archive_sha256": "9382377df7e128b036237132bf507602b21b1cc6b28b7cde6eaa186a8c04dfce",
+    "models": [
+      {
+        "model_directory": "bert-base-uncased_q384_a512",
+        "bytes": 438480832,
+        "sha256": "04c3ca64134d1e9493f2bb861d2e6cc8f2f53d757a897b20cad47a5111bab2f5",
+        "head_kernel_shape": [
+          2304,
+          30
+        ],
+        "head_bias_shape": [
+          30
+        ],
+        "hdf5_tensor_count": 201,
+        "full_inference_replayed": false,
+        "is_the_best_team_model": false
+      },
+      {
+        "model_directory": "distilbert-base-uncased_q384_a512",
+        "bytes": 265858848,
+        "sha256": "1a7144ab6bc6e8f99e2c3330fc92d86ddd979cac3e3601340d4ee70e0e6f63de",
+        "head_kernel_shape": [
+          2304,
+          30
+        ],
+        "head_bias_shape": [
+          30
+        ],
+        "hdf5_tensor_count": 102,
+        "full_inference_replayed": false,
+        "is_the_best_team_model": false
+      },
+      {
+        "model_directory": "distilroberta-base_q384_a512",
+        "bytes": 328903488,
+        "sha256": "a1c25a688736d729d96c63d35a3f0c75a1f8663fdccb91a42c620237545f2d4c",
+        "head_kernel_shape": [
+          2304,
+          30
+        ],
+        "head_bias_shape": [
+          30
+        ],
+        "hdf5_tensor_count": 105,
+        "full_inference_replayed": false,
+        "is_the_best_team_model": false
+      },
+      {
+        "model_directory": "distilroberta-base_q384_a512_weighted",
+        "bytes": 328903488,
+        "sha256": "64ff35686e590fe678f783b0b26b3675f43650fe35a0fdbb3ec8f34b0040cc7d",
+        "head_kernel_shape": [
+          2304,
+          30
+        ],
+        "head_bias_shape": [
+          30
+        ],
+        "hdf5_tensor_count": 105,
+        "full_inference_replayed": false,
+        "is_the_best_team_model": false
+      }
+    ],
+    "confused_with_best_team_roberta_ensemble": false
+  },
+  "cached_outputs": [
+    {
+      "notebook_output_directory": "team-roberta-output",
+      "rows": 476,
+      "targets": 30,
+      "sha256": "897d7e1c0f56b51ab1277d94356577221a14de5e8214a4bea740a0c58ed49a26",
+      "official_sample_schema_and_id_order_match": true,
+      "independently_matched_to_historical_submission_bytes": false
+    },
+    {
+      "notebook_output_directory": "team-final-output",
+      "rows": 476,
+      "targets": 30,
+      "sha256": "f46a3566be26ee8a7a34151dbbba70fbfb84f66d1c21bad623b4bb1bbaefedd0",
+      "official_sample_schema_and_id_order_match": true,
+      "independently_matched_to_historical_submission_bytes": false
+    },
+    {
+      "notebook_output_directory": "ensemble-output",
+      "rows": 476,
+      "targets": 30,
+      "sha256": "21e936bbfc9a6f5ebb9de18c48e26e0a08e2edf9d1e34b4bd44e368072695492",
+      "official_sample_schema_and_id_order_match": true,
+      "independently_matched_to_historical_submission_bytes": false
+    }
+  ],
+  "best_team_weights_status": {
+    "logical_inputs_from_notebook": [
+      "roberta-s",
+      "ro-tokenizer-l",
+      "bert5fold"
+    ],
+    "current_dataset_source_references_unresolved": true,
+    "guessed_owner_slug_lookup": "guozhiyu0914/roberta-s",
+    "guessed_lookup_http_status": 403,
+    "actual_dataset_owner_version_independently_resolved": false,
+    "best_roberta_weights_recovered": false,
+    "no_permission_bypass_attempted": true
+  },
+  "original_statistics_scope": "Recovered HDF stores contain aggregate validation diagnostics; they do not contain the original row-level calibration labels/predictions.",
+  "private_notebook_code_weights_predictions_or_policy_state_published": false,
+  "original_best_model_numerical_replay_claimed": false
+}
